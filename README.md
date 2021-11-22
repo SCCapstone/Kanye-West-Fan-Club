@@ -1,9 +1,9 @@
-# VALORANT Stats
+# LEGEND Stats
 
-VALORANT Stats is an Android app designed to help VALORANT players improve their performance. The 
-app quickly summarizes match history for quick reference, supplies analysis to help you figure out 
-where you need improvement, and has fun features such as "Teams" which allow you to form an eSports 
-team and track your friend's performance as well!
+LEGEND Stats is an Android app designed to help TFT players improve their performance. The 
+app quickly summarizes match history for quick reference, supplies builds by top level players
+as well as builds from the community regardless of rank. You will also be able to see the 
+current playable characters for the set, as well as figure out what items build into what.
 
 Detailed description: https://github.com/SCCapstone/Kanye-West-Fan-Club/wiki/Project-Description
 
