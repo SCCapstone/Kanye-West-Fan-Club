@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/SampleMatchCard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/turquoise"
+    tools:visibility="visible"
+    tools:showIn="@layout/match_container">
+
+    <TableRow
+        android:id="@+id/match_card"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp">
+
+        <ImageView
+            android:id="@+id/summonerIcon"
+            android:layout_width="99dp"
+            android:layout_height="75dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <LinearLayout
+            android:id="@+id/champions"
+            android:layout_width="266dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                tools:srcCompat="@tools:sample/avatars" />
+
+        </LinearLayout>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="5dp">
+
+        <LinearLayout
+            android:id="@+id/gameData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/gameType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ranked"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/gameLength"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2 hours ago"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </TableRow>
+</TableLayout>
