@@ -15,14 +15,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import java.lang.Runnable;
 import java.lang.Thread;
 
-import javax.json.JsonObject;
+import javax.json.*;
 
 public class MainActivity extends AppCompatActivity {
-    //Initialize variable
     DrawerLayout drawerLayout;
     ScrollView matchContainer;
 
@@ -47,6 +47,25 @@ public class MainActivity extends AppCompatActivity {
             return "Ranked";
         else
             return "Normal";
+    }
+
+    private void applyChampionImages(View matchCard, JsonObject participant) {
+        JsonArray units = participant.getJsonArray("units");
+
+        ImageView[] imageViews = new ImageView[] {
+            matchCard.findViewById(R.id.imageView1),
+            matchCard.findViewById(R.id.imageView2),
+            matchCard.findViewById(R.id.imageView3),
+            matchCard.findViewById(R.id.imageView4),
+            matchCard.findViewById(R.id.imageView5),
+            matchCard.findViewById(R.id.imageView6),
+        };
+
+        for (int i=0; i<units.size() && i<imageViews.length; i++) {
+            JsonObject unitData = (JsonObject) units.get(i);
+            String nameId = unitData.getString("character_id");
+            String name = nameId.split("_")[1];
+        }
     }
 
     private void createMatchCard(int cardPosition, String matchId, JsonObject matchData, String ownerPuuid) {
@@ -80,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
                 gameLengthUI.setText(gameLength);
                 gameTypeUI.setText(queueType);
                 placementUI.setText("Placed: " + placementNum);
+
+                applyChampionImages(newMatchCard, participantData);
             }
         });
     }
