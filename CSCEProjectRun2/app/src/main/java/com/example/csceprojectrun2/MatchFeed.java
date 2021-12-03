@@ -108,7 +108,25 @@ public class MatchFeed extends AppCompatActivity {
                 applyChampionImages(newMatchCard, participantData);
             }
         });
+
     }
+
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+  /*  private static String z = matchID;
+
+    public static void getMatchID(){
+        String a = matchId;
+        String z = a;
+    }
+    public static String matID(){
+        return z;
+    }*/
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
     public void renderMatchHistory(ScrollView matchContainer) {
         // clear any existing match tiles

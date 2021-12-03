@@ -34,8 +34,13 @@ public class MatchDetails extends AppCompatActivity{
 
     	//Take In key puuid and match
     	String APIKEY = "RGAPI-aac994df-887a-431f-a55e-82fb3a9680aa";
-    	String puuid = "hU09V8oJkCnthuRPIAyvTng2btZ-YgAqcy0TMGQHuOPOCzu1VE4oR47WUGkLBwEmWqRtNWk-Dvibhg";
+    	String PUUID = "hU09V8oJkCnthuRPIAyvTng2btZ-YgAqcy0TMGQHuOPOCzu1VE4oR47WUGkLBwEmWqRtNWk-Dvibhg";
         String MATCH = "BR1_2253001202";
+
+//        MatchFeed.getMatchID();
+//        String zoinks = MatchFeed.matID();//Retrieve the name
+//        System.out.print(APIKEY);
+//        System.out.print(zoinks);
 
 
     	URL call1;
@@ -54,12 +59,14 @@ public class MatchDetails extends AppCompatActivity{
             System.out.println(e);
         }
 
+
+
         String tester = sb.toString();
         //TOTAL SUBSTRING
         String total = tester.substring(tester.indexOf(""));
         //finding puuid in match data
         int x = 0;
-        for (int index = total.indexOf(puuid); index >= 0; index = total.indexOf(puuid, index + 1)) {
+        for (int index = total.indexOf(PUUID); index >= 0; index = total.indexOf(PUUID, index + 1)) {
         	x = index;
 
          }
@@ -100,6 +107,9 @@ public class MatchDetails extends AppCompatActivity{
         	//Creates a list of units
         	unitlist [z] = playersData.substring(units[z], unitE[z]);
         }
+
+
+
 
         //OUTPUT THE UNIT LIST
 
