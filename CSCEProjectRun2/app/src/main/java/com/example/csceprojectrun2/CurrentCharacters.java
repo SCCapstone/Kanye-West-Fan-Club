@@ -65,7 +65,7 @@ public class CurrentCharacters extends AppCompatActivity {
             String name = reader.nextName();
             if (name.equals("name")) {
                 cname = reader.nextString();
-            } else if (name.equals("cost")) {
+            } else if (name.equals("cost") && reader.peek() != JsonToken.NULL) {
                 cost = reader.nextInt();
             } else if (name.equals("ability")) {
                 ability = readAbility(reader);
@@ -86,15 +86,15 @@ public class CurrentCharacters extends AppCompatActivity {
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
-            if (name.equals("name")) {
+            if (name.equals("name") && reader.peek() != JsonToken.NULL) {
                 a = reader.nextString();
-            } else if (name.equals("desc")) {
+            } else if (name.equals("desc") && reader.peek() != JsonToken.NULL) {
                 adesc = reader.nextString();
             } else {
                 reader.skipValue();
             }
         }
-        reader.endArray();
+        reader.endObject();
         return new Ability(a, adesc);
     }
 
