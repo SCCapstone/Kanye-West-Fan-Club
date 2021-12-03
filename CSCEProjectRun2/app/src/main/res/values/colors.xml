@@ -10,6 +10,8 @@
 
     <color name="gold">#FFCDA360</color>
     <color name="turquoise">#FF168EA2</color>
-    <color name="tan">#FF0A2A3D</color>
-    <color name="white">#FFDBD4D4</color>
+    <color name="darkBlue">#FF0A2A3D</color>
+    <color name="lightWhite">#FFDBD4D4</color>
+    <color name="tan">#d6cfc7</color>
+
 </resources>

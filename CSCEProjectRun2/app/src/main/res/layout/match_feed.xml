@@ -14,11 +14,9 @@
 
         <include layout="@layout/main_top_bar" />
 
-        <Button
-            android:id="@+id/tempOpenMatchFeed"
-            android:layout_width="match_parent"
-            android:layout_height="149dp"
-            android:text='OPEN MATCH FEED ("main menu") after signing in' />
+        <include
+            android:id="@+id/match_container"
+            layout="@layout/match_container" />
 
     </LinearLayout>
 
