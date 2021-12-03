@@ -152,7 +152,7 @@ public class MatchFeed extends AppCompatActivity {
 
     public void ClickMatch(View view) {
         Toast.makeText(getApplicationContext(),"test",Toast.LENGTH_SHORT).show();
-        matid = "bing bong";
+        matid = "";
 
 
 //MatchData MatchID -> passed

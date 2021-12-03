@@ -30,12 +30,13 @@ public class MatchDetails extends AppCompatActivity{
 
 
     public void viewMatchData() {
-        
-/*
+
+
     	//Take In key puuid and match
     	String APIKEY = "RGAPI-aac994df-887a-431f-a55e-82fb3a9680aa";
     	String puuid = "hU09V8oJkCnthuRPIAyvTng2btZ-YgAqcy0TMGQHuOPOCzu1VE4oR47WUGkLBwEmWqRtNWk-Dvibhg";
         String MATCH = "BR1_2253001202";
+
 
     	URL call1;
         String call1resp;
@@ -53,19 +54,9 @@ public class MatchDetails extends AppCompatActivity{
             System.out.println(e);
         }
 
-
-///////////////////////////////////////////////////////////////////////////////////
-
-
-
         String tester = sb.toString();
         //TOTAL SUBSTRING
         String total = tester.substring(tester.indexOf(""));
-
-
-        //String bing = tester.substring(tester.indexOf(UsrPUUID +"\",\"time"), tester.indexOf("companion"));
-        //System.out.println(bing);
-
         //finding puuid in match data
         int x = 0;
         for (int index = total.indexOf(puuid); index >= 0; index = total.indexOf(puuid, index + 1)) {
@@ -110,8 +101,10 @@ public class MatchDetails extends AppCompatActivity{
         	unitlist [z] = playersData.substring(units[z], unitE[z]);
         }
 
+        //OUTPUT THE UNIT LIST
 
- */
+
+
     }
 /*
     public void MatchStat(ScrollView matchDetailsContainer) {
@@ -161,6 +154,9 @@ public class MatchDetails extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.match_feed);
+
+
         setContentView(R.layout.match_details);
 
         //Assign variable
@@ -176,11 +172,11 @@ public class MatchDetails extends AppCompatActivity{
 
     }
 
-    public void ClickMenu(View view) {
+   /*public void ClickMenu(View view) {
         MainActivity.redirectActivity(this, MainActivity.class);
 
-    }
-/*
+    }*/
+
     public void ClickMenu(View view) {
         //Open drawer
         MainActivity.openDrawer(drawerLayout);
@@ -212,7 +208,7 @@ public class MatchDetails extends AppCompatActivity{
     public void ClickLogout(View view){
         //Logout and close app
         MainActivity.logout(this);
-    }*/
+    }
 
     @Override
     protected void onPause(){
