@@ -30,7 +30,88 @@ public class MatchDetails extends AppCompatActivity{
 
 
     public void viewMatchData() {
+        
+/*
+    	//Take In key puuid and match
+    	String APIKEY = "RGAPI-aac994df-887a-431f-a55e-82fb3a9680aa";
+    	String puuid = "hU09V8oJkCnthuRPIAyvTng2btZ-YgAqcy0TMGQHuOPOCzu1VE4oR47WUGkLBwEmWqRtNWk-Dvibhg";
+        String MATCH = "BR1_2253001202";
 
+    	URL call1;
+        String call1resp;
+
+
+        StringBuilder sb = new StringBuilder();
+        try {
+
+            call1 = new URL ("https://americas.api.riotgames.com/tft/match/v1/matches/"+MATCH+"?api_key="+APIKEY);
+            BufferedReader read = new BufferedReader( new InputStreamReader(call1.openStream()));
+            while((call1resp = read.readLine()) != null)
+                sb.append(call1resp + "\n");
+            read.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+
+///////////////////////////////////////////////////////////////////////////////////
+
+
+
+        String tester = sb.toString();
+        //TOTAL SUBSTRING
+        String total = tester.substring(tester.indexOf(""));
+
+
+        //String bing = tester.substring(tester.indexOf(UsrPUUID +"\",\"time"), tester.indexOf("companion"));
+        //System.out.println(bing);
+
+        //finding puuid in match data
+        int x = 0;
+        for (int index = total.indexOf(puuid); index >= 0; index = total.indexOf(puuid, index + 1)) {
+        	x = index;
+
+         }
+
+        //finding the end of players match data
+        int y = 0;
+        int first = 0;
+        int index2;
+        for (index2 = total.indexOf("companion"); index2 >= 0; index2 = total.indexOf("companion", index2 + 1)) {
+            if(index2>x&&first==0) {
+            	++first;
+            	y = index2;
+            }
+         }
+
+        String playersData = tester.substring(x, y);
+
+
+        int [] units = new int[700];
+        int i = 0;
+        for (int unitIndex = playersData.indexOf("TFT5_");unitIndex >= 0; unitIndex = playersData.indexOf("TFT5_", unitIndex + 1)) {
+            units [i] = unitIndex;
+            i++;
+         }
+
+
+
+        int j = 0;
+        int [] unitE = new int[700];
+        for (int unitEnd = playersData.indexOf("\",\"items\":");unitEnd >= 0; unitEnd = playersData.indexOf("\",\"items\":", unitEnd + 1)) {
+            unitE [j] = unitEnd;
+            j++;
+         }
+
+        //adding units to list
+        String [] unitlist = new String [i+1];
+        for(int z = 0; i>= z; z++) {
+        	//Creates a list of units
+        	unitlist [z] = playersData.substring(units[z], unitE[z]);
+        }
+
+
+ */
     }
 /*
     public void MatchStat(ScrollView matchDetailsContainer) {

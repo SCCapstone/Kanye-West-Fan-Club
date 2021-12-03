@@ -19,7 +19,7 @@
 
 
 
-        android:onClick="ClickMatch">
+        >
 
         <include layout="@layout/match_card" />
 
