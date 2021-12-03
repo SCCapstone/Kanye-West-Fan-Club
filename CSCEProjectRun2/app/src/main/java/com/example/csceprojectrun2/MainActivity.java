@@ -16,79 +16,94 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.*;
+import java.lang.Runnable;
+import java.lang.Thread;
 
-import java.util.concurrent.TimeUnit;
+import javax.json.JsonObject;
 
 public class MainActivity extends AppCompatActivity {
     //Initialize variable
     DrawerLayout drawerLayout;
     ScrollView matchContainer;
 
-    String DEV_KEY_NOT_SECURE = "RGAPI-bcc29098-add9-49f9-a91a-072329de3b73";
-    /* SAMPLE ACCOUNT
-    {
-        "puuid": "9IkIogPfGJh-bx_f1KRGZj8AtMWHV_AIO7UFGxlptJ2q7TtlkV90a49FYfYt5HWhKenPapiF6wE-LA",
-        "gameName": "Liquid Goose",
-        "tagLine": "NA1"
+    private String convertToTimestamp(int seconds) {
+        int minutes = seconds / 60;
+        seconds = seconds - (minutes * 60);
+
+        String strMinutes = Integer.toString(minutes);
+        String strSeconds = Integer.toString(seconds);
+
+        if (strMinutes.length() < 2)
+            strMinutes = "0" + strMinutes;
+
+        if (strSeconds.length() < 2)
+            strSeconds = "0" + strSeconds;
+
+        return strMinutes + ":" + strSeconds;
     }
-    */
 
-    public void createMatch() {
+    private String getQueueType(int queueId) {
+        if (queueId == 1100)
+            return "Ranked";
+        else
+            return "Normal";
+    }
 
+    private void createMatchCard(int cardPosition, String matchId, JsonObject matchData, String ownerPuuid) {
+        LinearLayout linearLayout = matchContainer.findViewById(R.id.match_container_linear_layout);
+
+        JsonObject info = matchData.getJsonObject("info");
+        JsonObject participantData = RiotAPIHelper.getParticipantByPuuid(matchData, ownerPuuid);
+
+        String gameLength = convertToTimestamp(info.getInt("game_length"));
+        String queueType = getQueueType(info.getInt("queue_id"));
+        String placementNum = Integer.toString(participantData.getInt("placement"));
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // build new match tiles
+                LayoutInflater inflater = getLayoutInflater();
+
+                // create the card UI element
+                inflater.inflate(R.layout.match_card, linearLayout, true);
+
+                // get and update new card
+                View newMatchCard = linearLayout.getChildAt(cardPosition);
+
+                TextView gameTypeUI = newMatchCard.findViewById(R.id.gameType);
+                TextView gameLengthUI = newMatchCard.findViewById((R.id.gameLength));
+                TextView matchIdUI = newMatchCard.findViewById(R.id.matchID);
+                TextView placementUI = newMatchCard.findViewById(R.id.placement);
+
+                matchIdUI.setText(matchId);
+                gameLengthUI.setText(gameLength);
+                gameTypeUI.setText(queueType);
+                placementUI.setText("Placed: " + placementNum);
+            }
+        });
     }
 
     public void renderMatchHistory(ScrollView matchContainer) {
-        System.out.println("rendering matches");
-        LinearLayout linearLayout = matchContainer.findViewById(R.id.match_container_linear_layout);
-
-        // get match data (refactor)
-        try {
-            System.out.println("TESTING -- HTTP!!!!!!!!!!!!!!!!!");
-
-            URL url = new URL("https://americas.api.riotgames.com/tft/match/v1/matches/by-puuid/9IkIogPfGJh-bx_f1KRGZj8AtMWHV_AIO7UFGxlptJ2q7TtlkV90a49FYfYt5HWhKenPapiF6wE-LA/ids?count=10");
-            HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
-            httpConnection.setRequestMethod("GET");
-            httpConnection.setRequestProperty("X-Riot-Token", DEV_KEY_NOT_SECURE);
-
-            String line = "";
-
-            InputStreamReader inputStreamReader = new InputStreamReader(httpConnection.getInputStream());
-            BufferedReader bufferedReader = new BufferedReader((inputStreamReader));
-
-            while((line=bufferedReader.readLine())!=null) {
-                System.out.println(line);
-            }
-
-            bufferedReader.close();
-        }
-        catch(Exception e) {
-            System.out.println(e);
-        }
-
         // clear any existing match tiles
+        LinearLayout linearLayout = matchContainer.findViewById(R.id.match_container_linear_layout);
         linearLayout.removeAllViews();
 
-        // build new match tiles
-        LayoutInflater inflater = getLayoutInflater();
+        // spawn thread and collect data from riot api
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+                // get recent played match's IDs
+                String[] matchIds = RiotAPIHelper.getMatchesFromPuuid(RiotAPIHelper.samplePuuid, 6);
 
-        for(int i=0; i<10; i++) {
-            // creates the card UI element
-            inflater.inflate(R.layout.match_card, linearLayout, true);
-
-            // get and update new card
-            View newMatchCard = linearLayout.getChildAt(i);
-
-            TextView gameType = newMatchCard.findViewById(R.id.gameType);
-            TextView gameLength = newMatchCard.findViewById((R.id.gameLength));
-
-            gameType.setText("Test RANKED");
-            gameLength.setText("Length: " + i);
-        }
-
-        System.out.println("finished rendering matches!!!!!!!!!!!!!!!!!!!");
+                // populate match feed
+                for(int i=0; i<matchIds.length; i++) {
+                    String matchId = matchIds[i];
+                    JsonObject matchData = RiotAPIHelper.getMatchData(matchId);
+                    createMatchCard(i, matchId, matchData, RiotAPIHelper.samplePuuid);
+                }
+            }
+        }).start();
     }
 
     @Override
