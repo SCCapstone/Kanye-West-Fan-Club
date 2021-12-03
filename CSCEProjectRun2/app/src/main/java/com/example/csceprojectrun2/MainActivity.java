@@ -10,9 +10,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import androidx.appcompat.app.AppCompatActivity;
+
 
 public class MainActivity extends AppCompatActivity {
-    //Initialize variable
     DrawerLayout drawerLayout;
 
     @Override
@@ -20,8 +22,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Assign variable
         drawerLayout = findViewById(R.id.drawer_layout);
+
+        // temp functionality to go to match feed, to make merging everything in easier
+        Intent intent = new Intent(this, MatchFeed.class);
+        Button tempOpenFeed = drawerLayout.findViewById(R.id.tempOpenMatchFeed);
+        tempOpenFeed.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(intent);
+            }
+        });
     }
 
     public void ClickMenu(View view) {
