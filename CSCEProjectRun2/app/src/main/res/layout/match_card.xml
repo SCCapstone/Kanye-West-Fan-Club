@@ -81,7 +81,7 @@
         <LinearLayout
             android:id="@+id/gameData"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:orientation="vertical">
 
             <TextView
@@ -97,7 +97,22 @@
                 android:layout_height="wrap_content"
                 android:text="2 hours ago"
                 android:textAlignment="center" />
+
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/placement"
+            android:layout_width="5dp"
+            android:layout_height="wrap_content"
+            android:text="Placed: 5" />
+
+        <TextView
+            android:id="@+id/matchID"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:text="MatchID"
+            android:textAlignment="textEnd"
+            android:translationX="-150dp" />
 
     </TableRow>
 
