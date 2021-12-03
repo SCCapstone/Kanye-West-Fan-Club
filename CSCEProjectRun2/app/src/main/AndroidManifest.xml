@@ -22,6 +22,9 @@
             android:name=".ItemBuilder"
             android:exported="true" />
         <activity
+            android:name=".MatchFeed"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
