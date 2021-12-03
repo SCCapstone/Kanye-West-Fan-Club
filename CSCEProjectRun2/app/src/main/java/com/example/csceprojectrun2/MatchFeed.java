@@ -31,7 +31,7 @@ public class MatchFeed extends AppCompatActivity {
 
 
 
-    private String convertToTimestamp(int seconds) {
+    static String convertToTimestamp(int seconds) {
         int minutes = seconds / 60;
         seconds = seconds - (minutes * 60);
 
@@ -47,7 +47,7 @@ public class MatchFeed extends AppCompatActivity {
         return strMinutes + ":" + strSeconds;
     }
 
-    private String getQueueType(int queueId) {
+    static String getQueueType(int queueId) {
         if (queueId == 1100)
             return "Ranked";
         else
