@@ -8,8 +8,8 @@ import java.io.InputStream;
 import javax.json.*;
 
 public class RiotAPIHelper {
-    static String DEV_KEY_NOT_SECURE = "RGAPI-b8a7857d-cdf2-454b-a91f-b55a6c579922";
-    static String samplePuuid = "9IkIogPfGJh-bx_f1KRGZj8AtMWHV_AIO7UFGxlptJ2q7TtlkV90a49FYfYt5HWhKenPapiF6wE-LA";
+    static String DEV_KEY_NOT_SECURE = "RGAPI-b2fafab1-0bb0-4644-a85d-cf946a5ce4f1";
+    static String samplePuuid = "lDQ-bP2nWGatqLp1xBbGLoOYXUouZ8X4u6oyatUitMNIXlvWdZ4FXoQepcne5NpIymRjmbKGyoO0Rw";
     /* SAMPLE ACCOUNT
     {
         "puuid": "9IkIogPfGJh-bx_f1KRGZj8AtMWHV_AIO7UFGxlptJ2q7TtlkV90a49FYfYt5HWhKenPapiF6wE-LA",

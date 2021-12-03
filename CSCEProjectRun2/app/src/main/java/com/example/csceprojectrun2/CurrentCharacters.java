@@ -31,7 +31,7 @@ public class CurrentCharacters extends AppCompatActivity {
 
     public void ClickHome(View view) {
         //Redirect to home activity
-        MainActivity.redirectActivity(this,MainActivity.class);
+        MainActivity.redirectActivity(this,MatchFeed.class);
     }
 
     public void ClickPopularBuilds(View view){
