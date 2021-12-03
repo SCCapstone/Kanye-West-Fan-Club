@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 //Complete activity
                 activity.finishAffinity();
                 //Exit app
-                System.exit(0);
+                redirectActivity(activity, Login.class);
             }
         });
         //Click No Button

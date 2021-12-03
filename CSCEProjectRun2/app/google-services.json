@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "59838018636",
+    "firebase_url": "https://legend-stats-default-rtdb.firebaseio.com",
+    "project_id": "legend-stats",
+    "storage_bucket": "legend-stats.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59838018636:android:3d991934f28026fbe8f0e9",
+        "android_client_info": {
+          "package_name": "com.example.csceprojectrun2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "59838018636-bodg3iepr5usarrfmqfdbac2dov53adp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYxZJdnlr8bsM1kSJfMZ0g4UMso7paAt0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "59838018636-bodg3iepr5usarrfmqfdbac2dov53adp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
