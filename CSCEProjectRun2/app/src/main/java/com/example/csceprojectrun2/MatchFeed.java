@@ -114,17 +114,6 @@ public class MatchFeed extends AppCompatActivity {
 
 
 
-    /////////////////////////////////////////////////////////////////////////////////////////
-  /*  private static String z = matchID;
-
-    public static void getMatchID(){
-        String a = matchId;
-        String z = a;
-    }
-    public static String matID(){
-        return z;
-    }*/
-    ////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -169,7 +158,7 @@ public class MatchFeed extends AppCompatActivity {
         return matid; }
 
     public void ClickMatch(View view) {
-        Toast.makeText(getApplicationContext(),"test",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),"test",Toast.LENGTH_SHORT).show();
         matid = "";
 
 

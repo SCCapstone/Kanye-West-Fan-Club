@@ -22,6 +22,7 @@
             android:paddingTop="75dp"/>
     </LinearLayout>
 
+
     <include
         android:id="@+id/include"
         layout="@layout/main_top_bar" />

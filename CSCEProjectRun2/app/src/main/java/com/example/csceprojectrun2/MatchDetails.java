@@ -4,18 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.view.LayoutInflater;
 import android.widget.ArrayAdapter;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ScrollView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -34,13 +25,12 @@ public class MatchDetails extends AppCompatActivity{
 
 
 
-    public static void viewMatchData() {
+    public static String[] viewMatchData() {
 
-
-    	//Take In key puuid and match
-    	String APIKEY = "RGAPI-aac994df-887a-431f-a55e-82fb3a9680aa";
-    	String PUUID = "hU09V8oJkCnthuRPIAyvTng2btZ-YgAqcy0TMGQHuOPOCzu1VE4oR47WUGkLBwEmWqRtNWk-Dvibhg";
-        String MATCH = "BR1_2253001202";
+//Take In key puuid and match
+        String APIKEY = "RGAPI-a6755643-28a1-496c-a560-9e9e9e79ee71";
+        String PUUID = "HCuIWTxI-m_MifnTtvqiKmDJK1G925Poz9vn9FEV75ufFii8DJwlR53LLmw8979ytmdEPI9BxHpYyA";
+        String MATCH = "NA1_4107774217";
 
 //        MatchFeed.getMatchID();
 //        String zoinks = MatchFeed.matID();//Retrieve the name
@@ -48,7 +38,7 @@ public class MatchDetails extends AppCompatActivity{
 //        System.out.print(zoinks);
 
 
-    	URL call1;
+        URL call1;
         String call1resp;
 
 
@@ -72,9 +62,9 @@ public class MatchDetails extends AppCompatActivity{
         //finding puuid in match data
         int x = 0;
         for (int index = total.indexOf(PUUID); index >= 0; index = total.indexOf(PUUID, index + 1)) {
-        	x = index;
+            x = index;
 
-         }
+        }
 
         //finding the end of players match data
         int y = 0;
@@ -82,10 +72,10 @@ public class MatchDetails extends AppCompatActivity{
         int index2;
         for (index2 = total.indexOf("companion"); index2 >= 0; index2 = total.indexOf("companion", index2 + 1)) {
             if(index2>x&&first==0) {
-            	++first;
-            	y = index2;
+                ++first;
+                y = index2;
             }
-         }
+        }
 
         String playersData = tester.substring(x, y);
 
@@ -95,7 +85,7 @@ public class MatchDetails extends AppCompatActivity{
         for (int unitIndex = playersData.indexOf("TFT");unitIndex >= 0; unitIndex = playersData.indexOf("TFT", unitIndex + 1)) {
             units [i] = unitIndex;
             i++;
-         }
+        }
 
 
 
@@ -104,7 +94,9 @@ public class MatchDetails extends AppCompatActivity{
         for (int unitEnd = playersData.indexOf("\",\"items\":");unitEnd >= 0; unitEnd = playersData.indexOf("\",\"items\":", unitEnd + 1)) {
             unitE [j] = unitEnd;
             j++;
-         }
+        }
+
+
 
         //adding units to list
         String [] unitlist = new String [i+1];
@@ -114,8 +106,15 @@ public class MatchDetails extends AppCompatActivity{
         }
 
 
-//        return unitlist[];
 
+           /* ArrayList<String> unitALL = new ArrayList<String>();
+            for(int r = 0;  i>= r; r++) {
+                unitALL.toArray(unitlist[r]);
+            }
+            return (unitALL);*/
+
+
+        return(unitlist);
         //OUTPUT THE UNIT LIST
 
     }
@@ -152,9 +151,22 @@ public class MatchDetails extends AppCompatActivity{
 
 
 /////////////////////////////////////////////////////////////////////////////////
-    ListView Ulist;
-    String matID[] = { "Vi", "Zac", "Urgot", "Yuumi", "Jinx", "Tahmkench", "Jayce"};
+/*
 
+    //MatchID fetch
+    String matID[];
+    String [] listOfUnits = viewMatchData();
+
+    public class addtolist(){
+
+        int y = listOfUnits.length();
+        ListView Ulist;
+        for(int z = 0; y >= z; z++) {
+            matID[z] = listOfUnits[z];
+        }
+    }*/
+    String matID[] = { "Vi", "Zac", "Urgot", "Yuumi", "Jinx", "Tahmkench", "Jayce"};
+    ListView Ulist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,26 +190,40 @@ public class MatchDetails extends AppCompatActivity{
         //Assign variable
         drawerLayout = findViewById(R.id.drawer_layout);
 
-
-////////////////////////////////////////////////////////////////////////////
-
-
-//IDKv
-        //matchDetailsContainer = findViewById(R.id.match_details_container);
-        //MatchStat(matchDetailsContainer);
-
-
     }
-
-   /*public void ClickMenu(View view) {
-        MainActivity.redirectActivity(this, MainActivity.class);
-
-    }*/
 
     public void ClickMenu(View view) {
         //Open drawer
         MainActivity.openDrawer(drawerLayout);
     }
+
+
+
+
+
+
+    public static void openDrawer(DrawerLayout drawerLayout){
+        //Open drawer layout
+        drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+
+    public static void closeDrawer(DrawerLayout drawerLayout){
+        //Close drawer layout
+        //Check condition
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            //When drawer is open
+            //Close drawer
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+    }
+
+
+
+
+
+
+
     public void ClickLogo(View view) {
         //Close drawer
         MainActivity.closeDrawer(drawerLayout);
