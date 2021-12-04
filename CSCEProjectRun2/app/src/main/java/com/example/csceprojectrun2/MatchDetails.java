@@ -5,6 +5,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.view.LayoutInflater;
+import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +18,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -29,7 +33,8 @@ public class MatchDetails extends AppCompatActivity{
     //String GameID = MainActivity
 
 
-    public void viewMatchData() {
+
+    public static void viewMatchData() {
 
 
     	//Take In key puuid and match
@@ -87,7 +92,7 @@ public class MatchDetails extends AppCompatActivity{
 
         int [] units = new int[700];
         int i = 0;
-        for (int unitIndex = playersData.indexOf("TFT5_");unitIndex >= 0; unitIndex = playersData.indexOf("TFT5_", unitIndex + 1)) {
+        for (int unitIndex = playersData.indexOf("TFT");unitIndex >= 0; unitIndex = playersData.indexOf("TFT", unitIndex + 1)) {
             units [i] = unitIndex;
             i++;
          }
@@ -109,70 +114,72 @@ public class MatchDetails extends AppCompatActivity{
         }
 
 
-
+//        return unitlist[];
 
         //OUTPUT THE UNIT LIST
 
+    }
 
 
-    }
-/*
-    public void MatchStat(ScrollView matchDetailsContainer) {
-        LinearLayout linearLayout = matchDetailsContainer.findViewById(R.id.match_details_container_linear_layout);
-        // get match data (refactor)
-        try {
-            System.out.println("TESTING -- HTTP!!!!!!!!!!!!!!!!!");
-            URL url = new URL("https://americas.api.riotgames.com/tft/match/v1/matches/by-puuid/9IkIogPfGJh-bx_f1KRGZj8AtMWHV_AIO7UFGxlptJ2q7TtlkV90a49FYfYt5HWhKenPapiF6wE-LA/ids?count=10");
-            HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
-            httpConnection.setRequestMethod("GET");
-            httpConnection.setRequestProperty("X-Riot-Token", APIKEY);
-            String line = "";
-            InputStreamReader inputStreamReader = new InputStreamReader(httpConnection.getInputStream());
-            BufferedReader bufferedReader = new BufferedReader((inputStreamReader));
-            while((line=bufferedReader.readLine())!=null) {
-                System.out.println(line);
-            }
-            bufferedReader.close();
-        }
-        catch(Exception e) {
-            System.out.println(e);
-        }
-        // clear any existing match tiles
-        linearLayout.removeAllViews();
-        // build new match tiles
-        LayoutInflater inflater = getLayoutInflater();
-        for(int i=0; i<10; i++) {
-            // creates the card UI element
-            inflater.inflate(R.layout.match_card, linearLayout, true);
-            // get and update new card
-            View newMatchCard = linearLayout.getChildAt(i);
-            TextView gameType = newMatchCard.findViewById(R.id.gameType);
-            TextView gameLength = newMatchCard.findViewById((R.id.gameLength));
-            gameType.setText("Test RANKED");
-            gameLength.setText("Length: " + i);
-        }
-        System.out.println("finished rendering matches!!!!!!!!!!!!!!!!!!!");
-    }
-*/
 
 
 
     //Stock Stuff
     DrawerLayout drawerLayout;
 
+    /////////////////////////////////////////////////////////////////////////////////////////
+   //private static String z = MATCH;
+/*
+    public static void viewMatchData(){
+        String a = MATCH;
+        String z = a;
+    }
+    public static String matID(){
+        return z;
+    }*/
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
+  /*
+    public static String units()
+    {
+        return z;
+    }
+    String myValue = MatchDetails.viewMatchData();
+    //Pass this in from match container somehow
+    String GameID =
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+    ListView Ulist;
+    String matID[] = { "Vi", "Zac", "Urgot", "Yuumi", "Jinx", "Tahmkench", "Jayce"};
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.match_feed);
-
-
         setContentView(R.layout.match_details);
+//v
+        Ulist = findViewById(R.id.list);
+        ArrayAdapter<String> arr;
+        arr
+                = new ArrayAdapter<String>(
+                this,
+                R.layout.support_simple_spinner_dropdown_item, matID);
+        Ulist.setAdapter(arr);
+//^
+
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+
+        // temp functionality to go to match feed, to make merging everything in easier
 
         //Assign variable
         drawerLayout = findViewById(R.id.drawer_layout);
 
 
+////////////////////////////////////////////////////////////////////////////
 
 
 //IDKv
