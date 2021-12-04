@@ -3,7 +3,11 @@ package com.example.csceprojectrun2;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.JsonToken;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -16,23 +20,73 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.json.JsonObject;
+
 public class CurrentCharacters extends AppCompatActivity {
     //Initialize variable
     DrawerLayout drawerLayout;
+    ScrollView characterContainer;
     List<Champion> championList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_current_characters);
+        setContentView(R.layout.character_feed);
         try {
             InputStream input = getApplicationContext().getAssets().open("set6.json");
             championList = readJsonStream(input);
         }catch(IOException e) {}
-        //Assign variable
+
+
         drawerLayout = findViewById(R.id.drawer_layout);
+        characterContainer = findViewById(R.id.character_container);
+        renderMatchHistory(characterContainer);
+
     }
 
+    private void createCharacterCard(int cardPosition, Champion champion) {
+        LinearLayout linearLayout = characterContainer.findViewById(R.id.character_container_linear_layout);
+
+        String championName = champion.getName();
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // build new character tiles
+                LayoutInflater inflater = getLayoutInflater();
+
+                // create the card UI element
+                inflater.inflate(R.layout.character_card, linearLayout, true);
+
+                // get and update new card
+                View newCharacterCard = linearLayout.getChildAt(cardPosition);
+
+                TextView characterNameUI = newCharacterCard.findViewById(R.id.characterName);
+
+                characterNameUI.setText(championName);
+
+                //applyChampionImages(newMatchCard, participantData);
+            }
+        });
+    }
+
+    public void renderMatchHistory(ScrollView characterContainer) {
+        // clear any existing character tiles
+        LinearLayout linearLayout = characterContainer.findViewById(R.id.character_container_linear_layout);
+        linearLayout.removeAllViews();
+
+        // spawn thread to create instances of character card
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+
+                // populate match feed
+                for(int i=0; i<championList.size(); i++) {
+                    createCharacterCard(i, championList.get(i));
+                }
+            }
+        }).start();
+    }
 
     public List<Champion> readJsonStream(InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));

@@ -13,4 +13,7 @@ public class Champion {
         this.stats = stats;
     }
 
+    public String getName() {
+        return name;
+    }
 }
