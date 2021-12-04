@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.lang.Runnable;
 import java.lang.Thread;
@@ -25,6 +26,10 @@ import javax.json.*;
 public class MatchFeed extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ScrollView matchContainer;
+
+    String matid;
+
+
 
     private String convertToTimestamp(int seconds) {
         int minutes = seconds / 60;
@@ -103,7 +108,14 @@ public class MatchFeed extends AppCompatActivity {
                 applyChampionImages(newMatchCard, participantData);
             }
         });
+
     }
+
+
+
+
+
+
 
     public void renderMatchHistory(ScrollView matchContainer) {
         // clear any existing match tiles
@@ -140,6 +152,23 @@ public class MatchFeed extends AppCompatActivity {
 
         renderMatchHistory(matchContainer);
     }
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+    public String getMyString(){
+        return matid; }
+
+    public void ClickMatch(View view) {
+        //Toast.makeText(getApplicationContext(),"test",Toast.LENGTH_SHORT).show();
+        matid = "";
+
+
+//MatchData MatchID -> passed
+
+        redirectActivity(this,MatchDetails.class);
+
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
 
     public void ClickMenu(View view) {
         //Open drawer

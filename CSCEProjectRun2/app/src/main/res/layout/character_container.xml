@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/match_container_scroll_view"
+    android:id="@+id/character_container_scroll_view"
     style="@style/MatchContainer"
     tools:showIn="@layout/activity_main">
 
     <LinearLayout
-        android:id="@+id/match_container_linear_layout"
+        android:id="@+id/character_container_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="?attr/actionBarDivider"
@@ -15,13 +15,9 @@
         android:paddingTop="10dp"
         android:paddingRight="20dp"
         android:paddingBottom="1dp"
-        android:showDividers="middle"
+        android:showDividers="middle">
 
-
-
-        >
-
-        <include layout="@layout/match_card" />
+        <include layout="@layout/character_card" />
 
     </LinearLayout>
 </ScrollView>
