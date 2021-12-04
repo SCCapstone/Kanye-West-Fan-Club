@@ -25,7 +25,10 @@
             android:id="@+id/champions"
             android:layout_width="266dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:onClick="ClickMatch"
+
+            >
 
             <ImageView
                 android:id="@+id/imageView1"

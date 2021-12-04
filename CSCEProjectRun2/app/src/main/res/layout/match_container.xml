@@ -15,7 +15,11 @@
         android:paddingTop="10dp"
         android:paddingRight="20dp"
         android:paddingBottom="1dp"
-        android:showDividers="middle">
+        android:showDividers="middle"
+
+
+
+        >
 
         <include layout="@layout/match_card" />
 
