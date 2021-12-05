@@ -21,6 +21,9 @@ We are trying to work on a small fix for this and will try and have it put in be
 an error while testing before we implement this fix, contact us and we will generate a new API key and upload the 
 new key to the code on the github.
 
+For future reference, we have applied for a production API key which we do not need to refresh. Riot dev API
+gets flooded with API key requests so we believe it will take a while for us to have access.
+
 For testing login you can use Test as the username and Test as the password. They are case sensitive so if you 
 input lowercase it will not work.
 
