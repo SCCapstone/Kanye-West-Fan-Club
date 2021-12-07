@@ -41,23 +41,23 @@ public class Login extends AppCompatActivity {
     }
 
     public void accountCreate(View v) {
-        create_account.setOnClickListener(v1 -> switchToCreateAccount());
+        switchToCreateAccount();
     }
 
     public void userCheck(View v) {
         docSearch();
-        log_in.setOnClickListener(v1 -> {
-            if(!test.isEmpty() && test.get("username").equals(username.getText().toString())) {
-                if (test.get("password").equals(password.getText().toString())) {
-                    switchToMain();
-                } else {
-                    incorrectPassword();
-                }
+    }
+
+    public void afterUserCheck() {
+        if(!test.isEmpty() && test.get("username").equals(username.getText().toString())) {
+            if (test.get("password").equals(password.getText().toString())) {
+                switchToMain();
             } else {
                 incorrectPassword();
             }
-        });
-
+        } else {
+            incorrectPassword();
+        }
     }
 
     public void docSearch() {
@@ -75,6 +75,7 @@ public class Login extends AppCompatActivity {
             } else {
                 Log.d("Task Not Successful", "Failed", task.getException());
             }
+            afterUserCheck();
         });
     }
 

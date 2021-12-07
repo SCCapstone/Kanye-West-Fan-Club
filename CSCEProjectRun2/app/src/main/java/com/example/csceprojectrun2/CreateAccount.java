@@ -35,11 +35,11 @@ public class CreateAccount extends AppCompatActivity {
     }
 
     public void accountMaker(View v) {
-        create.setOnClickListener(v1 -> {
+
             checks();
             switchToMain();
 
-        });
+
     }
 
     public void blankFields() {
