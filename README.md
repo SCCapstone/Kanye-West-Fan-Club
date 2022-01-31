@@ -16,9 +16,6 @@ Detailed description: https://github.com/SCCapstone/Kanye-West-Fan-Club/wiki/Pro
 ## Deployment
 
 ## Testing
-
-For the testing milestone: we made a unit test in:Kanye-West-Fan-Club/CSCEProjectRun2/app/src/test/java/com/example/csceprojectrun2/ExampleUnitTest.java where you run the ExampleUnitTest.java file to test the api key. And we used a behavorial test in:Kanye-West-Fan-Club/CSCEProjectRun2/app/src/androidTest/java/com/example/csceprojectrun2/LoginTest.java where you run LoginTest.java to run the test.
-
 Currently our Riot API key expires every 24 hours so we have to continue cycling the key for the release to work.
 We are trying to work on a small fix for this and will try and have it put in before you test it. If you run into
 an error while testing before we implement this fix, contact us and we will generate a new API key and upload the 
