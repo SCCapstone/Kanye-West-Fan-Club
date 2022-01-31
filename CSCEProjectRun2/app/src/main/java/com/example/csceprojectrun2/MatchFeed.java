@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import java.lang.Runnable;
 import java.lang.Thread;
-
 import javax.json.*;
 
 public class MatchFeed extends AppCompatActivity {
@@ -108,14 +107,7 @@ public class MatchFeed extends AppCompatActivity {
                 applyChampionImages(newMatchCard, participantData);
             }
         });
-
     }
-
-
-
-
-
-
 
     public void renderMatchHistory(ScrollView matchContainer) {
         // clear any existing match tiles
@@ -128,6 +120,11 @@ public class MatchFeed extends AppCompatActivity {
             public void run() {
                 // get recent played match's IDs
                 String[] matchIds = RiotAPIHelper.getMatchesFromPuuid(RiotAPIHelper.samplePuuid, 6);
+
+                if (matchIds == null) {
+                    System.out.println("Unable to retrieve match ids!");
+                    return;
+                }
 
                 // populate match feed
                 for(int i=0; i<matchIds.length; i++) {
