@@ -33,6 +33,7 @@ public class ExampleUnitTest {
             String callResp;
             StringBuilder sb = new StringBuilder();
 
+            // test api call that requires no input and should always work
             String urlOrigin = "https://na1.api.riotgames.com/lol/status/v4/platform-data";
 
             url = new URL(urlOrigin
@@ -43,6 +44,7 @@ public class ExampleUnitTest {
             Map<String, List<String>> map = connection.getHeaderFields();
             String responseCode = map.get(null).get(0).split(" ")[1];
 
+            // only check for rejection cases due to authentication, not server downtime
             assertNotEquals(responseCode, "403");
             assertNotEquals(responseCode, "400");
             assertNotEquals(responseCode, "401");
