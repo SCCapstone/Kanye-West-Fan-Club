@@ -1,68 +1,272 @@
 package com.example.csceprojectrun2;
 
-import android.os.Bundle;
-import android.view.View;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.view.LayoutInflater;
+import android.widget.ScrollView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.lang.Runnable;
+import java.lang.Thread;
+
+import javax.json.*;
+
 public class MatchFeed extends AppCompatActivity {
-    //Initialize variable
     DrawerLayout drawerLayout;
+    ScrollView matchContainer;
+
+    String matid;
+
+
+
+    private String convertToTimestamp(int seconds) {
+        int minutes = seconds / 60;
+        seconds = seconds - (minutes * 60);
+
+        String strMinutes = Integer.toString(minutes);
+        String strSeconds = Integer.toString(seconds);
+
+        if (strMinutes.length() < 2)
+            strMinutes = "0" + strMinutes;
+
+        if (strSeconds.length() < 2)
+            strSeconds = "0" + strSeconds;
+
+        return strMinutes + ":" + strSeconds;
+    }
+
+    private String getQueueType(int queueId) {
+        if (queueId == 1100)
+            return "Ranked";
+        else
+            return "Normal";
+    }
+
+    private void applyChampionImages(View matchCard, JsonObject participant) {
+        JsonArray units = participant.getJsonArray("units");
+
+        ImageView[] imageViews = new ImageView[] {
+                matchCard.findViewById(R.id.imageView1),
+                matchCard.findViewById(R.id.imageView2),
+                matchCard.findViewById(R.id.imageView3),
+                matchCard.findViewById(R.id.imageView4),
+                matchCard.findViewById(R.id.imageView5),
+                matchCard.findViewById(R.id.imageView6),
+        };
+
+        for (int i=0; i<units.size() && i<imageViews.length; i++) {
+            JsonObject unitData = (JsonObject) units.get(i);
+            String nameId = unitData.getString("character_id");
+            String name = nameId.split("_")[1];
+        }
+    }
+
+    private void createMatchCard(int cardPosition, String matchId, JsonObject matchData, String ownerPuuid) {
+        LinearLayout linearLayout = matchContainer.findViewById(R.id.match_container_linear_layout);
+
+        JsonObject info = matchData.getJsonObject("info");
+        JsonObject participantData = RiotAPIHelper.getParticipantByPuuid(matchData, ownerPuuid);
+
+        String gameLength = convertToTimestamp(info.getInt("game_length"));
+        String queueType = getQueueType(info.getInt("queue_id"));
+        String placementNum = Integer.toString(participantData.getInt("placement"));
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // build new match tiles
+                LayoutInflater inflater = getLayoutInflater();
+
+                // create the card UI element
+                inflater.inflate(R.layout.match_card, linearLayout, true);
+
+                // get and update new card
+                View newMatchCard = linearLayout.getChildAt(cardPosition);
+
+                TextView gameTypeUI = newMatchCard.findViewById(R.id.gameType);
+                TextView gameLengthUI = newMatchCard.findViewById((R.id.gameLength));
+                TextView matchIdUI = newMatchCard.findViewById(R.id.matchID);
+                TextView placementUI = newMatchCard.findViewById(R.id.placement);
+
+                matchIdUI.setText(matchId);
+                gameLengthUI.setText(gameLength);
+                gameTypeUI.setText(queueType);
+                placementUI.setText("Placed: " + placementNum);
+
+                applyChampionImages(newMatchCard, participantData);
+            }
+        });
+
+    }
+
+
+
+
+
+
+
+    public void renderMatchHistory(ScrollView matchContainer) {
+        // clear any existing match tiles
+        LinearLayout linearLayout = matchContainer.findViewById(R.id.match_container_linear_layout);
+        linearLayout.removeAllViews();
+
+        // spawn thread and collect data from riot api
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+                // get recent played match's IDs
+                String[] matchIds = RiotAPIHelper.getMatchesFromPuuid(RiotAPIHelper.samplePuuid, 6);
+
+                // populate match feed
+                for(int i=0; i<matchIds.length; i++) {
+                    String matchId = matchIds[i];
+                    JsonObject matchData = RiotAPIHelper.getMatchData(matchId);
+                    createMatchCard(i, matchId, matchData, RiotAPIHelper.samplePuuid);
+                }
+            }
+        }).start();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_current_characters);
+        setContentView(R.layout.match_feed);
+
+        System.out.println("onCreate!!!!!!!!!");
 
         //Assign variable
         drawerLayout = findViewById(R.id.drawer_layout);
+        matchContainer = findViewById(R.id.match_container);
+
+        renderMatchHistory(matchContainer);
     }
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+    public String getMyString(){
+        return matid; }
+
+    public void ClickMatch(View view) {
+        //Toast.makeText(getApplicationContext(),"test",Toast.LENGTH_SHORT).show();
+        matid = "";
+
+
+//MatchData MatchID -> passed
+
+        redirectActivity(this,MatchDetails.class);
+
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
 
     public void ClickMenu(View view) {
         //Open drawer
-        MainActivity.openDrawer(drawerLayout);
+        openDrawer(drawerLayout);
     }
 
-    public void ClickLogo(View view) {
+    public static void openDrawer(DrawerLayout drawerLayout){
+        //Open drawer layout
+        drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+    public void ClickLogo(View view){
         //Close drawer
-        MainActivity.closeDrawer(drawerLayout);
+        closeDrawer(drawerLayout);
     }
 
-    public void ClickHome(View view) {
-        //Redirect to home activity
-        MainActivity.redirectActivity(this,MainActivity.class);
+    public static void closeDrawer(DrawerLayout drawerLayout){
+        //Close drawer layout
+        //Check condition
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            //When drawer is open
+            //Close drawer
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+    }
+
+    public void ClickHome(View view){
+        //Recreate the Home activity
+        recreate();
     }
 
     public void ClickPopularBuilds(View view){
         //Redirect to Popular Builds activity
-        MainActivity.redirectActivity(this,PopularBuilds.class);
+        redirectActivity(this,PopularBuilds.class);
     }
 
-    public void ClickCommunityBuilds(View view) {
+    public void ClickCommunityBuilds(View view){
         //Redirect to Community Builds activity
-        MainActivity.redirectActivity(this,CommunityBuilds.class);
+        redirectActivity(this,CommunityBuilds.class);
     }
 
-    public void ClickCurrentCharacters(View view) {
-        //Recreate the Current Characters activity
-        recreate();
+    public void ClickCurrentCharacters(View view){
+        //Redirect to Current Characters activity
+        redirectActivity(this,CurrentCharacters.class);
     }
 
-    public void ClickItemBuilder(View view) {
+    public void ClickItemBuilder(View view){
         //Redirect to Item Builder activity
-        MainActivity.redirectActivity(this,ItemBuilder.class);
+        redirectActivity(this,ItemBuilder.class);
     }
 
     public void ClickLogout(View view){
-        //Logout and close app
-        MainActivity.logout(this);
+        //Logout and close the app
+        logout(this);
+    }
+
+    public static void logout(Activity activity) {
+        //Initialize alert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        //Set title
+        builder.setTitle("Logout");
+        //Set message
+        builder.setMessage("Are you sure you want to logout ?");
+        //Click Yes Button
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Complete activity
+                activity.finishAffinity();
+                //Exit app
+                System.exit(0);
+            }
+        });
+        //Click No Button
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Dismiss dialog
+                dialog.dismiss();
+            }
+        });
+        //Show dialog
+        builder.show();
+    }
+
+    public static void redirectActivity(Activity activity, Class aClass) {
+        //Initialize intent
+        Intent intent = new Intent(activity,aClass);
+        //Set flag
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //Start activity
+        activity.startActivity(intent);
     }
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
         //Close drawer
-        MainActivity.closeDrawer(drawerLayout);
+        closeDrawer(drawerLayout);
     }
 }
