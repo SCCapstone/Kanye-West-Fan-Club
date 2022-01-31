@@ -28,7 +28,7 @@ public class MatchDetails extends AppCompatActivity{
     public static String[] viewMatchData() {
 
 //Take In key puuid and match
-        String APIKEY = "RGAPI-a6755643-28a1-496c-a560-9e9e9e79ee71";
+        String APIKEY = "RGAPI-9e7e96bb-7396-4e04-be8d-a79d7b51c631";
         String PUUID = "HCuIWTxI-m_MifnTtvqiKmDJK1G925Poz9vn9FEV75ufFii8DJwlR53LLmw8979ytmdEPI9BxHpYyA";
         String MATCH = "NA1_4107774217";
 

@@ -8,7 +8,7 @@ import java.io.InputStream;
 import javax.json.*;
 
 public class RiotAPIHelper {
-    static String DEV_KEY_NOT_SECURE = "RGAPI-a6755643-28a1-496c-a560-9e9e9e79ee71";
+    static String DEV_KEY_NOT_SECURE = "RGAPI-d8619640-54b1-46b3-88ac-b2e971d641c2";
     static String samplePuuid = "lDQ-bP2nWGatqLp1xBbGLoOYXUouZ8X4u6oyatUitMNIXlvWdZ4FXoQepcne5NpIymRjmbKGyoO0Rw";
     /* SAMPLE ACCOUNT
     {
