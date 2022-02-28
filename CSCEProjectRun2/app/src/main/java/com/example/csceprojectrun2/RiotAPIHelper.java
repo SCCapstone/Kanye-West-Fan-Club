@@ -8,7 +8,7 @@ import java.io.InputStream;
 import javax.json.*;
 
 public class RiotAPIHelper {
-    static String DEV_KEY_NOT_SECURE = "RGAPI-d8619640-54b1-46b3-88ac-b2e971d641c2";
+    static String DEV_KEY_NOT_SECURE = "RGAPI-230e1161-82c0-4eb5-810e-ea46186fc7d5";
     static String samplePuuid = "lDQ-bP2nWGatqLp1xBbGLoOYXUouZ8X4u6oyatUitMNIXlvWdZ4FXoQepcne5NpIymRjmbKGyoO0Rw";
     /* SAMPLE ACCOUNT
     {
@@ -117,5 +117,47 @@ public class RiotAPIHelper {
                 return participant;
         }
         return null;
+    }
+
+    public static final String getPuuidFromRiotID(String gameName, String tagline) {
+        try  {
+            URL url;
+            String callResp;
+            StringBuilder sb = new StringBuilder();
+
+            String urlOrigin = "https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/";
+
+            url = new URL(urlOrigin
+                    + gameName + "/" + tagline
+                    + "?api_key=" + DEV_KEY_NOT_SECURE
+            );
+
+            try {
+                BufferedReader read = new BufferedReader( new InputStreamReader(url.openStream()));
+
+                while((callResp = read.readLine()) != null)
+                    sb.append(callResp + "\n");
+
+                read.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+            // get output string
+            String fullReturnString = sb.toString();
+
+            // cull starting & ending brackets
+            String culledReturnStr = fullReturnString.substring(2, fullReturnString.length()-3);
+
+            // split into a string array
+            String[] finalStrings = culledReturnStr.split("\",\"");
+
+            String puuid = finalStrings[0].substring(8); // cut off the first 7 letters
+            return puuid;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "";
     }
 }

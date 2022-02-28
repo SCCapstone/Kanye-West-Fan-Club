@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 public class MainActivity extends AppCompatActivity {
+    public static SearchHandler searchHandler = new SearchHandler();
     DrawerLayout drawerLayout;
 
     @Override
@@ -62,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
     public void ClickHome(View view){
         //Recreate the Home activity
         recreate();
+    }
+
+    public void ClickSearch(View view){
+        System.out.println("Clicked search from MainActivity");
+        MainActivity.searchHandler.ClickSearch(view);
     }
 
     public void ClickPopularBuilds(View view){

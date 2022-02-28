@@ -8,11 +8,14 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/MatchFeedLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/main_top_bar" />
+        <include
+            android:id="@+id/MainTopBar"
+            layout="@layout/main_top_bar" />
 
         <include
             android:id="@+id/match_container"

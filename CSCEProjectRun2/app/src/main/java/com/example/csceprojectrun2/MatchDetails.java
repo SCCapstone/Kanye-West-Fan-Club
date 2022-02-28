@@ -197,10 +197,9 @@ public class MatchDetails extends AppCompatActivity{
         MainActivity.openDrawer(drawerLayout);
     }
 
-
-
-
-
+    public void ClickSearch(View view){
+        MainActivity.searchHandler.ClickSearch(view);
+    }
 
     public static void openDrawer(DrawerLayout drawerLayout){
         //Open drawer layout

@@ -44,6 +44,10 @@ public class CurrentCharacters extends AppCompatActivity {
 
     }
 
+    public void ClickSearch(View view){
+        MainActivity.searchHandler.ClickSearch(view);
+    }
+
     private void createCharacterCard(int cardPosition, Champion champion) {
         LinearLayout linearLayout = characterContainer.findViewById(R.id.character_container_linear_layout);
 

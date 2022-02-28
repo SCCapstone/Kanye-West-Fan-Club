@@ -24,6 +24,11 @@ public class PopularBuilds extends AppCompatActivity {
         MainActivity.openDrawer(drawerLayout);
     }
 
+    public void ClickSearch(View view){
+        MainActivity.searchHandler.ClickSearch(view);
+    }
+
+
     public void ClickLogo(View view) {
         //Close drawer
         MainActivity.closeDrawer(drawerLayout);
