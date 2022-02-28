@@ -8,7 +8,7 @@ import java.io.InputStream;
 import javax.json.*;
 
 public class RiotAPIHelper {
-    static String DEV_KEY_NOT_SECURE = "RGAPI-d8619640-54b1-46b3-88ac-b2e971d641c2";
+    static String DEV_KEY_NOT_SECURE = "RGAPI-90a13922-9f2e-445d-9bd5-e9987e708114";
     static String samplePuuid = "lDQ-bP2nWGatqLp1xBbGLoOYXUouZ8X4u6oyatUitMNIXlvWdZ4FXoQepcne5NpIymRjmbKGyoO0Rw";
     /* SAMPLE ACCOUNT
     {
@@ -22,7 +22,7 @@ public class RiotAPIHelper {
     // Returns previous X matches a given player participated in
     // TODO: refactor to use Json?
     public static final String[] getMatchesFromPuuid(String puuid, int numMatchesToReturn) {
-        try  {
+        try {
             URL url;
             String callResp;
             StringBuilder sb = new StringBuilder();
@@ -30,14 +30,14 @@ public class RiotAPIHelper {
             String urlOrigin = "https://americas.api.riotgames.com/tft/match/v1/matches/by-puuid/";
 
             url = new URL(urlOrigin + samplePuuid + "/ids"
-                + "?count=" + numMatchesToReturn
-                + "&api_key=" + DEV_KEY_NOT_SECURE
+                    + "?count=" + numMatchesToReturn
+                    + "&api_key=" + DEV_KEY_NOT_SECURE
             );
 
             try {
-                BufferedReader read = new BufferedReader( new InputStreamReader(url.openStream()));
+                BufferedReader read = new BufferedReader(new InputStreamReader(url.openStream()));
 
-                while((callResp = read.readLine()) != null)
+                while ((callResp = read.readLine()) != null)
                     sb.append(callResp + "\n");
 
                 read.close();
@@ -49,7 +49,7 @@ public class RiotAPIHelper {
             String matchIdStr = sb.toString();
 
             // cull starting & ending brackets
-            matchIdStr = matchIdStr.substring(2, matchIdStr.length()-3);
+            matchIdStr = matchIdStr.substring(2, matchIdStr.length() - 3);
 
             // split into a string array
             String[] matchIds = matchIdStr.split("\",\"");
@@ -71,7 +71,7 @@ public class RiotAPIHelper {
     // https://developer.riotgames.com/apis#tft-match-v1/GET_getMatch
     // Returns match data JSON for a given match id
     public static final JsonObject getMatchData(String matchId) {
-        try  {
+        try {
             URL url;
             String callResp;
             StringBuilder sb = new StringBuilder();

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/darkBlue"
     android:id="@+id/drawer_layout"
     tools:context=".ItemBuilder">
 
@@ -15,15 +16,11 @@
         <include
             layout="@layout/main_top_bar"/>
 
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/itemRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Item Builder"
-            android:textColor="@color/white"
-            android:textSize="50sp"
-            android:textStyle="bold"
-            android:background="@color/darkBlue"
-            android:gravity="center"/>
+            android:layout_height="match_parent" />
+
     </LinearLayout>
 
     <RelativeLayout

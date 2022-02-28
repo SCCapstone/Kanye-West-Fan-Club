@@ -13,17 +13,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            layout="@layout/main_top_bar"/>
+        <include layout="@layout/main_top_bar" />
 
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/itemRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Popular Builds"
-            android:textSize="50sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:gravity="center"/>
+            android:layout_height="match_parent" />
+
     </LinearLayout>
 
     <RelativeLayout
@@ -32,7 +28,6 @@
         android:layout_gravity="start"
         android:background="@color/turquoise">
 
-        <include
-            layout="@layout/main_nav_drawer"/>
+        <include layout="@layout/main_nav_drawer" />
     </RelativeLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

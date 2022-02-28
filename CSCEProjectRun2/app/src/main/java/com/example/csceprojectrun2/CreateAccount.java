@@ -35,11 +35,8 @@ public class CreateAccount extends AppCompatActivity {
     }
 
     public void accountMaker(View v) {
-
-            checks();
-            switchToMain();
-
-
+        checks();
+        switchToMain();
     }
 
     public void blankFields() {
@@ -54,7 +51,7 @@ public class CreateAccount extends AppCompatActivity {
     }
 
     public void checks() {
-        if(username.getText().toString().equals("Username") || username.getText().toString().equals("") ||
+        if (username.getText().toString().equals("Username") || username.getText().toString().equals("") ||
                 password.getText().toString().equals("Password") || password.getText().toString().equals("") ||
                 tftname.getText().toString().equals("TFT Name") || password.getText().toString().equals("")) {
             blankFields();
