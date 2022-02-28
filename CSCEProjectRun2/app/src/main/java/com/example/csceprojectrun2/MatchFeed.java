@@ -70,6 +70,8 @@ public class MatchFeed extends AppCompatActivity {
                     @Override
                     public void run() {
                         String puuid = RiotAPIHelper.getPuuidFromRiotID(gameName, tagLine);
+
+                        renderMatchHistoryWithPuuid(matchContainer, puuid, 6);
                     }
                 }).start();
             }
@@ -190,7 +192,7 @@ public class MatchFeed extends AppCompatActivity {
 
         String puuid = RiotAPIHelper.samplePuuid;
 
-        renderMatchHistoryWithPuuid(matchContainer, puuid, 3);
+        renderMatchHistoryWithPuuid(matchContainer, puuid, 6);
     }
 
     @Override
