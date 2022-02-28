@@ -118,4 +118,46 @@ public class RiotAPIHelper {
         }
         return null;
     }
+
+    public static final String getPuuidFromRiotID(String gameName, String tagline) {
+        try  {
+            URL url;
+            String callResp;
+            StringBuilder sb = new StringBuilder();
+
+            String urlOrigin = "https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/";
+
+            url = new URL(urlOrigin
+                    + gameName + "/" + tagline
+                    + "?api_key=" + DEV_KEY_NOT_SECURE
+            );
+
+            try {
+                BufferedReader read = new BufferedReader( new InputStreamReader(url.openStream()));
+
+                while((callResp = read.readLine()) != null)
+                    sb.append(callResp + "\n");
+
+                read.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+            // get output string
+            String fullReturnString = sb.toString();
+
+            // cull starting & ending brackets
+            String culledReturnStr = fullReturnString.substring(2, fullReturnString.length()-3);
+
+            // split into a string array
+            String[] finalStrings = culledReturnStr.split("\",\"");
+
+            String puuid = finalStrings[0].substring(8); // cut off the first 7 letters
+            return puuid;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
 }

@@ -52,6 +52,11 @@ public class ItemBuilder extends AppCompatActivity implements BasicItem_Recycler
         MainActivity.openDrawer(drawerLayout);
     }
 
+    public void ClickSearch(View view){
+        MainActivity.searchHandler.ClickSearch(view);
+    }
+
+
     public void ClickLogo(View view) {
         //Close drawer
         MainActivity.closeDrawer(drawerLayout);

@@ -1,6 +1,7 @@
 package com.example.csceprojectrun2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -14,9 +15,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
+import android.view.*;
+import android.widget.*;
+//import android.view.View;
+//import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.lang.Runnable;
 import java.lang.Thread;
@@ -28,7 +34,47 @@ public class MatchFeed extends AppCompatActivity {
 
     String matid;
 
+    public void ClickSearch(View view){
+        System.out.println("Clicked search from MatchFeed");
 
+        LinearLayout topBarLinearLayout = findViewById(R.id.MainTopBar);
+        CardView searchCard = topBarLinearLayout.findViewById(R.id.SearchCard);
+        CardView backgroundCard = searchCard.findViewById(R.id.SearchCard);
+        LinearLayout searchLinearLayout = backgroundCard.findViewById(R.id.SearchLinearLayout);
+
+        // Riot ID input
+        TextInputLayout riotIDTextInputLayout = searchLinearLayout.findViewById(R.id.RiotIDTextInputLayout);
+        TextInputEditText searchRiotIDInput = riotIDTextInputLayout.findViewById(R.id.SearchRiotIDInput);
+
+        // Tagline Input
+        LinearLayout searchTaglineLinearLayout = searchLinearLayout.findViewById(R.id.SearchTaglineLinearLayout);
+        TextInputLayout taglineTextInputLayout = searchTaglineLinearLayout.findViewById(R.id.TaglineTextInputLayout);
+        TextInputEditText taglineInput = taglineTextInputLayout.findViewById(R.id.TaglineInput);
+
+        // Button
+        Button riotIDSearchActivate = searchLinearLayout.findViewById(R.id.RiotIDSearchActivate);
+
+        searchCard.setVisibility(View.VISIBLE);
+
+        riotIDSearchActivate.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                searchCard.setVisibility(View.GONE);
+
+                String gameName = searchRiotIDInput.getText().toString();
+                String tagLine = taglineInput.getText().toString();
+                String fullRiotID = gameName + "#" + tagLine;
+
+                System.out.println("Full Riot ID being searched: " + fullRiotID);
+
+                new Thread(new Runnable(){
+                    @Override
+                    public void run() {
+                        String puuid = RiotAPIHelper.getPuuidFromRiotID(gameName, tagLine);
+                    }
+                }).start();
+            }
+        });
+    }
 
     private String convertToTimestamp(int seconds) {
         int minutes = seconds / 60;
@@ -109,7 +155,7 @@ public class MatchFeed extends AppCompatActivity {
         });
     }
 
-    public void renderMatchHistory(ScrollView matchContainer) {
+    public void renderMatchHistoryWithPuuid(ScrollView matchContainer, String puuid, int numMatchesToReturn) {
         // clear any existing match tiles
         LinearLayout linearLayout = matchContainer.findViewById(R.id.match_container_linear_layout);
         linearLayout.removeAllViews();
@@ -119,7 +165,7 @@ public class MatchFeed extends AppCompatActivity {
             @Override
             public void run() {
                 // get recent played match's IDs
-                String[] matchIds = RiotAPIHelper.getMatchesFromPuuid(RiotAPIHelper.samplePuuid, 6);
+                String[] matchIds = RiotAPIHelper.getMatchesFromPuuid(puuid, 6);
 
                 if (matchIds == null) {
                     System.out.println("Unable to retrieve match ids!");
@@ -130,10 +176,21 @@ public class MatchFeed extends AppCompatActivity {
                 for(int i=0; i<matchIds.length; i++) {
                     String matchId = matchIds[i];
                     JsonObject matchData = RiotAPIHelper.getMatchData(matchId);
-                    createMatchCard(i, matchId, matchData, RiotAPIHelper.samplePuuid);
+                    createMatchCard(i, matchId, matchData, puuid);
                 }
             }
         }).start();
+    }
+
+    // default call, uses the logged-in user's data
+    public void renderMatchHistory(ScrollView matchContainer) {
+        // clear any existing match tiles
+        LinearLayout linearLayout = matchContainer.findViewById(R.id.match_container_linear_layout);
+        linearLayout.removeAllViews();
+
+        String puuid = RiotAPIHelper.samplePuuid;
+
+        renderMatchHistoryWithPuuid(matchContainer, puuid, 3);
     }
 
     @Override

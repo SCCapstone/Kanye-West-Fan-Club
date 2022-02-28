@@ -215,10 +215,9 @@ public class MatchDetails extends AppCompatActivity {
     }
 
 
-
-
-
-
+    public void ClickSearch(View view){
+        MainActivity.searchHandler.ClickSearch(view);
+    }
 
 
 

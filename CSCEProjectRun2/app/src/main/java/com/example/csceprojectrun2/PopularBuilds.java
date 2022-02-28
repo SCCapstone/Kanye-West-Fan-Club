@@ -45,6 +45,11 @@ public class PopularBuilds extends AppCompatActivity implements PopularBuild_Rec
         MainActivity.openDrawer(drawerLayout);
     }
 
+    public void ClickSearch(View view){
+        MainActivity.searchHandler.ClickSearch(view);
+    }
+
+
     public void ClickLogo(View view) {
         //Close drawer
         MainActivity.closeDrawer(drawerLayout);
