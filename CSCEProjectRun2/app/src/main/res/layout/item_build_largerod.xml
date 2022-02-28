@@ -1,0 +1,1153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/main_top_bar" />
+
+
+        <!--Start of B.F. Sword details -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/darkBlue">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/largerod1"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/gold">
+
+
+                    <TextView
+                        android:id="@+id/largerod1_item1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Archangel's Staff"
+                        android:textColor="@color/black"
+                        android:textSize="34sp"
+                        android:textStyle="bold"
+
+                        app:layout_constraintBottom_toTopOf="@+id/largerod1_desc"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.337"
+                        app:layout_constraintStart_toEndOf="@+id/largerod1_image6"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.164" />
+
+                    <TextView
+                        android:id="@+id/largerod1_item2"
+                        android:layout_width="66dp"
+                        android:layout_height="33dp"
+                        android:text="Needlessly Large Rod"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.045"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/largerod1_item3"
+                        android:layout_width="83dp"
+                        android:layout_height="29dp"
+                        android:text="Tear of the Goddess"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.324"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.976"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/largerod1_attr2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:text="Starting Mana: +15"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@+id/largerod1_desc"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/largerod1_desc"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.847" />
+
+                    <TextView
+                        android:id="@+id/largerod1_attr1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:text="Ability Power: +10"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@+id/largerod1_attr2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/largerod1_attr2"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod1_item1"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <TextView
+                        android:id="@+id/largerod1_desc"
+                        android:layout_width="213dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="Passive: Grants the wearer 25 ability power every 5 seconds."
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.99"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.889"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod1_image6"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.042"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.061"
+                        app:srcCompat="@drawable/archangelstaff_square"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod1_image2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod1_image6"
+                        app:layout_constraintVertical_bias="0.454"
+                        app:srcCompat="@drawable/needlesslylargerod_square"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod1_image1"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/largerod1_desc"
+                        app:layout_constraintHorizontal_bias="0.483"
+                        app:layout_constraintStart_toEndOf="@+id/largerod1_image2"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod1_image6"
+                        app:layout_constraintVertical_bias="0.469"
+                        app:srcCompat="@drawable/tearofgoddess_square" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/largerod2"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/gold">
+
+
+                    <TextView
+                        android:id="@+id/largerod2_item1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Guinsoo's Rageblade"
+                        android:textColor="@color/black"
+                        android:textSize="34sp"
+                        android:textStyle="bold"
+
+                        app:layout_constraintBottom_toTopOf="@+id/largerod2_desc"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.736"
+                        app:layout_constraintStart_toEndOf="@+id/largerod2_image6"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.174" />
+
+
+                    <TextView
+                        android:id="@+id/largerod2_item2"
+                        android:layout_width="66dp"
+                        android:layout_height="33dp"
+                        android:text="Needlessly Large Rod"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.045"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/largerod2_item3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Recurve Bow"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.298"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.939"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/largerod2_attr2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:text="Ability Power: +10"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@+id/largerod2_desc"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/largerod2_desc"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.847" />
+
+                    <TextView
+                        android:id="@+id/largerod2_attr1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:text="Attack Speed: +10%"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@+id/largerod2_attr2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/largerod2_attr2"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod2_item1"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <TextView
+                        android:id="@+id/largerod2_desc"
+                        android:layout_width="213dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="Passive: Basic attacks grant 6% bonus attack speed for the rest of combat. Stacks with no upper limit."
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.99"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.889"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod2_image6"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.042"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.061"
+                        app:srcCompat="@drawable/guinsoorageblade_square"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod2_image2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod2_image6"
+                        app:layout_constraintVertical_bias="0.454"
+                        app:srcCompat="@drawable/needlesslylargerod_square"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod2_image1"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/largerod2_desc"
+                        app:layout_constraintHorizontal_bias="0.483"
+                        app:layout_constraintStart_toEndOf="@+id/largerod2_image2"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod2_image6"
+                        app:layout_constraintVertical_bias="0.469"
+                        app:srcCompat="@drawable/recurvebow_square" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/largerod3"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/gold">
+
+
+                    <TextView
+                        android:id="@+id/largerod3_item1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hextech Gunblade"
+                        android:textColor="@color/black"
+                        android:textSize="38sp"
+                        android:textStyle="bold"
+
+                        app:layout_constraintBottom_toTopOf="@+id/largerod3_desc"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/largerod3_image6"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.145" />
+
+                    <TextView
+                        android:id="@+id/largerod3_item2"
+                        android:layout_width="66dp"
+                        android:layout_height="33dp"
+                        android:text="Needlessly Large Rod"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.045"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0"
+                        tools:ignore="MissingConstraints" />
+
+
+                    <TextView
+                        android:id="@+id/largerod3_item3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="B.F. Sword"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/largerod3_desc"
+                        app:layout_constraintHorizontal_bias="0.435"
+                        app:layout_constraintStart_toEndOf="@+id/largerod3_item2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.95"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/largerod3_attr2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:text="Ability Power: +10"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@+id/largerod3_desc"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/largerod3_desc"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.847" />
+
+                    <TextView
+                        android:id="@+id/largerod3_attr1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:text="Attack Damage: +10"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@+id/largerod3_attr2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/largerod3_attr2"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod3_item1"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <TextView
+                        android:id="@+id/largerod3_desc"
+                        android:layout_width="213dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="The wearer's magic and true damage from abilities heal the wearer and the lowest health ally for 33% of the damage dealt."
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.991"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.932"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod3_image6"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.042"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.061"
+                        app:srcCompat="@drawable/hextechgunblade_square"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod3_image2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod3_image6"
+                        app:layout_constraintVertical_bias="0.454"
+                        app:srcCompat="@drawable/needlesslylargerod_square"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod3_image1"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/largerod3_desc"
+                        app:layout_constraintHorizontal_bias="0.483"
+                        app:layout_constraintStart_toEndOf="@+id/largerod3_image2"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod3_image6"
+                        app:layout_constraintVertical_bias="0.469"
+                        app:srcCompat="@drawable/bfsword_square" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/largerod4"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/gold">
+
+
+                    <TextView
+                        android:id="@+id/largerod4_item1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ionic Spark"
+                        android:textColor="@color/black"
+                        android:textSize="40sp"
+                        android:textStyle="bold"
+
+                        app:layout_constraintBottom_toTopOf="@+id/largerod4_desc"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.171" />
+
+                    <TextView
+                        android:id="@+id/largerod4_item2"
+                        android:layout_width="66dp"
+                        android:layout_height="33dp"
+                        android:text="Needlessly Large Rod"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.045"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0"
+                        tools:ignore="MissingConstraints" />
+
+
+                    <TextView
+                        android:id="@+id/largerod4_item3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Negatron Cloak"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.314"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.945"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/largerod4_attr2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:text="Ability Power: +10"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@+id/largerod4_desc"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/largerod4_desc"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.974" />
+
+                    <TextView
+                        android:id="@+id/largerod4_attr1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:text="Magic Resist: +20"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@+id/largerod4_attr2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/largerod4_attr2"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod4_item1"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <TextView
+                        android:id="@+id/largerod4_desc"
+                        android:layout_width="213dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="Passive: Enemies within 2 hexes have their magic resistance reduced by 50% (does not stack). When enemies within 2 hexes cast their ability, they are dealt 200% of their maximum mana as magic damage."
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.991"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.932"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod4_image6"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.042"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.061"
+                        app:srcCompat="@drawable/ionicspark_square" />
+
+                    <ImageView
+                        android:id="@+id/largerod4_image2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod4_image6"
+                        app:layout_constraintVertical_bias="0.454"
+                        app:srcCompat="@drawable/needlesslylargerod_square" />
+
+                    <ImageView
+                        android:id="@+id/largerod4_image1"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/largerod4_desc"
+                        app:layout_constraintHorizontal_bias="0.483"
+                        app:layout_constraintStart_toEndOf="@+id/largerod4_image2"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod4_image6"
+                        app:layout_constraintVertical_bias="0.469"
+                        app:srcCompat="@drawable/negatroncloak_square" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/largerod5"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/gold">
+
+
+                    <TextView
+                        android:id="@+id/largerod5_item1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jeweled Gauntlet"
+                        android:textColor="@color/black"
+                        android:textSize="40sp"
+                        android:textStyle="bold"
+
+                        app:layout_constraintBottom_toTopOf="@+id/largerod5_desc"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.22"
+                        app:layout_constraintStart_toEndOf="@+id/largerod5_image6"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.163" />
+
+                    <TextView
+                        android:id="@+id/largerod5_item2"
+                        android:layout_width="66dp"
+                        android:layout_height="33dp"
+                        android:text="Needlessly Large Rod"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.045"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0"
+                        tools:ignore="MissingConstraints" />
+
+
+                    <TextView
+                        android:id="@+id/largerod5_item3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sparring Gloves"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.318"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.945"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/largerod5_attr2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:text="Ability Power: +20"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@+id/largerod5_desc"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/largerod5_desc"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.974" />
+
+                    <TextView
+                        android:id="@+id/largerod5_desc"
+                        android:layout_width="213dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="Passive: The holder's magic and true damage from abilities can critically strike."
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.991"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.932"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod5_image6"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.042"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.061"
+                        app:srcCompat="@drawable/jeweledgauntlet_square"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod5_image2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod5_image6"
+                        app:layout_constraintVertical_bias="0.454"
+                        app:srcCompat="@drawable/needlesslylargerod_square"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod5_image1"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/largerod5_desc"
+                        app:layout_constraintHorizontal_bias="0.483"
+                        app:layout_constraintStart_toEndOf="@+id/largerod5_image2"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod5_image6"
+                        app:layout_constraintVertical_bias="0.469"
+                        app:srcCompat="@drawable/sparringgloves_square" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/largerod6"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/gold">
+
+
+                    <TextView
+                        android:id="@+id/largerod6_item1"
+                        android:layout_width="326dp"
+                        android:layout_height="56dp"
+                        android:text="Locket of the Iron Solari"
+                        android:textColor="@color/black"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+
+                        app:layout_constraintBottom_toTopOf="@+id/largerod6_desc"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/largerod6_image6"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.346" />
+
+                    <TextView
+                        android:id="@+id/largerod6_item2"
+                        android:layout_width="66dp"
+                        android:layout_height="33dp"
+                        android:text="Needlessly Large Rod"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.045"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0"
+                        tools:ignore="MissingConstraints" />
+
+
+                    <TextView
+                        android:id="@+id/largerod6_item3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chest Vest"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.306"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.956"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/largerod6_attr2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:text="Ability Power +10"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@+id/largerod6_desc"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/largerod6_desc"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.989" />
+
+                    <TextView
+                        android:id="@+id/largerod6_attr1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:text="Armor: +20"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@+id/largerod6_attr2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/largerod6_attr2"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod6_item1"
+                        app:layout_constraintVertical_bias="0.95" />
+
+                    <TextView
+                        android:id="@+id/largerod6_desc"
+                        android:layout_width="213dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="Passive
+At the start of combat, the wearer and all allies within 2 hexes in the same row to the left and right gain a 300 / 350 / 400 (based on Star level) health shield for 15 seconds."
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.991"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.932"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod6_image6"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.042"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.061"
+                        app:srcCompat="@drawable/infinityedge_square"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod6_image2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod6_image6"
+                        app:layout_constraintVertical_bias="0.454"
+                        app:srcCompat="@drawable/needlesslylargerod_square"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod6_image1"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/largerod6_desc"
+                        app:layout_constraintHorizontal_bias="0.483"
+                        app:layout_constraintStart_toEndOf="@+id/largerod6_image2"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod6_image6"
+                        app:layout_constraintVertical_bias="0.469"
+                        app:srcCompat="@drawable/chainvest_square" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/largerod7"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/gold">
+
+
+                    <TextView
+                        android:id="@+id/largerod7_item1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Morellonomicon"
+                        android:textColor="@color/black"
+                        android:textSize="40sp"
+                        android:textStyle="bold"
+
+                        app:layout_constraintBottom_toTopOf="@+id/largerod7_desc"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.869"
+                        app:layout_constraintStart_toEndOf="@+id/largerod7_image6"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.195" />
+
+                    <TextView
+                        android:id="@+id/largerod7_item2"
+                        android:layout_width="66dp"
+                        android:layout_height="33dp"
+                        android:text="Needlessly Large Rod"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.045"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0"/>
+
+
+                    <TextView
+                        android:id="@+id/largerod7_item3"
+                        android:layout_width="70dp"
+                        android:layout_height="33dp"
+                        android:text="Giant's Belt"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.316"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.994"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/largerod7_attr1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:text="Health: +150"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@+id/largerod7_desc"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/largerod7_desc"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <TextView
+                        android:id="@+id/largerod7_attr2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:text="Attack Damage: +20"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@+id/largerod7_desc"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/largerod7_desc"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.757" />
+
+                    <TextView
+                        android:id="@+id/largerod7_desc"
+                        android:layout_width="213dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="Passive: Dealing magic or true damage with an ability applies a burn on the enemies hit for 10 seconds, dealing 2% of target's maximum health true damage each second and applying Grevious Wounds for the duration"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.99"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.988"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod7_image6"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.042"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.061"
+                        app:srcCompat="@drawable/morellonomicon_square" />
+
+                    <ImageView
+                        android:id="@+id/largerod7_image2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod7_image6"
+                        app:layout_constraintVertical_bias="0.454"
+                        app:srcCompat="@drawable/needlesslylargerod_square" />
+
+                    <ImageView
+                        android:id="@+id/largerod7_image1"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/largerod7_desc"
+                        app:layout_constraintHorizontal_bias="0.483"
+                        app:layout_constraintStart_toEndOf="@+id/largerod7_image2"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod7_image6"
+                        app:layout_constraintVertical_bias="0.469"
+                        app:srcCompat="@drawable/giantsbelt_square" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/largerod8"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/gold">
+
+
+                    <TextView
+                        android:id="@+id/largerod8_item1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rabadon's Deathcap"
+                        android:textColor="@color/black"
+                        android:textSize="35sp"
+                        android:textStyle="bold"
+
+                        app:layout_constraintBottom_toTopOf="@+id/largerod8_desc"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.241"
+                        app:layout_constraintStart_toEndOf="@+id/largerod8_image6"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.181" />
+
+                    <TextView
+                        android:id="@+id/largerod8_item2"
+                        android:layout_width="66dp"
+                        android:layout_height="33dp"
+                        android:text="Needlessly Large Rod"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.045"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0"
+                        tools:ignore="MissingConstraints" />
+
+
+                    <TextView
+                        android:id="@+id/largerod8_item3"
+                        android:layout_width="66dp"
+                        android:layout_height="33dp"
+                        android:text="Needlessly Large Rod"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.298"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/largerod8_attr2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:text="Ability Power: +75"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@+id/largerod8_desc"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/largerod8_desc"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <TextView
+                        android:id="@+id/largerod8_desc"
+                        android:layout_width="213dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="1dp"
+                        android:paddingTop="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="When equipped Spell Damage +50% AP."
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.99"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.786"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod8_image6"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.042"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.061"
+                        app:srcCompat="@drawable/rabadonsdeathcap_square"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod8_image2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod8_image6"
+                        app:layout_constraintVertical_bias="0.454"
+                        app:srcCompat="@drawable/needlesslylargerod_square"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/largerod8_image1"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/largerod8_desc"
+                        app:layout_constraintHorizontal_bias="0.483"
+                        app:layout_constraintStart_toEndOf="@+id/largerod8_image2"
+                        app:layout_constraintTop_toBottomOf="@+id/largerod8_image6"
+                        app:layout_constraintVertical_bias="0.469"
+                        app:srcCompat="@drawable/needlesslylargerod_square" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+        <!--Start of B.F. Sword details-->
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/turquoise">
+
+        <include layout="@layout/main_nav_drawer" />
+    </RelativeLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

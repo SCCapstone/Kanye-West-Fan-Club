@@ -1,9 +1,5 @@
 package com.example.csceprojectrun2;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,7 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public void ClickMenu(View view) {
         //Open drawer
         openDrawer(drawerLayout);
+
     }
 
     public static void openDrawer(DrawerLayout drawerLayout){
