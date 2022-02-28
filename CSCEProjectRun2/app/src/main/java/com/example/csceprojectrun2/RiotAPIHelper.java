@@ -8,8 +8,8 @@ import java.io.InputStream;
 import javax.json.*;
 
 public class RiotAPIHelper {
-    static String DEV_KEY_NOT_SECURE = "RGAPI-90a13922-9f2e-445d-9bd5-e9987e708114";
-    static String samplePuuid = "lDQ-bP2nWGatqLp1xBbGLoOYXUouZ8X4u6oyatUitMNIXlvWdZ4FXoQepcne5NpIymRjmbKGyoO0Rw";
+    static String DEV_KEY_NOT_SECURE = "RGAPI-230e1161-82c0-4eb5-810e-ea46186fc7d5";
+    static String samplePuuid = "9IkIogPfGJh-bx_f1KRGZj8AtMWHV_AIO7UFGxlptJ2q7TtlkV90a49FYfYt5HWhKenPapiF6wE-LA";
     /* SAMPLE ACCOUNT
     {
         "puuid": "9IkIogPfGJh-bx_f1KRGZj8AtMWHV_AIO7UFGxlptJ2q7TtlkV90a49FYfYt5HWhKenPapiF6wE-LA",
@@ -22,6 +22,7 @@ public class RiotAPIHelper {
     // Returns previous X matches a given player participated in
     // TODO: refactor to use Json?
     public static final String[] getMatchesFromPuuid(String puuid, int numMatchesToReturn) {
+        System.out.println("SUPPLIED PUUID: " + puuid);
         try {
             URL url;
             String callResp;
