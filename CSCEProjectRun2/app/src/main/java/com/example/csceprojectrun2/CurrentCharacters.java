@@ -1,10 +1,13 @@
 package com.example.csceprojectrun2;
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.JsonToken;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -44,14 +47,13 @@ public class CurrentCharacters extends AppCompatActivity {
 
     }
 
-    public void ClickSearch(View view){
-        MainActivity.searchHandler.ClickSearch(view);
-    }
-
     private void createCharacterCard(int cardPosition, Champion champion) {
+        Champion storedValue = champion;
         LinearLayout linearLayout = characterContainer.findViewById(R.id.character_container_linear_layout);
 
         String championName = champion.getName();
+        String championImage = championName.toLowerCase().replace(".", "").replace(" ", "").replace("'", "") + "_square";
+        int championID = this.getResources().getIdentifier(championImage, "drawable", this.getPackageName());
 
         runOnUiThread(new Runnable() {
             @Override
@@ -65,11 +67,17 @@ public class CurrentCharacters extends AppCompatActivity {
                 // get and update new card
                 View newCharacterCard = linearLayout.getChildAt(cardPosition);
 
+                //newCharacterCard.setTag(R.id.tag, storedValue);
+
                 TextView characterNameUI = newCharacterCard.findViewById(R.id.characterName);
+
+                ImageView characterImageUI = newCharacterCard.findViewById(R.id.characterImage);
 
                 characterNameUI.setText(championName);
 
-                //applyChampionImages(newMatchCard, participantData);
+                characterImageUI.setImageResource(championID);
+
+                System.out.println(newCharacterCard.getId());
             }
         });
     }
@@ -197,6 +205,29 @@ public class CurrentCharacters extends AppCompatActivity {
         }
         reader.endObject();
         return new Stats(armor, attackSpeed, critChance, critMultiplier, damage, hp, initialMana, magicResist, mana, range);
+    }
+
+    public void ClickCard(View view) {
+        Champion champion = null;
+        TextView characterNameUI = view.findViewById(R.id.characterName);
+        for(int i = 0; i < championList.size(); i++) {
+            if(championList.get(i).getName() == characterNameUI.getText()) {
+                champion = championList.get(i);
+            }
+        }
+        //Redirect to Character Info
+        //MainActivity.redirectActivity(this,CharacterInfo.class);
+        //Initialize intent
+        Intent intent = new Intent(this,CharacterInfo.class);
+        //Set flag
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //Champion champion = (Champion)view.getTag(R.id.tag);
+        intent.putExtra("champion", champion);
+        //System.out.println(view.getId());
+        //System.out.println("-----------@-@-------------" + champion.getName());
+        //Start activity
+        this.startActivity(intent);
+
     }
 
     public void ClickMenu(View view) {

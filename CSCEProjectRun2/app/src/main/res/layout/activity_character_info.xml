@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout"
+    tools:context=".CurrentCharacters">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#017BA1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/characterinfoStatArmorTitle"
+            android:layout_width="105dp"
+            android:layout_height="48dp"
+            android:background="#0169A1"
+            android:text="Armor:"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatTitle" />
+
+        <TextView
+            android:id="@+id/characterinfoStatArmorValue"
+            android:layout_width="105dp"
+            android:layout_height="48dp"
+            android:text="0"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorTitle"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatTitle" />
+
+        <TextView
+            android:id="@+id/characterinfoStatAttackSpeedTitle"
+            android:layout_width="105dp"
+            android:layout_height="48dp"
+            android:background="#0169A1"
+            android:text="Attack Speed:"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorValue"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatTitle" />
+
+        <TextView
+            android:id="@+id/characterinfoStatAttackSpeedValue"
+            android:layout_width="96dp"
+            android:layout_height="48dp"
+            android:text="0"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@id/characterinfoStatAttackSpeedTitle"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatTitle" />
+
+        <TextView
+            android:id="@+id/characterinfoStatCritChanceValue"
+            android:layout_width="96dp"
+            android:layout_height="48dp"
+            android:text="0"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@id/characterinfoStatAttackSpeedTitle"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatAttackSpeedValue" />
+
+        <TextView
+            android:id="@+id/characterinfoStatCritMultiplierValue"
+            android:layout_width="96dp"
+            android:layout_height="48dp"
+            android:text="0"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@id/characterinfoStatAttackSpeedTitle"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatCritChanceValue" />
+
+        <TextView
+            android:id="@+id/characterinfoStatInitialManaValue"
+            android:layout_width="96dp"
+            android:layout_height="48dp"
+            android:text="0"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@id/characterinfoStatAttackSpeedTitle"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatCritMultiplierValue" />
+
+        <TextView
+            android:id="@+id/characterinfoStatMagicResistValue"
+            android:layout_width="96dp"
+            android:layout_height="46dp"
+            android:text="0"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@id/characterinfoStatAttackSpeedTitle"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatInitialManaValue" />
+
+        <TextView
+            android:id="@+id/characterinfoStatCritChanceTitle"
+            android:layout_width="105dp"
+            android:layout_height="48dp"
+            android:background="#0169A1"
+            android:text="Crit Chance:"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorValue"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatAttackSpeedTitle" />
+
+        <TextView
+            android:id="@+id/characterinfoStatCritMultiplierTitle"
+            android:layout_width="105dp"
+            android:layout_height="48dp"
+            android:background="#0169A1"
+            android:text="Crit Multiplier:"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorValue"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatCritChanceTitle" />
+
+        <TextView
+            android:id="@+id/characterinfoStatInitialManaTitle"
+            android:layout_width="105dp"
+            android:layout_height="48dp"
+            android:background="#0169A1"
+            android:text="Initial Mana:"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorValue"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatCritMultiplierTitle" />
+
+        <TextView
+            android:id="@+id/characterinfoStatMagicResistTitle"
+            android:layout_width="105dp"
+            android:layout_height="46dp"
+            android:background="#0169A1"
+            android:text="Magic Resist:"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorValue"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatInitialManaTitle" />
+
+        <TextView
+            android:id="@+id/characterinfoStatDamageValue"
+            android:layout_width="105dp"
+            android:layout_height="48dp"
+            android:text="0"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorTitle"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatArmorValue" />
+
+        <TextView
+            android:id="@+id/characterinfoStatHPValue"
+            android:layout_width="105dp"
+            android:layout_height="48dp"
+            android:text="0"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorTitle"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatDamageValue" />
+
+        <TextView
+            android:id="@+id/characterinfoStatManaValue"
+            android:layout_width="105dp"
+            android:layout_height="48dp"
+            android:text="0"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorTitle"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatHPValue" />
+
+        <TextView
+            android:id="@+id/characterinfoStatRangeValue"
+            android:layout_width="105dp"
+            android:layout_height="46dp"
+            android:text="0"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorTitle"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatManaValue" />
+
+        <TextView
+            android:id="@+id/characterinfoStatDamageTitle"
+            android:layout_width="105dp"
+            android:layout_height="48dp"
+            android:background="#0169A1"
+            android:text="Damage:"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="26sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatArmorTitle" />
+
+        <TextView
+            android:id="@+id/characterinfoStatHPTitle"
+            android:layout_width="105dp"
+            android:layout_height="48dp"
+            android:background="#0169A1"
+            android:text="HP:"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatDamageTitle" />
+
+        <TextView
+            android:id="@+id/characterinfoStatManaTitle"
+            android:layout_width="105dp"
+            android:layout_height="48dp"
+            android:background="#0169A1"
+            android:text="Mana:"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatHPTitle" />
+
+        <TextView
+            android:id="@+id/characterinfoStatRangeTitle"
+            android:layout_width="105dp"
+            android:layout_height="46dp"
+            android:background="#0169A1"
+            android:text="Range:"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoStatManaTitle" />
+
+        <TextView
+            android:id="@+id/characterinfoAbilityDescription"
+            android:layout_width="410dp"
+            android:layout_height="140dp"
+            android:fontFamily="monospace"
+            android:text="Big Bone strikes one target for damage. It then bounces between multiple enemies up to five times."
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoAbilityTitle" />
+
+        <TextView
+            android:id="@+id/characterinfoAbilityName"
+            android:layout_width="291dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:text="Big Bone"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="34sp"
+            app:layout_constraintStart_toEndOf="@id/characterinfoAbilityTitle"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoImage" />
+
+        <TextView
+            android:id="@+id/characterinfoStatTitle"
+            android:layout_width="410dp"
+            android:layout_height="45dp"
+            android:background="#01469A"
+            android:text="Stats:"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="34sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoAbilityDescription" />
+
+        <TextView
+            android:id="@+id/characterinfoAbilityTitle"
+            android:layout_width="103dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:text="Ability:"
+            android:textAlignment="viewStart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoImage" />
+
+        <TextView
+            android:id="@+id/characterinfoCostValue"
+            android:layout_width="114dp"
+            android:layout_height="59dp"
+            android:background="#A12BBC"
+            android:text="1"
+            android:textAlignment="viewStart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@id/characterinfoCostName"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoName" />
+
+        <TextView
+            android:id="@+id/characterinfoCostName"
+            android:layout_width="177dp"
+            android:layout_height="59dp"
+            android:background="#A12BBC"
+            android:text="Cost: "
+            android:textAlignment="viewEnd"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@+id/characterinfoImage"
+            app:layout_constraintTop_toBottomOf="@id/characterinfoName" />
+
+        <include
+            android:id="@+id/include2"
+            layout="@layout/main_top_bar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+
+        <ImageView
+            android:id="@+id/characterinfoImage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include2"
+            app:srcCompat="@drawable/akali_square" />
+
+        <TextView
+            android:id="@+id/characterinfoName"
+            android:layout_width="291dp"
+            android:layout_height="60dp"
+            android:background="#A12BBC"
+            android:text="Graves"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/characterinfoImage"
+            app:layout_constraintTop_toBottomOf="@+id/include2" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/turquoise">
+
+        <include layout="@layout/main_nav_drawer" />
+    </RelativeLayout>
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

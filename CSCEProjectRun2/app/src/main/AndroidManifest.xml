@@ -36,6 +36,9 @@
             android:name=".CurrentCharacters"
             android:exported="true" />
         <activity
+            android:name=".CharacterInfo"
+            android:exported="true"/>
+        <activity
             android:name=".ItemBuilder"
             android:exported="true" />
         <activity

@@ -1,6 +1,8 @@
 package com.example.csceprojectrun2;
 
-public class Stats {
+import java.io.Serializable;
+
+public class Stats implements Serializable {
     int armor;
     double attackSpeed;
     float critChance;
@@ -24,5 +26,16 @@ public class Stats {
         this.mana = mana;
         this.range = range;
     }
+
+    public int getArmor() {return armor;}
+    public double getAttackSpeed() {return attackSpeed;}
+    public float getCritChance() {return critChance;}
+    public double getCritMultiplier() {return critMultiplier;}
+    public int getDamage() {return damage;}
+    public int getHp() {return hp;}
+    public int getInitialMana() {return initialMana;}
+    public int getMagicResist() {return magicResist;}
+    public int getMana() {return mana;}
+    public int getRange() {return range;}
 
 }
