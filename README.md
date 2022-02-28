@@ -27,6 +27,8 @@ gets flooded with API key requests so we believe it will take a while for us to 
 For testing login you can use Test as the username and Test as the password. They are case sensitive so if you 
 input lowercase it will not work.
 
+For testing search feature you can use "Liquid Goose" "NA1".
+
 ## Testing Technology
 
 ## Running Tests
