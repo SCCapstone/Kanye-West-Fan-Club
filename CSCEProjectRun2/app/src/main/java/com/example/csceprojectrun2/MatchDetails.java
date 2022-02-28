@@ -4,7 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import android.os.Bundle;
@@ -14,8 +19,11 @@ import android.widget.ListView;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.*;
+import java.util.Random;
 
-public class MatchDetails extends AppCompatActivity{
+import javax.json.JsonObject;
+
+public class MatchDetails extends AppCompatActivity {
 
     ScrollView matchDetailsContainer;
 
@@ -26,17 +34,22 @@ public class MatchDetails extends AppCompatActivity{
 
 
     public static String[] viewMatchData() {
+        String APIKEY = "RGAPI-81ace43f-3418-42e5-88ef-659d62f70c1c";
+        String puuid = "bWxLgFEOjkoSZh8rQ4hGNAvIDd_gWRGlybnlqQzVaQJdMKvHACDu0fzrMJGRYNra_C61q8z2vkXKng";
+        String MATCH;
 
-//Take In key puuid and match
-        String APIKEY = "RGAPI-9e7e96bb-7396-4e04-be8d-a79d7b51c631";
-        String PUUID = "HCuIWTxI-m_MifnTtvqiKmDJK1G925Poz9vn9FEV75ufFii8DJwlR53LLmw8979ytmdEPI9BxHpYyA";
-        String MATCH = "NA1_4107774217";
+        String MATCH1 = "NA1_4107774217";
+        String MATCH2 = "NA1_4172043823";
+        String MATCH3 = "NA1_4172045804";
+        String MATCH4 = "NA1_4172133214";
+        String MATCH5 = "NA1_4172088092";
+        String MATCH6 = "NA1_4172138764";
 
-//        MatchFeed.getMatchID();
-//        String zoinks = MatchFeed.matID();//Retrieve the name
-//        System.out.print(APIKEY);
-//        System.out.print(zoinks);
-
+        String[] boink = {MATCH1, MATCH2, MATCH3, MATCH4, MATCH5, MATCH6};
+        Random rand = new Random();
+        int mat = rand.nextInt(boink.length);
+        MATCH = boink[mat];
+        //String MATCH = "NA1_4172138764";
 
         URL call1;
         String call1resp;
@@ -44,10 +57,9 @@ public class MatchDetails extends AppCompatActivity{
 
         StringBuilder sb = new StringBuilder();
         try {
-
-            call1 = new URL ("https://americas.api.riotgames.com/tft/match/v1/matches/"+MATCH+"?api_key="+APIKEY);
-            BufferedReader read = new BufferedReader( new InputStreamReader(call1.openStream()));
-            while((call1resp = read.readLine()) != null)
+            call1 = new URL("https://americas.api.riotgames.com/tft/match/v1/matches/" + MATCH + "?api_key=" + APIKEY);
+            BufferedReader read = new BufferedReader(new InputStreamReader(call1.openStream()));
+            while ((call1resp = read.readLine()) != null)
                 sb.append(call1resp + "\n");
             read.close();
         } catch (Exception e) {
@@ -55,23 +67,23 @@ public class MatchDetails extends AppCompatActivity{
         }
 
 
-
         String tester = sb.toString();
         //TOTAL SUBSTRING
         String total = tester.substring(tester.indexOf(""));
         //finding puuid in match data
         int x = 0;
-        for (int index = total.indexOf(PUUID); index >= 0; index = total.indexOf(PUUID, index + 1)) {
+        for (int index = total.indexOf(puuid); index >= 0; index = total.indexOf(puuid, index + 1)) {
             x = index;
 
         }
+        x = total.lastIndexOf(puuid);
 
         //finding the end of players match data
         int y = 0;
         int first = 0;
         int index2;
         for (index2 = total.indexOf("companion"); index2 >= 0; index2 = total.indexOf("companion", index2 + 1)) {
-            if(index2>x&&first==0) {
+            if (index2 > x && first == 0) {
                 ++first;
                 y = index2;
             }
@@ -79,47 +91,34 @@ public class MatchDetails extends AppCompatActivity{
 
         String playersData = tester.substring(x, y);
 
-
-        int [] units = new int[700];
+        int[] units = new int[700];
         int i = 0;
-        for (int unitIndex = playersData.indexOf("TFT");unitIndex >= 0; unitIndex = playersData.indexOf("TFT", unitIndex + 1)) {
-            units [i] = unitIndex;
+        for (int unitIndex = playersData.indexOf("TFT"); unitIndex >= 0; unitIndex = playersData.indexOf("TFT", unitIndex + 1)) {
+            units[i] = unitIndex;
             i++;
         }
 
 
-
         int j = 0;
-        int [] unitE = new int[700];
-        for (int unitEnd = playersData.indexOf("\",\"items\":");unitEnd >= 0; unitEnd = playersData.indexOf("\",\"items\":", unitEnd + 1)) {
-            unitE [j] = unitEnd;
+        int[] unitE = new int[700];
+        for (int unitEnd = playersData.indexOf("\",\"items\":"); unitEnd >= 0; unitEnd = playersData.indexOf("\",\"items\":", unitEnd + 1)) {
+            unitE[j] = unitEnd;
             j++;
         }
 
-
-
         //adding units to list
-        String [] unitlist = new String [i+1];
-        for(int z = 0; i>= z; z++) {
-        	//Creates a list of units
-        	unitlist [z] = playersData.substring(units[z], unitE[z]);
+        String[] unitlist = new String[i];
+        for (int z = 0; i > z; z++) {
+            //Creates a list of units
+            unitlist[z] = playersData.substring(units[z], unitE[z]);
+
+
+            System.out.println(unitlist[z]);
         }
 
 
-
-           /* ArrayList<String> unitALL = new ArrayList<String>();
-            for(int r = 0;  i>= r; r++) {
-                unitALL.toArray(unitlist[r]);
-            }
-            return (unitALL);*/
-
-
-        return(unitlist);
-        //OUTPUT THE UNIT LIST
-
+        return (unitlist);
     }
-
-
 
 
 
@@ -127,7 +126,7 @@ public class MatchDetails extends AppCompatActivity{
     DrawerLayout drawerLayout;
 
     /////////////////////////////////////////////////////////////////////////////////////////
-   //private static String z = MATCH;
+    //private static String z = MATCH;
 /*
     public static void viewMatchData(){
         String a = MATCH;
@@ -149,8 +148,7 @@ public class MatchDetails extends AppCompatActivity{
 */
 
 
-
-/////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
 /*
 
     //MatchID fetch
@@ -165,7 +163,32 @@ public class MatchDetails extends AppCompatActivity{
             matID[z] = listOfUnits[z];
         }
     }*/
-    String matID[] = { "Vi", "Zac", "Urgot", "Yuumi", "Jinx", "Tahmkench", "Jayce"};
+
+    public static String[] viewMatchData2() {
+
+
+        Random rand = new Random();
+
+        String boink1[] = {"TFT6_Zyra","TFT6_Zac","TFT6_Lissandra","TFT6_Heimerdinger","TFT6_Taric","TFT6_Orianna","TFT6_Janna","TFT6_Janna"};
+        String boink2[] = {"TFT6_Ezreal","TFT6_Zilean"," TFT6_Heimerdinger","TFT6_Braum","TFT6_Taric","TFT6_Seraphine","TFT6_Jayce","TFT6_Janna"};
+        String boink3[] = {"TFT6_Twitch", "TFT6_Katarina", "TFT6_Blitzcrank", "TFT6_Talon", "TFT6_Leona", "TFT6_Shaco", "TFT6_Ekko"};
+        int mat = rand.nextInt(3);
+        if(mat==1){
+            return(boink1);
+        }
+        if(mat==1){
+            return(boink2);
+        }
+        else {
+            return(boink3);
+        }
+    }
+    String matID[] = viewMatchData2();
+    //String matID[] = {"Vi", "Zac", "Urgot", "Yuumi", "Jinx", "Tahmkench", "Jayce"};
+
+
+
+
     ListView Ulist;
 
     @Override
@@ -173,6 +196,8 @@ public class MatchDetails extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.match_details);
 //v
+
+
         Ulist = findViewById(R.id.list);
         ArrayAdapter<String> arr;
         arr
@@ -181,82 +206,124 @@ public class MatchDetails extends AppCompatActivity{
                 R.layout.support_simple_spinner_dropdown_item, matID);
         Ulist.setAdapter(arr);
 //^
-
-
         drawerLayout = findViewById(R.id.drawer_layout);
 
         // temp functionality to go to match feed, to make merging everything in easier
 
         //Assign variable
         drawerLayout = findViewById(R.id.drawer_layout);
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void ClickMenu(View view) {
         //Open drawer
-        MainActivity.openDrawer(drawerLayout);
+        openDrawer(drawerLayout);
     }
 
-
-
-
-
-
-    public static void openDrawer(DrawerLayout drawerLayout){
+    public static void openDrawer(DrawerLayout drawerLayout) {
         //Open drawer layout
         drawerLayout.openDrawer(GravityCompat.START);
     }
 
+    public void ClickLogo(View view) {
+        //Close drawer
+        closeDrawer(drawerLayout);
+    }
 
-    public static void closeDrawer(DrawerLayout drawerLayout){
+    public static void closeDrawer(DrawerLayout drawerLayout) {
         //Close drawer layout
         //Check condition
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             //When drawer is open
             //Close drawer
             drawerLayout.closeDrawer(GravityCompat.START);
         }
     }
 
-
-
-
-
-
-
-    public void ClickLogo(View view) {
-        //Close drawer
-        MainActivity.closeDrawer(drawerLayout);
-    }
     public void ClickHome(View view) {
-        //Redirect to home activity
-        MainActivity.redirectActivity(this,MainActivity.class);
+        //Recreate the Home activity
+        recreate();
     }
-    public void ClickPopularBuilds(View view){
+
+    public void ClickPopularBuilds(View view) {
         //Redirect to Popular Builds activity
-        MainActivity.redirectActivity(this, PopularBuilds.class);
+        redirectActivity(this, PopularBuilds.class);
     }
+
     public void ClickCommunityBuilds(View view) {
         //Redirect to Community Builds activity
-        MainActivity.redirectActivity(this, CommunityBuilds.class);
+        redirectActivity(this, CommunityBuilds.class);
     }
+
     public void ClickCurrentCharacters(View view) {
-        //Redirect to Community Builds activity
-        MainActivity.redirectActivity(this, CurrentCharacters.class);
+        //Redirect to Current Characters activity
+        redirectActivity(this, CurrentCharacters.class);
     }
+
     public void ClickItemBuilder(View view) {
-        //Recreate the Item Builder activity
-        MainActivity.redirectActivity(this,ItemBuilder.class);
+        //Redirect to Item Builder activity
+        redirectActivity(this, ItemBuilder.class);
     }
-    public void ClickLogout(View view){
-        //Logout and close app
-        MainActivity.logout(this);
+
+    public void ClickLogout(View view) {
+        //Logout and close the app
+        logout(this);
+    }
+
+    public static void logout(Activity activity) {
+        //Initialize alert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        //Set title
+        builder.setTitle("Logout");
+        //Set message
+        builder.setMessage("Are you sure you want to logout ?");
+        //Click Yes Button
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Complete activity
+                activity.finishAffinity();
+                //Exit app
+                System.exit(0);
+            }
+        });
+        //Click No Button
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Dismiss dialog
+                dialog.dismiss();
+            }
+        });
+        //Show dialog
+        builder.show();
+    }
+
+    public static void redirectActivity(Activity activity, Class aClass) {
+        //Initialize intent
+        Intent intent = new Intent(activity, aClass);
+        //Set flag
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //Start activity
+        activity.startActivity(intent);
     }
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
         //Close drawer
-        MainActivity.closeDrawer(drawerLayout);
+        closeDrawer(drawerLayout);
     }
 }
