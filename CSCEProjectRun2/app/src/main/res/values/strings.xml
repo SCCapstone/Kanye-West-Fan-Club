@@ -17,6 +17,7 @@
     <string name="attack_damage_10">Attack Damage: +10</string>
     <string name="magic_resist_20">Magic Resist: +20</string>
     <string name="passive_physical_damage_heals_for_33_of_the_damage_dealt_gains_a_30_maximum_health_shield_for_5_seconds_if_the_wearer_falls_below_40_maximum_health">Passive: Physical damage heals for 33% of the damage dealt.Gains a 30% maximum health shield for 5 seconds if the wearer falls below 40% maximum health.</string>
+    <string name="community_build">Community Build</string>
 
     <!--Your comment-->
     <string-array name="basic_item_name">

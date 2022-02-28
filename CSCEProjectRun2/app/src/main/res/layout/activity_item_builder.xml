@@ -14,7 +14,9 @@
         android:orientation="vertical">
 
         <include
-            layout="@layout/main_top_bar"/>
+            layout="@layout/main_top_bar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemRecyclerView"

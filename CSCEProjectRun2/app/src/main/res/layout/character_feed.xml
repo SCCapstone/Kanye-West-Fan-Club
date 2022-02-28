@@ -12,7 +12,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/main_top_bar" />
+        <include
+        layout="@layout/main_top_bar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
 
         <include
             android:id="@+id/character_container"

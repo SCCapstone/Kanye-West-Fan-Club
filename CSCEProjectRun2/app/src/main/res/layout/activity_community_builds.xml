@@ -13,12 +13,14 @@
         android:orientation="vertical">
 
         <include
-            layout="@layout/main_top_bar"/>
+            layout="@layout/main_top_bar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Community Build"
+            android:text="@string/community_build"
             android:textSize="40sp"
             android:textColor="@color/white"
             android:textStyle="bold"

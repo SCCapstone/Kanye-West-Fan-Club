@@ -15,7 +15,9 @@
 
         <include
             android:id="@+id/MainTopBar"
-            layout="@layout/main_top_bar" />
+            layout="@layout/main_top_bar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
 
         <include
             android:id="@+id/match_container"
