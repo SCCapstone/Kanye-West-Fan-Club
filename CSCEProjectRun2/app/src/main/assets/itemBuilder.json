@@ -1,0 +1,702 @@
+[
+  {
+    "name": "B.F. Sword",
+    "buildItems": [
+      {
+        "buildName": "Bloodthirster",
+        "firstItemName": "B.F. Sword",
+        "secondItemName": "Negatron Cloak",
+        "attr1": "Attack Damage: +10",
+        "attr2": "Magic Resist: +20",
+        "attr3": "",
+        "desc": "Passive: Physical damage heals for 33% of the damage dealt.Gains a 30% maximum health shield for 5 seconds if the wearer falls below 40% maximum health."
+      },
+      {
+        "buildName": "Deathblade",
+        "firstItemName": "B.F. Sword",
+        "secondItemName": "B.F. Sword",
+        "attr1": "Attack Damage: +20",
+        "attr2": "",
+        "attr3": "",
+        "desc": "The holder gains 50 / 75 / 100 bonus Attack Damage (including components)."
+      },
+      {
+        "buildName": "Edge of Night",
+        "firstItemName": "B.F. Sword",
+        "secondItemName": "Chain Vest",
+        "attr1": "Attack Damage: +10",
+        "attr2": "Armor: +20",
+        "attr3": "",
+        "desc": "Passive: When the holder first drops below 50% health, they briefly enter stealth, becoming untargetable and shedding negative effects. After coming out of stealth, the holder gains an additional 40% bonus Attack Speed."
+      },
+      {
+        "buildName": "Giant Slayer",
+        "firstItemName": "B.F. Sword",
+        "secondItemName": "Recurve Bow",
+        "attr1": "Attack Damage; +10",
+        "attr2": "Attack Speed: +10%",
+        "attr3": "",
+        "desc": "Passive: Basic attacks and spells gain 20% increased damage (pre-mitigation), increased to 60% if the enemy has over 1800 maximum health."
+      },
+      {
+        "buildName": "Hextech Gunblade",
+        "firstItemName": "B.F. Sword",
+        "secondItemName": "Needlessly Large Rod",
+        "attr1": "Attack Damage: +10",
+        "attr2": "Ability Power: +10",
+        "attr3": "",
+        "desc": "The wearer's magic and true damage from abilities heal the wearer and the lowest health ally for 33% of the damage dealt."
+      },
+      {
+        "buildName": "Infinity Edge",
+        "firstItemName": "B.F. Sword",
+        "secondItemName": "Sparring Gloves",
+        "attr1": "Attack Damage: +10",
+        "attr2": "",
+        "attr3": "",
+        "desc": "Passive: Converts every 1% excess critical strike chance into 1% bonus critical strike damage. Can only equip one of this item."
+      },
+      {
+        "buildName": "Spear of Shojin",
+        "firstItemName": "B.F. Sword",
+        "secondItemName": "Tear of the Goddess",
+        "attr1": "Attack Damage: +10",
+        "attr2": "Starting Mana: +15",
+        "attr3": "",
+        "desc": "Passive: Basic attacks restore an additional 8 mana on-attack."
+      },
+      {
+        "buildName": "Zeke's Herald",
+        "firstItemName": "B.F. Sword",
+        "secondItemName": "Giant's Belt",
+        "attr1": "Attack Damage: +10",
+        "attr2": "Health: +150",
+        "attr3": "",
+        "desc": "Passive: At the start of combat, the wearer and all allies within 1 hex in the same row to the left and right gain 30% bonus attack speed for the rest of combat."
+      },
+      {
+        "buildName": "",
+        "firstItemName": "",
+        "secondItemName": "",
+        "attr1": "",
+        "attr2": "",
+        "attr3": "",
+        "desc": ""
+      }
+    ]
+  },
+  {
+    "name": "Chain Vest",
+    "buildItems": [
+      {
+        "buildName": "Bramble Vest",
+        "firstItemName": "Chain Vest",
+        "secondItemName": "Chain Vest",
+        "attr1": "Armor: +70",
+        "attr2": "",
+        "attr3": "",
+        "desc": "Passive: Negates bonus damage from incoming critical hits. On being hit by an attack, deal 60 / 80 / 120 magic damage to all nearby enemies (once every 2.5 seconds)."
+      },
+      {
+        "buildName": "Edge of Night",
+        "firstItemName": "Chain Vest",
+        "secondItemName": "B.F. Sword",
+        "attr1": "Attack Damage: +10",
+        "attr2": "Armor: +20",
+        "attr3": "",
+        "desc": "Passive: When the holder first drops below 50% health, they briefly enter stealth, becoming untargetable and shedding negative effects. After coming out of stealth, the holder gains an additional 40% bonus Attack Speed."
+      },
+      {
+        "buildName": "Frozen Heart",
+        "firstItemName": "Chain Vest",
+        "secondItemName": "Tear of the Goddess",
+        "attr1": "Armor: +20",
+        "attr2": "Starting Mania: +15",
+        "attr3": "",
+        "desc": "Passive: Reduces the attack speed of enemies within 2 hexes by 35% for 0.5 seconds. Can only equip one of this item."
+      },
+      {
+        "buildName": "Gargoyle Stoneplate",
+        "firstItemName": "Chain Vest",
+        "secondItemName": "Negatron Cloak",
+        "attr1": "Armor: +20",
+        "attr2": "Magic Resist: +20",
+        "attr3": "",
+        "desc": "Passive: The holder gains 18 bonus armor and bonus magic resistance for each enemy targeting them."
+      },
+      {
+        "buildName": "Locket of the Iron Solari",
+        "firstItemName": "Chain Vest",
+        "secondItemName": "Needlessly Large Rod",
+        "attr1": "Armor: +20",
+        "attr2": "Ability Power: +10",
+        "attr3": "",
+        "desc": "At the start of combat, the wearer and all allies within 2 hexes in the same row to the left and right gain a 300 / 350 / 400 (based on Star level) health shield for 15 seconds."
+      },
+      {
+        "buildName": "Shroud of Stillness",
+        "firstItemName": "Chain Vest",
+        "secondItemName": "Brawlers Gloves",
+        "attr1": "Armor: +20",
+        "attr2": "Dodge Chance: +15",
+        "attr3": "",
+        "desc": "Passive: When combat begins, shoots a beam straight ahead in a 1.5-hex line that delays affected enemies' first spellcast, increasing their maximum mana by 35% until they cast. Can only equip one of this item."
+      },
+      {
+        "buildName": "Sunfire Cape",
+        "firstItemName": "Chain Vest",
+        "secondItemName": "Giant's Belt",
+        "attr1": "Armor: +20",
+        "attr2": "Health: +150",
+        "attr3": "",
+        "desc": "Passive: At start of combat, and every 2 seconds thereafter, applies a 8-second burn to a random enemy within 2 hexes, dealing 2% of target's maximum health true damage each second and applying Grievous Wounds for the duration."
+      },
+      {
+        "buildName": "Titan's Resolve",
+        "firstItemName": "Chain Vest",
+        "secondItemName": "Recurve Bow",
+        "attr1": "Armor: +20",
+        "attr2": "Attack Speed: +10%",
+        "attr3": "",
+        "desc": "Passive: When the wearer basic attacks or takes damage from any source, grants 2 bonus attack damage and 2 ability power for the rest of combat, stacking up 25 times for a maximum of 50."
+      },
+      {
+        "buildName": "",
+        "firstItemName": "",
+        "secondItemName": "",
+        "attr1": "",
+        "attr2": "",
+        "attr3": "",
+        "desc": ""
+      }
+    ]
+  },
+  {
+    "name": "Giant's Belt",
+    "buildItems": [
+      {
+        "buildName": "Banshee's Claw",
+        "firstItemName": "Giant's Belt",
+        "secondItemName": "Sparring Gloves",
+        "attr1": "Dodge Chance: +15%",
+        "attr2": "Health: +150",
+        "attr3": "",
+        "desc": "Passive: At the beginning of each round, the holder and allies within 1 hex in the same row gain a shield that blocks the first enemy ability, up to 600 damage."
+      },
+      {
+        "buildName": "Morellonomicon",
+        "firstItemName": "Giant's Belt",
+        "secondItemName": "Needlessly Large Rod",
+        "attr1": "Attack Damage: +20",
+        "attr2": "Health +150",
+        "attr3": "",
+        "desc": "Passive: Dealing magic or true damage with an ability applies a burn on the enemies hit for 10 seconds, dealing 2% of target's maximum health true damage each second and applying Grevious Wounds for the duration."
+      },
+      {
+        "buildName": "Redemption",
+        "firstItemName": "Giant's Belt",
+        "secondItemName": "Tear of the Goddess",
+        "attr1": "Health: +150",
+        "attr2": "Starting Mana: +15",
+        "attr3": "",
+        "desc": "Passive: Every 5 seconds, the wearer radiates an aura to allies within 1 hex, healing them for 18% missing health. Affected allies take 25% reduced damage from area-of-effect attacks for 5 seconds."
+      },
+      {
+        "buildName": "Sunfire Cape",
+        "firstItemName": "Giant's Belt",
+        "secondItemName": "Chain Vest",
+        "attr1": "Armor: +20",
+        "attr2": "Health: +150",
+        "attr3": "",
+        "desc": "Passive: At start of combat, and every 2 seconds thereafter, applies a 8-second burn to a random enemy within 2 hexes, dealing 2% of target's maximum health true damage each second and applying Grievous Wounds for the duration."
+      },
+      {
+        "buildName": "Warmogs Armor",
+        "firstItemName": "Giant's Belt",
+        "secondItemName": "Giant's Belt",
+        "attr1": "Health: +1000",
+        "attr2": "",
+        "attr3": "",
+        "desc": "Wearer regenerates 6% missing Health per second."
+      },
+      {
+        "buildName": "Zeke's Herald",
+        "firstItemName": "Giant's Belt",
+        "secondItemName": "B.F. Sword",
+        "attr1": "Attack Damage: +10",
+        "attr2": "Health: +150",
+        "attr3": "",
+        "desc": "Passive: At the start of combat, the wearer and all allies within 1 hex in the same row to the left and right gain 30% bonus attack speed for the rest of combat."
+      },
+      {
+        "buildName": "Zephyr",
+        "firstItemName": "Giant's Belt",
+        "secondItemName": "Negatron Cloak",
+        "attr1": "Health: +150",
+        "attr2": "Magic Resist: +20",
+        "attr3": "",
+        "desc": "Passive: At the start of combat, Stasis banishes for 5 seconds the unit that mirrors the wielder's placement on the other side of the board. Pierces through CC immunity effects."
+      },
+      {
+        "buildName": "Zz'Rot Portal",
+        "firstItemName": "Giant's Belt",
+        "secondItemName": "Recurve Bow",
+        "attr1": "Attack Speed: +10%",
+        "attr2": "Health: +150",
+        "attr3": "",
+        "desc": "Passive: At the start of combat, the wearer taunts enemies within 4 hexes. When the wearer dies, a Voidspawn arises, taunting nearby enemies. Summoned units can spawn Voidspawns at 25% effectiveness."
+      }
+    ,
+      {
+        "buildName": "",
+        "firstItemName": "",
+        "secondItemName": "",
+        "attr1": "",
+        "attr2": "",
+        "attr3": "",
+        "desc": ""
+      }
+    ]
+  },
+  {
+    "name": "Needlessly Large Rod",
+    "buildItems": [
+      {
+        "buildName": "Archangel's Staff",
+        "firstItemName": "Needlessly Large Rod",
+        "secondItemName": "Tear of the Goddess",
+        "attr1": "Ability Power: +10",
+        "attr2": "Starting Mana: +15",
+        "attr3": "",
+        "desc": "Passive: Grants the wearer 25 ability power every 5 seconds."
+      },
+      {
+        "buildName": "Guinsoo's Rageblade",
+        "firstItemName": "Needlessly Large Rod",
+        "secondItemName": "Recurve Bow",
+        "attr1": "Attack Speed: +10%",
+        "attr2": "Ability Power: +10",
+        "attr3": "",
+        "desc": "Passive: Basic attacks grant 6% bonus attack speed for the rest of combat. Stacks with no upper limit."
+      },
+      {
+        "buildName": "Hextech Gunblade",
+        "firstItemName": "Needlessly Large Rod",
+        "secondItemName": "B.F. Sword",
+        "attr1": "Attack Damage: +10",
+        "attr2": "Ability Power: +10",
+        "attr3": "",
+        "desc": "The wearer's magic and true damage from abilities heal the wearer and the lowest health ally for 33% of the damage dealt."
+      },
+      {
+        "buildName": "Ionic Spark",
+        "firstItemName": "Needlessly Large Rod",
+        "secondItemName": "Negatron Cloak",
+        "attr1": "Magic Resist: +20",
+        "attr2": "Ability Power: +10",
+        "attr3": "",
+        "desc": "Passive: Enemies within 2 hexes have their magic resistance reduced by 50% (does not stack). When enemies within 2 hexes cast their ability, they are dealt 200% of their maximum mana as magic damage."
+      },
+      {
+        "buildName": "Jeweled Gauntlet",
+        "firstItemName": "Needlessly Large Rod",
+        "secondItemName": "Sparring Gloves",
+        "attr1": "Ability Power: +20",
+        "attr2": "",
+        "attr3": "",
+        "desc": "Passive: The holder's magic and true damage from abilities can critically strike."
+      },
+      {
+        "buildName": "Locket of the Iron Solari",
+        "firstItemName": "Needlessly Large Rod",
+        "secondItemName": "Chain Vest",
+        "attr1": "Armor: +20",
+        "attr2": "Ability Power: +10",
+        "attr3": "",
+        "desc": "Passive At the start of combat, the wearer and all allies within 2 hexes in the same row to the left and right gain a 300 / 350 / 400 (based on Star level) health shield for 15 seconds."
+      },
+      {
+        "buildName": "Morellonomicon",
+        "firstItemName": "Needlessly Large Rod",
+        "secondItemName": "Giant's Belt",
+        "attr1": "Attack Damage: +20",
+        "attr2": "Health: +150",
+        "attr3": "",
+        "desc": "Passive: Dealing magic or true damage with an ability applies a burn on the enemies hit for 10 seconds, dealing 2% of target's maximum health true damage each second and applying Grevious Wounds for the duration"
+      },
+      {
+        "buildName": "Rabadon's Deathcap",
+        "firstItemName": "Needlessly Large Rod",
+        "secondItemName": "Needlessly Large Rod",
+        "attr1": "Ability Power: +75",
+        "attr2": "",
+        "attr3": "",
+        "desc": "When equipped Spell Damage +50% AP."
+      }
+    ,
+      {
+        "buildName": "",
+        "firstItemName": "",
+        "secondItemName": "",
+        "attr1": "",
+        "attr2": "",
+        "attr3": "",
+        "desc": ""
+      }
+    ]
+  },
+  {
+    "name": "Negatron Cloak",
+    "buildItems": [
+      {
+        "buildName": "Bloodthirster",
+        "firstItemName": "Negatron Cloak",
+        "secondItemName": "Negatron Cloak",
+        "attr1": "Attack Damage: +10",
+        "attr2": "Magic Resist: +20",
+        "attr3": "",
+        "desc": "Passive: Physical damage heals for 33% of the damage dealt.Gains a 30% maximum health shield for 5 seconds if the wearer falls below 40% maximum health."
+      },
+      {
+        "buildName": "Chalice of Power",
+        "firstItemName": "Negatron Cloak",
+        "secondItemName": "Tear of the Goddess",
+        "attr1": "Magic Resist: +20",
+        "attr2": "Starting Mana: +15",
+        "attr3": "",
+        "desc": "Passive: At the start of combat, the wearer and all allies within 1 hex in the same row to the left and right gain 30 ability power for the rest of combat."
+      },
+      {
+        "buildName": "Dragon's Claw",
+        "firstItemName": "Negatron Cloak",
+        "secondItemName": "Negatron Cloak",
+        "attr1": "Magic Resist: +200",
+        "attr2": "",
+        "attr3": "",
+        "desc": "Passive: On being hit by magic or true damage from an ability, launch a fireball at the ability's caster that deals 18% of their maximum health magic damage (0.5 second cooldown)."
+      },
+      {
+        "buildName": "Gargoyle Stoneplate",
+        "firstItemName": "Negatron Cloak",
+        "secondItemName": "Chain Vest",
+        "attr1": "Armor: +20",
+        "attr2": "Magic Resist: +20",
+        "attr3": "",
+        "desc": "Passive: The holder gains 18 bonus armor and bonus magic resistance for each enemy targeting them."
+      },
+      {
+        "buildName": "Ionic Spark",
+        "firstItemName": "Negatron Cloak",
+        "secondItemName": "Needlessly Large Rod",
+        "attr1": "Magic Resist: +20",
+        "attr2": "Ability Power: +10",
+        "attr3": "",
+        "desc": "Passive: Enemies within 2 hexes have their magic resistance reduced by 50% (does not stack). When enemies within 2 hexes cast their ability, they are dealt 200% of their maximum mana as magic damage."
+      },
+      {
+        "buildName": "Runaans Hurricane",
+        "firstItemName": "Negatron Cloak",
+        "secondItemName": "Recurve Bow",
+        "attr1": "Magic Resist: +20",
+        "attr2": "Attack Speed: +10%",
+        "attr3": "Attack Damage: +10",
+        "desc": "Passive: Basic attacks fire an additional bolt at another nearby enemy, dealing 70% AD physical damage. Bolts can critically strike and have infinite range."
+      },
+      {
+        "buildName": "Zephyr",
+        "firstItemName": "Negatron Cloak",
+        "secondItemName": "Giant's Belt",
+        "attr1": "Health: +150",
+        "attr2": "Magic Resist: +20",
+        "attr3": "",
+        "desc": "Passive: At the start of combat, Stasis banishes for 5 seconds the unit that mirrors the wielder's placement on the other side of the board. Pierces through CC immunity effects."
+      }
+    ,
+      {
+        "buildName": "",
+        "firstItemName": "",
+        "secondItemName": "",
+        "attr1": "",
+        "attr2": "",
+        "attr3": "",
+        "desc": ""
+      }
+    ]
+  },
+  {
+    "name": "Recurve Bow",
+    "buildItems": [
+      {
+        "buildName": "Giant Slayer",
+        "firstItemName": "Recurve Bow",
+        "secondItemName": "B.F. Sword",
+        "attr1": "Attack Damage: +10",
+        "attr2": "Attack Speed: +10%",
+        "attr3": "",
+        "desc": "Passive: Basic attacks and spells gain 20% increased damage (pre-mitigation), increased to 60% if the enemy has over 1800 maximum health."
+      },
+      {
+        "buildName": "Guinsoo's Rageblade",
+        "firstItemName": "Recurve Bow",
+        "secondItemName": "Needlessly Large Rod",
+        "attr1": "Attack Speed: +10%",
+        "attr2": "Ability Power: +10",
+        "attr3": "",
+        "desc": "Passive: Basic attacks grant 6% bonus attack speed for the rest of combat. Stacks with no upper limit."
+      },
+      {
+        "buildName": "Last Whisper",
+        "firstItemName": "Recurve Bow",
+        "secondItemName": "Brawlers Gloves",
+        "attr1": "Attack Speed +10%",
+        "attr2": "",
+        "attr3": "",
+        "desc": "Passive: Critical strike hits reduce the target's armor by 70% for 5 seconds. This effect does not stack. Can only equip one of this item."
+      },
+      {
+        "buildName": "Rapid Firecannon",
+        "firstItemName": "Recurve Bow",
+        "secondItemName": "Recurve Bow",
+        "attr1": "Attack Speed: 55%",
+        "attr2": "",
+        "attr3": "",
+        "desc": "Passive: Increases the wearer's attack range by 1 hex. Basic attacks cannot miss."
+      },
+      {
+        "buildName": "Runaans Hurricane",
+        "firstItemName": "Recurve Bow",
+        "secondItemName": "Negatron Cloak",
+        "attr1": "Magic Resist: +20",
+        "attr2": "Attack Speed: +10%",
+        "attr3": "Attack Damage: +10",
+        "desc": "Passive: Basic attacks fire an additional bolt at another nearby enemy, dealing 70% AD physical damage. Bolts can critically strike and have infinite range."
+      },
+      {
+        "buildName": "Statikk Shiv",
+        "firstItemName": "Recurve Bow",
+        "secondItemName": "Tear of the Goddess",
+        "attr1": "Attack Speed: +20%",
+        "attr2": "Starting Mana: +15",
+        "attr3": "",
+        "desc": "Passive: Every third basic attack from the wearer deals 70 magic damage to the target and 3 additional targets, while also reducing their magic resistance by 50% for 5 seconds."
+      },
+      {
+        "buildName": "Titan's Resolve",
+        "firstItemName": "Recurve Bow",
+        "secondItemName": "Chain Vest",
+        "attr1": "Armor: +20",
+        "attr2": "Attack Speed: 10%",
+        "attr3": "",
+        "desc": "Passive: When the wearer basic attacks or takes damage from any source, grants 2 bonus attack damage and 2 ability power for the rest of combat, stacking up 25 times for a maximum of 50."
+      },
+      {
+        "buildName": "Zz'Rot Portal",
+        "firstItemName": "Recurve Bow",
+        "secondItemName": "Giant's Belt",
+        "attr1": "Attack Speed: +10%",
+        "attr2": "Health: +150",
+        "attr3": "",
+        "desc": "Passive: At the start of combat, the wearer taunts enemies within 4 hexes. When the wearer dies, a Voidspawn arises, taunting nearby enemies. Summoned units can spawn Voidspawns at 25% effectiveness."
+      },
+      {
+        "buildName": "",
+        "firstItemName": "",
+        "secondItemName": "",
+        "attr1": "",
+        "attr2": "",
+        "attr3": "",
+        "desc": ""
+      }
+    ]
+  },
+  {
+    "name": "Sparring Gloves",
+    "buildItems": [
+      {
+        "buildName": "Banshee's Claw",
+        "firstItemName": "Sparring Gloves",
+        "secondItemName": "Giant's Belt",
+        "attr1": "Dodge Chance: +15%",
+        "attr2": "Health: +150",
+        "attr3": "",
+        "desc": "Passive: At the beginning of each round, the holder and allies within 1 hex in the same row gain a shield that blocks the first enemy ability, up to 600 damage."
+      },
+      {
+        "buildName": "Hand of Justice",
+        "firstItemName": "Sparring Gloves",
+        "secondItemName": "Tear of the Goddess",
+        "attr1": "Starting Mana: +15",
+        "attr2": "",
+        "attr3": "",
+        "desc": "Passive: Grants 10 bonus attack damage and 10 ability power. Basic attacks and abilities heal for 10% of the damage dealt.At the start of each round, one of these buffs is increased to 33(%)."
+      },
+      {
+        "buildName": "Infinity Edge",
+        "firstItemName": "Sparring Gloves",
+        "secondItemName": "B.F. Sword",
+        "attr1": "Attack Damage: +10",
+        "attr2": "",
+        "attr3": "",
+        "desc": "Passive: Converts every 1% excess critical strike chance into 1% bonus critical strike damage. Can only equip one of this item."
+      },
+      {
+        "buildName": "Jeweled Gauntlet",
+        "firstItemName": "Sparring Gloves",
+        "secondItemName": "Needlessly Large Rod",
+        "attr1": "Ability Power: +20",
+        "attr2": "",
+        "attr3": "",
+        "desc": "Passive: The holder's magic and true damage from abilities can critically strike."
+      },
+      {
+        "buildName": "Quicksilver",
+        "firstItemName": "Sparring Gloves",
+        "secondItemName": "Negatron Cloak",
+        "attr1": "Attack Speed: +20",
+        "attr2": "Magic Resist: +20",
+        "attr3": "Dodge Chance: +15%",
+        "desc": "Passive: The wearer is immune to attack damage debuffs and crowd control effects for the first 15 seconds of combat. Can only equip one of this item."
+      },
+      {
+        "buildName": "Thief's Gloves",
+        "firstItemName": "Sparring Gloves",
+        "secondItemName": "Sparring Gloves",
+        "attr1": "Dodge Chance: +15%",
+        "attr2": "",
+        "attr3": "",
+        "desc": "Passive: At the beginning of each round, the wearer equips 2 random items that are removed at the end of the round. The quality of these items are based on player level."
+      },
+      {
+        "buildName": "",
+        "firstItemName": "",
+        "secondItemName": "",
+        "attr1": "",
+        "attr2": "",
+        "attr3": "",
+        "desc": ""
+      }
+    ]
+  },
+  {
+    "name": "Spatula",
+    "buildItems": [
+      {
+        "buildName": "Tactician's Crown",
+        "firstItemName": "Spatula",
+        "secondItemName": "Spatula",
+        "attr1": "",
+        "attr2": "",
+        "attr3": "",
+        "desc": "Increases the unit cap by 1."
+      }
+    ]
+  },
+  {
+    "name": "Tear of the Goddess",
+    "buildItems": [
+      {
+        "buildName": "Archangel's Staff",
+        "firstItemName": "Tear of the Goddess",
+        "secondItemName": "Needlessly Large Rod",
+        "attr1": "Ability Power: +10",
+        "attr2": "Starting Mana: +15",
+        "attr3": "",
+        "desc": "Passive: Grants the wearer 25 ability power every 5 seconds."
+      },
+      {
+        "buildName": "Blue Buff",
+        "firstItemName": "Tear of the Goddess",
+        "secondItemName": "Tear of the Goddess",
+        "attr1": "Starting Mana; +50",
+        "attr2": "",
+        "attr3": "",
+        "desc": "After each spellcast, the wearer's mana is set to 20."
+      },
+      {
+        "buildName": "Chalice of Power",
+        "firstItemName": "Tear of the Goddess",
+        "secondItemName": "Negatron Cloak",
+        "attr1": "Magic Resist: +20",
+        "attr2": "Starting Mana: +15",
+        "attr3": "",
+        "desc": "Passive: At the start of combat, the wearer and all allies within 1 hex in the same row to the left and right gain 30 ability power for the rest of combat."
+      },
+      {
+        "buildName": "Frozen Heart",
+        "firstItemName": "Tear of the Goddess",
+        "secondItemName": "Chain Vest",
+        "attr1": "Armor: +20",
+        "attr2": "Starting Mana: +15",
+        "attr3": "",
+        "desc": "Passive: Reduces the attack speed of enemies within 2 hexes by 35% for 0.5 seconds. Can only equip one of this item."
+      },
+      {
+        "buildName": "Hand of Justice",
+        "firstItemName": "Tear of the Goddess",
+        "secondItemName": "Sparring Gloves",
+        "attr1": "Starting Mana: +15",
+        "attr2": "",
+        "attr3": "",
+        "desc": "Passive: Grants 10 bonus attack damage and 10 ability power. Basic attacks and abilities heal for 10% of the damage dealt.At the start of each round, one of these buffs is increased to 33(%)."
+      },
+      {
+        "buildName": "Redemption",
+        "firstItemName": "Tear of the Goddess",
+        "secondItemName": "Giant's Belt",
+        "attr1": "Health: +150",
+        "attr2": "Starting Mana: +15",
+        "attr3": "",
+        "desc": "Passive: Every 5 seconds, the wearer radiates an aura to allies within 1 hex, healing them for 18% missing health. Affected allies take 25% reduced damage from area-of-effect attacks for 5 seconds."
+      },
+      {
+        "buildName": "Spear of Shojin",
+        "firstItemName": "Tear of the Goddess",
+        "secondItemName": "B.F. Sword",
+        "attr1": "Attack Damage; +10",
+        "attr2": "Starting Mana: +15",
+        "attr3": "",
+        "desc": "Basic attacks restore an additional 8 mana on-attack."
+      },
+      {
+        "buildName": "Statikk Shiv",
+        "firstItemName": "Tear of the Goddess",
+        "secondItemName": "Recurve Bow",
+        "attr1": "Attack Speed: +20%",
+        "attr2": "Starting Mana: +15",
+        "attr3": "",
+        "desc": "Passive: Every third basic attack from the wearer deals 70 magic damage to the target and 3 additional targets, while also reducing their magic resistance by 50% for 5 seconds."
+      },
+      {
+        "buildName": "",
+        "firstItemName": "",
+        "secondItemName": "",
+        "attr1": "",
+        "attr2": "",
+        "attr3": "",
+        "desc": ""
+      }
+    ]
+  },
+  {
+    "name": "",
+    "buildItems": [
+      {
+        "buildName": "",
+        "secondItemName": "",
+        "attr1": "",
+        "attr2": "",
+        "attr3": "",
+        "desc": ""
+      },
+      {
+        "buildName": "",
+        "firstItemName": "",
+        "secondItemName": "",
+        "attr1": "",
+        "attr2": "",
+        "attr3": "",
+        "desc": ""
+      }
+    ]
+  }
+]
