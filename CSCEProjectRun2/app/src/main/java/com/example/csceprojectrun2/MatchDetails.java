@@ -9,7 +9,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import android.os.Bundle;
@@ -20,8 +19,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.*;
 import java.util.Random;
-
-import javax.json.JsonObject;
 
 public class MatchDetails extends AppCompatActivity {
 

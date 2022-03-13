@@ -30,6 +30,9 @@
             android:name=".PopularBuilds"
             android:exported="true" />
         <activity
+            android:name=".PopularBuildInfo"
+            android:exported="true" />
+        <activity
             android:name=".CommunityBuilds"
             android:exported="true" />
         <activity
@@ -37,21 +40,20 @@
             android:exported="true" />
         <activity
             android:name=".CharacterInfo"
-            android:exported="true"/>
-        <activity
-            android:name=".ItemBuilder"
             android:exported="true" />
         <activity
             android:name=".MatchFeed"
             android:exported="true" />
         <activity
-            android:name=".BasicItem_Details"
+            android:name=".ItemBuilder"
+            android:exported="true" />
+        <activity
+            android:name=".ItemBuildInfo"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.CSCEProjectRun2.NoActionBar"/>
+            android:theme="@style/Theme.CSCEProjectRun2.NoActionBar" />
     </application>
 
 </manifest>

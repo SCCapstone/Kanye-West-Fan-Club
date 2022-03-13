@@ -1,7 +1,6 @@
 package com.example.csceprojectrun2;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.JsonToken;
@@ -15,15 +14,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import org.json.*;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.json.JsonObject;
 
 public class CurrentCharacters extends AppCompatActivity {
     //Initialize variable
@@ -247,7 +242,7 @@ public class CurrentCharacters extends AppCompatActivity {
 
     public void ClickPopularBuilds(View view){
         //Redirect to Popular Builds activity
-        MainActivity.redirectActivity(this,PopularBuilds.class);
+        MainActivity.redirectActivity(this, PopularBuilds.class);
     }
 
     public void ClickCommunityBuilds(View view) {

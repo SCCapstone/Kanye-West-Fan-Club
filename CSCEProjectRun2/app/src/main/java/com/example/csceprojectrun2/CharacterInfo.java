@@ -3,8 +3,6 @@ package com.example.csceprojectrun2;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -89,7 +87,7 @@ public class CharacterInfo extends AppCompatActivity {
 
     public void ClickPopularBuilds(View view){
         //Redirect to Popular Builds activity
-        MainActivity.redirectActivity(this,PopularBuilds.class);
+        MainActivity.redirectActivity(this, PopularBuilds.class);
     }
 
     public void ClickCommunityBuilds(View view) {

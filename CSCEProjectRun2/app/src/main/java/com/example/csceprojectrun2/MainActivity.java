@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void ClickPopularBuilds(View view){
         //Redirect to Popular Builds activity
-        redirectActivity(this,PopularBuilds.class);
+        redirectActivity(this, PopularBuilds.class);
     }
 
     public void ClickCommunityBuilds(View view){
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void ClickItemBuilder(View view){
         //Redirect to Item Builder activity
-        redirectActivity(this,ItemBuilder.class);
+        redirectActivity(this, ItemBuilder.class);
     }
 
     public void ClickLogout(View view){

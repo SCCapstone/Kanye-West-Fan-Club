@@ -36,7 +36,7 @@ public class CommunityBuilds extends AppCompatActivity {
 
     public void ClickPopularBuilds(View view){
         //Redirect to Popular Builds activity
-        MainActivity.redirectActivity(this,PopularBuilds.class);
+        MainActivity.redirectActivity(this, PopularBuilds.class);
     }
 
     public void ClickCommunityBuilds(View view) {

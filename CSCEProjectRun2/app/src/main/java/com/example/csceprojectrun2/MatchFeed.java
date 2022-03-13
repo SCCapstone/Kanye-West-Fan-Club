@@ -19,7 +19,6 @@ import android.view.*;
 import android.widget.*;
 //import android.view.View;
 //import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -258,7 +257,7 @@ public class MatchFeed extends AppCompatActivity {
 
     public void ClickPopularBuilds(View view){
         //Redirect to Popular Builds activity
-        redirectActivity(this,PopularBuilds.class);
+        redirectActivity(this, PopularBuilds.class);
     }
 
     public void ClickCommunityBuilds(View view){
@@ -273,7 +272,7 @@ public class MatchFeed extends AppCompatActivity {
 
     public void ClickItemBuilder(View view){
         //Redirect to Item Builder activity
-        redirectActivity(this,ItemBuilder.class);
+        redirectActivity(this, ItemBuilder.class);
     }
 
     public void ClickLogout(View view){
