@@ -203,7 +203,7 @@ public class ItemBuilder extends AppCompatActivity {
 
     public void ClickCommunityBuilds(View view) {
         //Recreate the Community Builds activity
-        recreate();
+        MainActivity.redirectActivity(this, CommunityBuilds.class);
     }
 
     public void ClickCurrentCharacters(View view) {
@@ -213,7 +213,7 @@ public class ItemBuilder extends AppCompatActivity {
 
     public void ClickItemBuilder(View view) {
         //Redirect to Item Builder activity
-        MainActivity.redirectActivity(this, ItemBuilder.class);
+        recreate();
     }
 
     public void ClickLogout(View view) {
