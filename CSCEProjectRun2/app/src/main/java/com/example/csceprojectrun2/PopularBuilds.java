@@ -9,9 +9,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -215,8 +218,12 @@ public class PopularBuilds extends AppCompatActivity {
     }
 
     public void ClickLogout(View view) {
-        //Logout and close app
-        MainActivity.logout(this);
+        //Signs the user out of account
+        FirebaseAuth.getInstance().signOut();
+        //Returns to Login screen
+        Toast.makeText(PopularBuilds.this, "Logout Successful.", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getApplicationContext(), Login.class));
+        finish();
     }
 
     @Override

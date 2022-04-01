@@ -1,35 +1,40 @@
 package com.example.csceprojectrun2;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.view.LayoutInflater;
-import android.widget.ScrollView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.*;
-import android.widget.*;
-//import android.view.View;
-//import android.widget.ImageView;
-
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.lang.Runnable;
-import java.lang.Thread;
-import javax.json.*;
+import java.util.Objects;
+
+import javax.json.JsonArray;
+import javax.json.JsonObject;
 
 public class MatchFeed extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ScrollView matchContainer;
+    TextView tftName;
+    String userId;
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
 
     String matid;
 
@@ -201,11 +206,26 @@ public class MatchFeed extends AppCompatActivity {
 
         System.out.println("onCreate!!!!!!!!!");
 
-        //Assign variable
+        //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
+        tftName = findViewById(R.id.tftName);
         matchContainer = findViewById(R.id.match_container);
 
+        //Initialize Firebase elements
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+
         renderMatchHistory(matchContainer);
+
+        //Display current user's tft name in navigation drawer
+        DocumentReference documentReference = fStore.collection("users").document(userId);
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve tft name from Firebase
+            assert value != null;
+            tftName.setText(value.getString("tftName"));
+            tftName.setVisibility(View.VISIBLE);
+        });
     }
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -275,38 +295,13 @@ public class MatchFeed extends AppCompatActivity {
         redirectActivity(this, ItemBuilder.class);
     }
 
-    public void ClickLogout(View view){
-        //Logout and close the app
-        logout(this);
-    }
-
-    public static void logout(Activity activity) {
-        //Initialize alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        //Set title
-        builder.setTitle("Logout");
-        //Set message
-        builder.setMessage("Are you sure you want to logout ?");
-        //Click Yes Button
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //Complete activity
-                activity.finishAffinity();
-                //Exit app
-                System.exit(0);
-            }
-        });
-        //Click No Button
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //Dismiss dialog
-                dialog.dismiss();
-            }
-        });
-        //Show dialog
-        builder.show();
+    public void ClickLogout(View view) {
+        //Signs the user out of account
+        FirebaseAuth.getInstance().signOut();
+        //Returns to Login screen
+        Toast.makeText(MatchFeed.this, "Logout Successful.", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getApplicationContext(), Login.class));
+        finish();
     }
 
     public static void redirectActivity(Activity activity, Class aClass) {

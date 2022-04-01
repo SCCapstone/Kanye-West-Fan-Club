@@ -1,12 +1,16 @@
 package com.example.csceprojectrun2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.DecimalFormat;
 
@@ -105,9 +109,13 @@ public class CharacterInfo extends AppCompatActivity {
         MainActivity.redirectActivity(this,ItemBuilder.class);
     }
 
-    public void ClickLogout(View view){
-        //Logout and close app
-        MainActivity.logout(this);
+    public void ClickLogout(View view) {
+        //Signs the user out of account
+        FirebaseAuth.getInstance().signOut();
+        //Returns to Login screen
+        Toast.makeText(CharacterInfo.this, "Logout Successful.", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getApplicationContext(), Login.class));
+        finish();
     }
 
     @Override

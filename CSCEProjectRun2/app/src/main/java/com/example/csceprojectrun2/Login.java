@@ -2,97 +2,77 @@ package com.example.csceprojectrun2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class Login extends AppCompatActivity {
-
-    public FirebaseFirestore db;
-    public Button log_in;
-    public Button create_account;
-    public EditText username;
-    public EditText password;
-    public Map<String, Object> test;
-
+    EditText mEmail, mPassword;
+    Button mLoginBtn;
+    TextView mCreateBtn;
+    FirebaseAuth fAuth;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        log_in = findViewById(R.id.log_in);
-        create_account = findViewById(R.id.create_account);
-        username = findViewById(R.id.username);
-        password = findViewById(R.id.password);
-        db = FirebaseFirestore.getInstance();
-        test = new HashMap<>();
-    }
 
-    public void accountCreate(View v) {
-        switchToCreateAccount();
-    }
+        //Initialize Views
+        mEmail = findViewById(R.id.login_email);
+        mPassword = findViewById(R.id.login_password);
+        mLoginBtn = findViewById(R.id.log_in);
+        mCreateBtn = findViewById(R.id.login_create_account);
+        progressBar = findViewById(R.id.login_progressBar);
 
-    public void userCheck(View v) {
-        docSearch();
-    }
+        //Initialize Firebase elements
+        fAuth = FirebaseAuth.getInstance();
 
-    public void afterUserCheck() {
-        if(!test.isEmpty() && test.get("username").equals(username.getText().toString())) {
-            if (test.get("password").equals(password.getText().toString())) {
-                switchToMain();
-            } else {
-                incorrectPassword();
+
+        //Click on the login button
+        mLoginBtn.setOnClickListener(view -> {
+            String email = mEmail.getText().toString().trim();
+            String password = mPassword.getText().toString().trim();
+
+            //Display errors when email or password are empty, or password is too short
+            if (TextUtils.isEmpty(email)) {
+                mEmail.setError("Email is Required.");
+                return;
             }
-        } else {
-            incorrectPassword();
-        }
-    }
+            if (TextUtils.isEmpty(password)) {
+                mPassword.setError("Password is Required.");
+                return;
+            }
+            if (password.length() < 4) {
+                mPassword.setError("Password Must Be At Least 4 Characters.");
+                return;
+            }
+            progressBar.setVisibility(View.VISIBLE);
 
-    public void docSearch() {
-        DocumentReference docRef = db.collection("login").document(username.getText().toString());
-        docRef.get().addOnCompleteListener(task -> {
-            if(task.isSuccessful()) {
-                DocumentSnapshot snap = task.getResult();
-                assert snap != null;
-                if(snap.exists()) {
-                    Log.d("Success", "Document Snapshot data: " + snap.getData());
-                    test = snap.getData();
+            //authenticate the user
+            fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                //Check if login is successful or not
+                if (task.isSuccessful()) {
+                    Toast.makeText(Login.this, "Login Successful.", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 } else {
-                    Log.d("Error", "No such document");
+                    Toast.makeText(Login.this, "Error!" + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                 }
-            } else {
-                Log.d("Task Not Successful", "Failed", task.getException());
-            }
-            afterUserCheck();
+            });
         });
-    }
 
-    private void switchToCreateAccount() {
-        Intent createSwitch = new Intent(getApplicationContext(), CreateAccount.class);
-        startActivity(createSwitch);
+        //Click on the create account button
+        mCreateBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), CreateAccount.class)));
     }
-
-    public void switchToMain() {
-        Intent mainSwitch = new Intent(getApplicationContext(), MatchFeed.class);
-        startActivity(mainSwitch);
-    }
-
-    public void incorrectPassword() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Incorrect Username or Password")
-                .setPositiveButton("Retry", (dialog, id) -> dialog.dismiss()).show();
-    }
-
 }

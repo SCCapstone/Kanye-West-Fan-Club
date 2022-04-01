@@ -1,31 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawer_layout"
     tools:context=".CommunityBuilds">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/gold">
 
         <include
             layout="@layout/main_top_bar"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent" />
-
-        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/community_build"
-            android:textSize="40sp"
+            android:layout_height="wrap_content" />
+
+        <!--EditText: Input Title as string -->
+        <EditText
+            android:id="@+id/titleEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:background="@color/grey"
+            android:autofillHints=""
+            android:hint="Title"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:textColorHint="@color/black"
+            android:textSize="20sp" />
+
+        <!--EditText: Input Description as string -->
+
+        <!--Button: Save/Upload Data to Firebase Cloud Firestore-->
+
+        <EditText
+            android:id="@+id/descriptionEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:autofillHints=""
+            android:background="@color/grey"
+            android:gravity="start"
+            android:hint="Description of your build"
+            android:inputType="textMultiLine|textCapSentences"
+            android:minHeight="250dp"
+            android:padding="10dp"
+            android:textColorHint="@color/black"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/saveBtn"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:background="@color/darkBlue"
-            android:gravity="center"/>
+            android:backgroundTint="@color/darkBlue"
+            android:text="Save" />
+        <Button
+            android:id="@+id/showAllBtn"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/darkBlue"
+            android:text="Show All" />
+
+
     </LinearLayout>
 
     <RelativeLayout
@@ -34,7 +77,6 @@
         android:layout_gravity="start"
         android:background="@color/turquoise">
 
-        <include
-            layout="@layout/main_nav_drawer"/>
+        <include layout="@layout/main_nav_drawer" />
     </RelativeLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

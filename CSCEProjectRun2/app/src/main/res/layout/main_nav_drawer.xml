@@ -1,17 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_margin="16dp"
-        android:onClick="ClickLogo"
-        android:src="@drawable/ic_gaming_logo"
-        tools:ignore="SpeakableTextPresentCheck" />
+        android:layout_height="150dp">
+
+        <TextView
+            android:id="@+id/tftName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="loggedInUser"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+            app:layout_constraintEnd_toEndOf="@+id/imageView8"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="@+id/imageView8"
+            app:layout_constraintTop_toTopOf="@+id/imageView8"
+            app:layout_constraintVertical_bias="0.02" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="16dp"
+            android:contentDescription="Gaming logo"
+            android:onClick="ClickLogo"
+            android:src="@drawable/ic_gaming_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <TextView
         android:layout_width="match_parent"
@@ -21,7 +48,7 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
@@ -50,7 +77,6 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-    //Place a space between Home and Popular Builds
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -79,7 +105,6 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-    //Place a space between Popular Builds and Community Builds
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -107,7 +132,6 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-    //Place a space between Community Builds and Current Characters
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -135,7 +159,6 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-    //Place a space between Current Characters and Item Builder
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -163,7 +186,6 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-    //Place a space between Item Builder and Logout
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -180,7 +202,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_weight="1"
@@ -190,4 +212,5 @@
             android:textColor="@color/black"
             android:textSize="18sp" />
     </LinearLayout>
+
 </LinearLayout>
