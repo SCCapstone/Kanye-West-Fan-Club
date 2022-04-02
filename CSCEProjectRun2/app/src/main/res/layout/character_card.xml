@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/turquoise"
+    android:background="@color/darkBlue"
+    android:padding="5dp"
     tools:visibility="visible"
     tools:showIn="@layout/character_container">
 
@@ -12,6 +13,7 @@
         android:id="@+id/character_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/gold"
         android:onClick="ClickCard"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="21dp">
@@ -27,8 +29,19 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="TextView"
+            android:textStyle="bold"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/expand"
+            android:layout_width="wrap_content"
+            android:layout_height="7dp"
+            android:gravity="center"
+            android:text="@string/expandSymbol"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </TableRow>
 </TableLayout>
