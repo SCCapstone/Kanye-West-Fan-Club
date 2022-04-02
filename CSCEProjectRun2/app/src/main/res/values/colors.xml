@@ -15,5 +15,8 @@
     <color name="lightWhite">#FFDBD4D4</color>
     <color name="grey">#d6cfc7</color>
     <color name="lightBrown">#C0815D</color>
+    <color name="blue1">#0169A1</color>
+    <color name="pink">#A12BBC</color>
+    <color name="blue2">#01469A</color>
 
 </resources>
