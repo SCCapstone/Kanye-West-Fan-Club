@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <!--EditText: Input Title as string -->
+        <!--EditText: Input title as string -->
         <EditText
             android:id="@+id/titleEt"
             android:layout_width="match_parent"
@@ -32,10 +32,7 @@
             android:textColorHint="@color/black"
             android:textSize="20sp" />
 
-        <!--EditText: Input Description as string -->
-
-        <!--Button: Save/Upload Data to Firebase Cloud Firestore-->
-
+        <!--EditText: Input description as string -->
         <EditText
             android:id="@+id/descriptionEt"
             android:layout_width="match_parent"
@@ -44,13 +41,14 @@
             android:autofillHints=""
             android:background="@color/grey"
             android:gravity="start"
-            android:hint="Description of your build"
+            android:hint="Description of your build (team of characters)"
             android:inputType="textMultiLine|textCapSentences"
             android:minHeight="250dp"
             android:padding="10dp"
             android:textColorHint="@color/black"
             android:textSize="18sp" />
 
+        <!--Button: Save/Upload data to Firebase Cloud Firestore-->
         <Button
             android:id="@+id/saveBtn"
             android:layout_width="115dp"
@@ -59,6 +57,8 @@
             android:textColor="@color/white"
             android:backgroundTint="@color/darkBlue"
             android:text="Save" />
+
+        <!--Button: Show all data currently saved on Firebase-->
         <Button
             android:id="@+id/showAllBtn"
             android:layout_width="115dp"
