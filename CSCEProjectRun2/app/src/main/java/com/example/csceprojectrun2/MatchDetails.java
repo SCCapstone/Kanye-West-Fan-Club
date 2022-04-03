@@ -14,6 +14,9 @@ import android.widget.ScrollView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -213,18 +216,6 @@ public class MatchDetails extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
     }
 
-
-    public void ClickSearch(View view){
-        MainActivity.searchHandler.ClickSearch(view);
-    }
-
-
-
-
-
-
-
-
     public void ClickMenu(View view) {
         //Open drawer
         openDrawer(drawerLayout);
@@ -255,6 +246,11 @@ public class MatchDetails extends AppCompatActivity {
         recreate();
     }
 
+    public void ClickSearch(View view) {
+        System.out.println("Clicked search from MainActivity");
+        MainActivity.searchHandler.ClickSearch(view);
+    }
+
     public void ClickPopularBuilds(View view) {
         //Redirect to Popular Builds activity
         redirectActivity(this, PopularBuilds.class);
@@ -276,37 +272,12 @@ public class MatchDetails extends AppCompatActivity {
     }
 
     public void ClickLogout(View view) {
-        //Logout and close the app
-        logout(this);
-    }
-
-    public static void logout(Activity activity) {
-        //Initialize alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        //Set title
-        builder.setTitle("Logout");
-        //Set message
-        builder.setMessage("Are you sure you want to logout ?");
-        //Click Yes Button
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //Complete activity
-                activity.finishAffinity();
-                //Exit app
-                System.exit(0);
-            }
-        });
-        //Click No Button
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //Dismiss dialog
-                dialog.dismiss();
-            }
-        });
-        //Show dialog
-        builder.show();
+        //Signs the user out of account
+        FirebaseAuth.getInstance().signOut();
+        //Returns to Login screen
+        Toast.makeText(MatchDetails.this, "Logout Successful.", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getApplicationContext(), Login.class));
+        finish();
     }
 
     public static void redirectActivity(Activity activity, Class aClass) {

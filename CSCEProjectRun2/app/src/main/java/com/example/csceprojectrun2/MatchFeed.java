@@ -229,9 +229,6 @@ public class MatchFeed extends AppCompatActivity {
     }
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-    public String getMyString(){
-        return matid; }
-
     public void ClickMatch(View view) {
         //Toast.makeText(getApplicationContext(),"test",Toast.LENGTH_SHORT).show();
         matid = "";
