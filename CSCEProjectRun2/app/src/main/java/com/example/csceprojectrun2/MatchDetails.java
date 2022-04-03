@@ -31,7 +31,7 @@ public class MatchDetails extends AppCompatActivity {
 
 
     public static String[] viewMatchData() {
-        String APIKEY = "RGAPI-d6efc463-d5e1-4428-b4c9-629ca3e253c2";
+        String APIKEY = "RGAPI-f1315bcb-8c6e-41fa-9559-d9a069b1fb9c";
         String puuid = "bWxLgFEOjkoSZh8rQ4hGNAvIDd_gWRGlybnlqQzVaQJdMKvHACDu0fzrMJGRYNra_C61q8z2vkXKng";
         String MATCH;
 
