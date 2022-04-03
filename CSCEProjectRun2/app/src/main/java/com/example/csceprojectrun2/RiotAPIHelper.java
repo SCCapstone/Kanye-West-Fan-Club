@@ -9,7 +9,7 @@ import javax.json.*;
 
 public class RiotAPIHelper {
     static String DEV_KEY_NOT_SECURE = "RGAPI-d6efc463-d5e1-4428-b4c9-629ca3e253c2";
-    static String samplePuuid = "9IkIogPfGJh-bx_f1KRGZj8AtMWHV_AIO7UFGxlptJ2q7TtlkV90a49FYfYt5HWhKenPapiF6wE-LA";
+    static String samplePuuid = "bWxLgFEOjkoSZh8rQ4hGNAvIDd_gWRGlybnlqQzVaQJdMKvHACDu0fzrMJGRYNra_C61q8z2vkXKng";
     /* SAMPLE ACCOUNT
     {
         "puuid": "9IkIogPfGJh-bx_f1KRGZj8AtMWHV_AIO7UFGxlptJ2q7TtlkV90a49FYfYt5HWhKenPapiF6wE-LA",
@@ -21,7 +21,7 @@ public class RiotAPIHelper {
     // https://developer.riotgames.com/apis#tft-match-v1/GET_getMatchIdsByPUUID
     // Returns previous X matches a given player participated in
     // TODO: refactor to use Json?
-    public static final String[] getMatchesFromPuuid(String puuid, int numMatchesToReturn) {
+    public static final String[] getMatchesFromPuuid(String puuid, int numMatchesToReturn, String validDevKey) {
         System.out.println("SUPPLIED PUUID: " + puuid);
         try {
             URL url;
@@ -30,9 +30,9 @@ public class RiotAPIHelper {
 
             String urlOrigin = "https://americas.api.riotgames.com/tft/match/v1/matches/by-puuid/";
 
-            url = new URL(urlOrigin + samplePuuid + "/ids"
+            url = new URL(urlOrigin + puuid + "/ids"
                     + "?count=" + numMatchesToReturn
-                    + "&api_key=" + DEV_KEY_NOT_SECURE
+                    + "&api_key=" + validDevKey
             );
 
             try {
@@ -71,7 +71,7 @@ public class RiotAPIHelper {
 
     // https://developer.riotgames.com/apis#tft-match-v1/GET_getMatch
     // Returns match data JSON for a given match id
-    public static final JsonObject getMatchData(String matchId) {
+    public static final JsonObject getMatchData(String matchId, String validDevKey) {
         try {
             URL url;
             String callResp;
@@ -81,7 +81,7 @@ public class RiotAPIHelper {
 
             url = new URL(urlOrigin
                     + matchId
-                    + "?api_key=" + DEV_KEY_NOT_SECURE
+                    + "?api_key=" + validDevKey
             );
 
             // convert string HTTP get results into a Json object
@@ -120,7 +120,7 @@ public class RiotAPIHelper {
         return null;
     }
 
-    public static final String getPuuidFromRiotID(String gameName, String tagline) {
+    public static final String getPuuidFromRiotID(String gameName, String tagline, String validDevKey) {
         try  {
             URL url;
             String callResp;
@@ -130,7 +130,7 @@ public class RiotAPIHelper {
 
             url = new URL(urlOrigin
                     + gameName + "/" + tagline
-                    + "?api_key=" + DEV_KEY_NOT_SECURE
+                    + "?api_key=" + validDevKey
             );
 
             try {

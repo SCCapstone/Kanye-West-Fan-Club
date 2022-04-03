@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             tftName.setText(TFTName);
             //RETRIEVE PUIID FROM FIREBASE
             String PUIID = value.getString("puiid");
+            Toast.makeText(MainActivity.this, ""+PUIID, Toast.LENGTH_LONG).show();
         });
 
         //CALL API KEY FROM FIREBASE
