@@ -35,6 +35,7 @@ public class MatchFeed extends AppCompatActivity {
     String userId;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
+    ImageView summonerIcon, player1, player2, player3, player4, player5, player6;
 
     String matid;
 
@@ -190,7 +191,7 @@ public class MatchFeed extends AppCompatActivity {
                 @Override
                 public void run() {
                     // get recent played match's IDs
-                    String[] matchIds = RiotAPIHelper.getMatchesFromPuuid(puuid, 6,currentAPIKey);
+                    String[] matchIds = RiotAPIHelper.getMatchesFromPuuid(puuid, 6, currentAPIKey);
 
                     if (matchIds == null) {
                         System.out.println("Unable to retrieve match ids!");
@@ -200,7 +201,7 @@ public class MatchFeed extends AppCompatActivity {
                     // populate match feed
                     for (int i = 0; i < matchIds.length; i++) {
                         String matchId = matchIds[i];
-                        JsonObject matchData = RiotAPIHelper.getMatchData(matchId,currentAPIKey);
+                        JsonObject matchData = RiotAPIHelper.getMatchData(matchId, currentAPIKey);
                         createMatchCard(i, matchId, matchData, puuid);
                     }
                 }
@@ -237,6 +238,13 @@ public class MatchFeed extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         tftName = findViewById(R.id.tftName);
         matchContainer = findViewById(R.id.match_container);
+        summonerIcon = findViewById(R.id.summonerIcon);
+        player1 = findViewById(R.id.imageView1);
+        player2 = findViewById(R.id.imageView2);
+        player3 = findViewById(R.id.imageView3);
+        player4 = findViewById(R.id.imageView4);
+        player5 = findViewById(R.id.imageView5);
+        player6 = findViewById(R.id.imageView6);
 
         //Initialize Firebase elements
         fAuth = FirebaseAuth.getInstance();
@@ -253,7 +261,6 @@ public class MatchFeed extends AppCompatActivity {
             tftName.setText(value.getString("tftName"));
             tftName.setVisibility(View.VISIBLE);
         });
-
     }
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -261,11 +268,8 @@ public class MatchFeed extends AppCompatActivity {
         //Toast.makeText(getApplicationContext(),"test",Toast.LENGTH_SHORT).show();
         matid = "";
 
-
 //MatchData MatchID -> passed
-
         redirectActivity(this, MatchDetails.class);
-
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////

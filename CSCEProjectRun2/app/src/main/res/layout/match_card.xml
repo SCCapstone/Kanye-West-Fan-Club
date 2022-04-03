@@ -4,7 +4,8 @@
     android:id="@+id/SampleMatchCard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/turquoise"
+    android:background="@color/darkBlue1"
+    android:padding="5dp"
     tools:visibility="visible"
     tools:showIn="@layout/match_container">
 
@@ -12,6 +13,7 @@
         android:id="@+id/match_card"
         android:layout_width="match_parent"
         android:layout_height="34dp"
+        android:background="@color/gold"
         android:paddingLeft="5dp"
         android:paddingTop="5dp">
 
@@ -19,23 +21,23 @@
             android:id="@+id/summonerIcon"
             android:layout_width="99dp"
             android:layout_height="75dp"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:visibility="visible"
+            tools:srcCompat="@tools:sample/avatars"
+            tools:visibility="visible" />
 
         <LinearLayout
             android:id="@+id/champions"
             android:layout_width="266dp"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:onClick="ClickMatch"
-
-            >
+            android:onClick="ClickMatch">
 
             <ImageView
                 android:id="@+id/imageView1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@drawable/talon_square" />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -79,7 +81,9 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/gold"
         android:paddingLeft="5dp">
+
 
         <LinearLayout
             android:id="@+id/gameData"
@@ -91,6 +95,8 @@
                 android:id="@+id/gameType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:text="Ranked"
                 android:textAlignment="center" />
 
@@ -98,6 +104,8 @@
                 android:id="@+id/gameLength"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:text="2 hours ago"
                 android:textAlignment="center" />
 
@@ -106,6 +114,8 @@
         <TextView
             android:id="@+id/placement"
             android:layout_width="5dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             android:layout_height="wrap_content"
             android:text="Placed: 5" />
 
@@ -113,8 +123,9 @@
             android:id="@+id/matchID"
             android:layout_width="150dp"
             android:layout_height="match_parent"
+            android:textColor="@color/black"
             android:text="MatchID"
-            android:textAlignment="textEnd"
+            android:textAlignment="center"
             android:translationX="-150dp" />
 
     </TableRow>
