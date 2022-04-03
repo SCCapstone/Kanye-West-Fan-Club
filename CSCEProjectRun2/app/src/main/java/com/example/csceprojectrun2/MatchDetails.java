@@ -173,7 +173,7 @@ public class MatchDetails extends AppCompatActivity {
         if(mat==1){
             return(boink1);
         }
-        if(mat==1){
+        if(mat==2){
             return(boink2);
         }
         else {
@@ -193,8 +193,6 @@ public class MatchDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.match_details);
 //v
-
-
         Ulist = findViewById(R.id.list);
         ArrayAdapter<String> arr;
         arr
@@ -203,6 +201,10 @@ public class MatchDetails extends AppCompatActivity {
                 R.layout.support_simple_spinner_dropdown_item, matID);
         Ulist.setAdapter(arr);
 //^
+
+
+
+
         drawerLayout = findViewById(R.id.drawer_layout);
 
         // temp functionality to go to match feed, to make merging everything in easier
