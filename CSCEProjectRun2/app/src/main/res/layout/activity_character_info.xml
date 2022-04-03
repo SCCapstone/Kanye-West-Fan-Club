@@ -262,13 +262,17 @@
             <TextView
                 android:id="@+id/characterinfoAbilityDescription"
                 android:layout_width="410dp"
-                android:layout_height="140dp"
+                android:layout_height="142dp"
                 android:background="@color/lightBrown"
                 android:fontFamily="monospace"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
                 android:text="Big Bone strikes one target for damage. It then bounces between multiple enemies up to five times."
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/characterinfoAbilityName"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/characterinfoAbilityTitle" />
 
@@ -286,13 +290,14 @@
 
             <TextView
                 android:id="@+id/characterinfoStatTitle"
-                android:layout_width="410dp"
+                android:layout_width="411dp"
                 android:layout_height="45dp"
                 android:background="@color/gold"
                 android:text="Stats:"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="34sp"
+                app:layout_constraintEnd_toEndOf="@+id/characterinfoAbilityDescription"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/characterinfoAbilityDescription" />
 
@@ -326,7 +331,7 @@
             <TextView
                 android:id="@+id/characterinfoCostName"
                 android:layout_width="177dp"
-                android:layout_height="59dp"
+                android:layout_height="61dp"
                 android:background="@color/gold"
                 android:text="Cost: "
                 android:textAlignment="viewEnd"
@@ -353,7 +358,7 @@
             <TextView
                 android:id="@+id/characterinfoName"
                 android:layout_width="291dp"
-                android:layout_height="60dp"
+                android:layout_height="65dp"
                 android:background="@color/gold"
                 android:text="Graves"
                 android:textAlignment="center"
