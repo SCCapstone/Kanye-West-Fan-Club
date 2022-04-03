@@ -8,7 +8,7 @@ import java.io.InputStream;
 import javax.json.*;
 
 public class RiotAPIHelper {
-    static String DEV_KEY_NOT_SECURE = "RGAPI-f1315bcb-8c6e-41fa-9559-d9a069b1fb9c";
+
     static String samplePuuid = "bWxLgFEOjkoSZh8rQ4hGNAvIDd_gWRGlybnlqQzVaQJdMKvHACDu0fzrMJGRYNra_C61q8z2vkXKng";
     /* SAMPLE ACCOUNT
     {
@@ -21,7 +21,7 @@ public class RiotAPIHelper {
     // https://developer.riotgames.com/apis#tft-match-v1/GET_getMatchIdsByPUUID
     // Returns previous X matches a given player participated in
     // TODO: refactor to use Json?
-    public static final String[] getMatchesFromPuuid(String puuid, int numMatchesToReturn) {
+    public static final String[] getMatchesFromPuuid(String puuid, int numMatchesToReturn, String validDevKey) {
         System.out.println("SUPPLIED PUUID: " + puuid);
         try {
             URL url;
@@ -30,9 +30,9 @@ public class RiotAPIHelper {
 
             String urlOrigin = "https://americas.api.riotgames.com/tft/match/v1/matches/by-puuid/";
 
-            url = new URL(urlOrigin + samplePuuid + "/ids"
+            url = new URL(urlOrigin + puuid + "/ids"
                     + "?count=" + numMatchesToReturn
-                    + "&api_key=" + DEV_KEY_NOT_SECURE
+                    + "&api_key=" + validDevKey
             );
 
             try {
@@ -71,7 +71,7 @@ public class RiotAPIHelper {
 
     // https://developer.riotgames.com/apis#tft-match-v1/GET_getMatch
     // Returns match data JSON for a given match id
-    public static final JsonObject getMatchData(String matchId) {
+    public static final JsonObject getMatchData(String matchId, String validDevKey) {
         try {
             URL url;
             String callResp;
@@ -81,7 +81,7 @@ public class RiotAPIHelper {
 
             url = new URL(urlOrigin
                     + matchId
-                    + "?api_key=" + DEV_KEY_NOT_SECURE
+                    + "?api_key=" + validDevKey
             );
 
             // convert string HTTP get results into a Json object
@@ -120,7 +120,7 @@ public class RiotAPIHelper {
         return null;
     }
 
-    public static final String getPuuidFromRiotID(String gameName, String tagline) {
+    public static final String getPuuidFromRiotID(String gameName, String tagline, String validDevKey) {
         try  {
             URL url;
             String callResp;
@@ -130,7 +130,7 @@ public class RiotAPIHelper {
 
             url = new URL(urlOrigin
                     + gameName + "/" + tagline
-                    + "?api_key=" + DEV_KEY_NOT_SECURE
+                    + "?api_key=" + validDevKey
             );
 
             try {

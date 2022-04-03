@@ -38,7 +38,7 @@ public class MatchFeed extends AppCompatActivity {
 
     String matid;
 
-    public void ClickSearch(View view){
+    public void ClickSearch(View view) {
         System.out.println("Clicked search from MatchFeed");
 
         LinearLayout topBarLinearLayout = findViewById(R.id.MainTopBar);
@@ -60,25 +60,37 @@ public class MatchFeed extends AppCompatActivity {
 
         searchCard.setVisibility(View.VISIBLE);
 
-        riotIDSearchActivate.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                searchCard.setVisibility(View.GONE);
 
-                String gameName = searchRiotIDInput.getText().toString();
-                String tagLine = taglineInput.getText().toString();
-                String fullRiotID = gameName + "#" + tagLine;
+        //CALL API KEY FROM FIREBASE
+        //Display the current api key
+        DocumentReference documentReference = fStore.collection("apikey").document("key");
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve api key from Firebase
+            assert value != null;
+            String currentAPIKey = value.getString("apikey");
+            ////////////////////////////////////////////////////////
+            riotIDSearchActivate.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    searchCard.setVisibility(View.GONE);
 
-                System.out.println("Full Riot ID being searched: " + fullRiotID);
+                    String gameName = searchRiotIDInput.getText().toString();
+                    String tagLine = taglineInput.getText().toString();
+                    String fullRiotID = gameName + "#" + tagLine;
 
-                new Thread(new Runnable(){
-                    @Override
-                    public void run() {
-                        String puuid = RiotAPIHelper.getPuuidFromRiotID(gameName, tagLine);
+                    System.out.println("Full Riot ID being searched: " + fullRiotID);
 
-                        renderMatchHistoryWithPuuid(matchContainer, puuid, 6);
-                    }
-                }).start();
-            }
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String puuid = RiotAPIHelper.getPuuidFromRiotID(gameName, tagLine, currentAPIKey);
+
+                            renderMatchHistoryWithPuuid(matchContainer, puuid, 6);
+                        }
+                    }).start();
+                }
+            });
+            ////////////////////////////////////////////////////////
+
         });
     }
 
@@ -108,7 +120,7 @@ public class MatchFeed extends AppCompatActivity {
     private void applyChampionImages(View matchCard, JsonObject participant) {
         JsonArray units = participant.getJsonArray("units");
 
-        ImageView[] imageViews = new ImageView[] {
+        ImageView[] imageViews = new ImageView[]{
                 matchCard.findViewById(R.id.imageView1),
                 matchCard.findViewById(R.id.imageView2),
                 matchCard.findViewById(R.id.imageView3),
@@ -117,7 +129,7 @@ public class MatchFeed extends AppCompatActivity {
                 matchCard.findViewById(R.id.imageView6),
         };
 
-        for (int i=0; i<units.size() && i<imageViews.length; i++) {
+        for (int i = 0; i < units.size() && i < imageViews.length; i++) {
             JsonObject unitData = (JsonObject) units.get(i);
             String nameId = unitData.getString("character_id");
             String name = nameId.split("_")[1];
@@ -166,26 +178,34 @@ public class MatchFeed extends AppCompatActivity {
         LinearLayout linearLayout = matchContainer.findViewById(R.id.match_container_linear_layout);
         linearLayout.removeAllViews();
 
-        // spawn thread and collect data from riot api
-        new Thread(new Runnable(){
-            @Override
-            public void run() {
-                // get recent played match's IDs
-                String[] matchIds = RiotAPIHelper.getMatchesFromPuuid(puuid, 6);
+        //CALL API KEY FROM FIREBASE
+        //Display the current api key
+        DocumentReference documentReference = fStore.collection("apikey").document("key");
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve api key from Firebase
+            assert value != null;
+            String currentAPIKey = value.getString("apikey");
+            // spawn thread and collect data from riot api
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    // get recent played match's IDs
+                    String[] matchIds = RiotAPIHelper.getMatchesFromPuuid(puuid, 6,currentAPIKey);
 
-                if (matchIds == null) {
-                    System.out.println("Unable to retrieve match ids!");
-                    return;
-                }
+                    if (matchIds == null) {
+                        System.out.println("Unable to retrieve match ids!");
+                        return;
+                    }
 
-                // populate match feed
-                for(int i=0; i<matchIds.length; i++) {
-                    String matchId = matchIds[i];
-                    JsonObject matchData = RiotAPIHelper.getMatchData(matchId);
-                    createMatchCard(i, matchId, matchData, puuid);
+                    // populate match feed
+                    for (int i = 0; i < matchIds.length; i++) {
+                        String matchId = matchIds[i];
+                        JsonObject matchData = RiotAPIHelper.getMatchData(matchId,currentAPIKey);
+                        createMatchCard(i, matchId, matchData, puuid);
+                    }
                 }
-            }
-        }).start();
+            }).start();
+        });
     }
 
     // default call, uses the logged-in user's data
@@ -194,9 +214,16 @@ public class MatchFeed extends AppCompatActivity {
         LinearLayout linearLayout = matchContainer.findViewById(R.id.match_container_linear_layout);
         linearLayout.removeAllViews();
 
-        String puuid = RiotAPIHelper.samplePuuid;
-
-        renderMatchHistoryWithPuuid(matchContainer, puuid, 6);
+        //Get a user's puiid
+        DocumentReference documentReference = fStore.collection("users").document(userId);
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve tft name and puiid from Firebase
+            assert value != null;
+            //RETRIEVE PUIID FROM FIREBASE
+            String PUIID = value.getString("puiid");
+            Toast.makeText(MatchFeed.this, "This data is pulled from the user's puuid on firebase", Toast.LENGTH_LONG).show();
+            renderMatchHistoryWithPuuid(matchContainer, PUIID, 6);
+        });
     }
 
     @Override
@@ -226,6 +253,7 @@ public class MatchFeed extends AppCompatActivity {
             tftName.setText(value.getString("tftName"));
             tftName.setVisibility(View.VISIBLE);
         });
+
     }
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -236,7 +264,7 @@ public class MatchFeed extends AppCompatActivity {
 
 //MatchData MatchID -> passed
 
-        redirectActivity(this,MatchDetails.class);
+        redirectActivity(this, MatchDetails.class);
 
     }
 
@@ -247,47 +275,47 @@ public class MatchFeed extends AppCompatActivity {
         openDrawer(drawerLayout);
     }
 
-    public static void openDrawer(DrawerLayout drawerLayout){
+    public static void openDrawer(DrawerLayout drawerLayout) {
         //Open drawer layout
         drawerLayout.openDrawer(GravityCompat.START);
     }
 
-    public void ClickLogo(View view){
+    public void ClickLogo(View view) {
         //Close drawer
         closeDrawer(drawerLayout);
     }
 
-    public static void closeDrawer(DrawerLayout drawerLayout){
+    public static void closeDrawer(DrawerLayout drawerLayout) {
         //Close drawer layout
         //Check condition
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             //When drawer is open
             //Close drawer
             drawerLayout.closeDrawer(GravityCompat.START);
         }
     }
 
-    public void ClickHome(View view){
+    public void ClickHome(View view) {
         //Recreate the Home activity
         recreate();
     }
 
-    public void ClickPopularBuilds(View view){
+    public void ClickPopularBuilds(View view) {
         //Redirect to Popular Builds activity
         redirectActivity(this, PopularBuilds.class);
     }
 
-    public void ClickCommunityBuilds(View view){
+    public void ClickCommunityBuilds(View view) {
         //Redirect to Community Builds activity
-        redirectActivity(this,CommunityBuilds.class);
+        redirectActivity(this, CommunityBuilds.class);
     }
 
-    public void ClickCurrentCharacters(View view){
+    public void ClickCurrentCharacters(View view) {
         //Redirect to Current Characters activity
-        redirectActivity(this,CurrentCharacters.class);
+        redirectActivity(this, CurrentCharacters.class);
     }
 
-    public void ClickItemBuilder(View view){
+    public void ClickItemBuilder(View view) {
         //Redirect to Item Builder activity
         redirectActivity(this, ItemBuilder.class);
     }
@@ -303,7 +331,7 @@ public class MatchFeed extends AppCompatActivity {
 
     public static void redirectActivity(Activity activity, Class aClass) {
         //Initialize intent
-        Intent intent = new Intent(activity,aClass);
+        Intent intent = new Intent(activity, aClass);
         //Set flag
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //Start activity
