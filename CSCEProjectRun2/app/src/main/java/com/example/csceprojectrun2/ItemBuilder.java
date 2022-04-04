@@ -32,7 +32,7 @@ public class ItemBuilder extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ScrollView itemContainer;
     List<Item> itemList = null;
-    TextView tftName;
+    TextView tftName, currentPage;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
@@ -53,6 +53,7 @@ public class ItemBuilder extends AppCompatActivity {
         //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
         tftName = findViewById(R.id.tftName);
+        currentPage = findViewById(R.id.currentPage);
         itemContainer = findViewById(R.id.item_container);
         renderItems(itemContainer);
 
@@ -70,6 +71,7 @@ public class ItemBuilder extends AppCompatActivity {
             tftName.setVisibility(View.VISIBLE);
             tftName.setText(TFTName);
         });
+        currentPage.setText("Item Builder");
     }
 
     private void createItemCard(int cardPosition, Item item) {

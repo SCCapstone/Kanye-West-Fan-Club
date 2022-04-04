@@ -31,7 +31,7 @@ public class CurrentCharacters extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ScrollView characterContainer;
     List<Champion> championList = null;
-    TextView tftName;
+    TextView tftName, currentPage;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
@@ -48,6 +48,7 @@ public class CurrentCharacters extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
         tftName = findViewById(R.id.tftName);
+        currentPage = findViewById(R.id.currentPage);
         characterContainer = findViewById(R.id.character_container);
         renderMatchHistory(characterContainer);
 
@@ -66,6 +67,7 @@ public class CurrentCharacters extends AppCompatActivity {
             tftName.setVisibility(View.VISIBLE);
             tftName.setText(TFTName);
         });
+        currentPage.setText("Current Characters");
     }
 
     private void createCharacterCard(int cardPosition, Champion champion) {

@@ -32,7 +32,7 @@ public class CommunityBuildList extends AppCompatActivity {
     FirebaseFirestore fStore;
     FloatingActionButton mAddBtn;
     CustomAdapter adapter;
-    TextView tftName;
+    TextView tftName, currentPage;
     ProgressDialog pd;
 
     @Override
@@ -50,6 +50,7 @@ public class CommunityBuildList extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler_view);
         mAddBtn = findViewById(R.id.addBtn);
         tftName = findViewById(R.id.tftName);
+        currentPage = findViewById(R.id.currentPage);
 
         //Set recycler view properties
         mRecyclerView.setHasFixedSize(true);
@@ -77,6 +78,7 @@ public class CommunityBuildList extends AppCompatActivity {
             tftName.setVisibility(View.VISIBLE);
             tftName.setText(TFTName);
         });
+        currentPage.setText("Community Builds");
     }
 
     private void displayData() {

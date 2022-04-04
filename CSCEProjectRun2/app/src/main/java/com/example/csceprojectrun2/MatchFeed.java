@@ -32,7 +32,8 @@ import javax.json.JsonObject;
 public class MatchFeed extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ScrollView matchContainer;
-    TextView tftName;
+    TextView tftName, currentPage;
+
     String userId;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -223,7 +224,7 @@ public class MatchFeed extends AppCompatActivity {
             assert value != null;
             //RETRIEVE PUIID FROM FIREBASE
             String PUIID = value.getString("puiid");
-            Toast.makeText(MatchFeed.this, "This data is pulled from the user's puuid on firebase", Toast.LENGTH_LONG).show();
+            Toast.makeText(MatchFeed.this, "Pulling from your puuid through firebase", Toast.LENGTH_LONG).show();
             renderMatchHistoryWithPuuid(matchContainer, PUIID, 6);
         });
     }
@@ -238,6 +239,7 @@ public class MatchFeed extends AppCompatActivity {
         //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
         tftName = findViewById(R.id.tftName);
+        currentPage = findViewById(R.id.currentPage);
         matchContainer = findViewById(R.id.match_container);
         summonerIcon = findViewById(R.id.summonerIcon);
         player1 = findViewById(R.id.imageView1);
@@ -262,6 +264,7 @@ public class MatchFeed extends AppCompatActivity {
             tftName.setText(value.getString("tftName"));
             tftName.setVisibility(View.VISIBLE);
         });
+        currentPage.setText("Home");
     }
 /////////////////////////////////////////////////////////////////////////////////////////////
 

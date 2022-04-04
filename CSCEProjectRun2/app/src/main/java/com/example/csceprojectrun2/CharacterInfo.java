@@ -19,7 +19,7 @@ import java.util.Objects;
 
 public class CharacterInfo extends AppCompatActivity {
     DrawerLayout drawerLayout;
-    TextView tftName;
+    TextView tftName, currentPage;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
@@ -31,6 +31,7 @@ public class CharacterInfo extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
         tftName = findViewById(R.id.tftName);
+        currentPage = findViewById(R.id.currentPage);
 
 
         Bundle bundle = getIntent().getExtras();
@@ -54,7 +55,7 @@ public class CharacterInfo extends AppCompatActivity {
             tftName.setVisibility(View.VISIBLE);
             tftName.setText(TFTName);
         });
-
+        currentPage.setText("Current Characters");
     }
 
     public void PopulateInfo(Champion champion){

@@ -23,7 +23,7 @@ import java.util.Objects;
 public class PopularBuildInfo extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ScrollView popularBuildContainer;
-    TextView tftName;
+    TextView tftName, currentPage;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
@@ -41,6 +41,7 @@ public class PopularBuildInfo extends AppCompatActivity {
         //Assign variables
         drawerLayout = findViewById(R.id.drawer_layout);
         tftName = findViewById(R.id.tftName);
+        currentPage = findViewById(R.id.currentPage);
         popularBuildContainer = findViewById(R.id.west_container);
         renderPopularBuilds(popularBuildContainer, popularBuilds);
 
@@ -59,7 +60,7 @@ public class PopularBuildInfo extends AppCompatActivity {
             tftName.setVisibility(View.VISIBLE);
             tftName.setText(TFTName);
         });
-
+        currentPage.setText("Popular Builds");
     }
 
     private void renderPopularBuilds(ScrollView popularBuildContainer, List<PopularBuild> popularBuildList) {

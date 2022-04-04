@@ -31,7 +31,7 @@ public class PopularBuilds extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ScrollView typeContainer;
     List<BuildType> typeList = null;
-    TextView tftName;
+    TextView tftName, currentPage;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
@@ -52,6 +52,7 @@ public class PopularBuilds extends AppCompatActivity {
         //Assign variables
         drawerLayout = findViewById(R.id.drawer_layout);
         tftName = findViewById(R.id.tftName);
+        currentPage = findViewById(R.id.currentPage);
         typeContainer = findViewById(R.id.kanye_container);
         renderTypes(typeContainer);
 
@@ -69,7 +70,7 @@ public class PopularBuilds extends AppCompatActivity {
             tftName.setVisibility(View.VISIBLE);
             tftName.setText(TFTName);
         });
-
+        currentPage.setText("Popular Builds");
     }
 
     private List<BuildType> readJsonStream(InputStream input) throws IOException {

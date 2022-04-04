@@ -24,7 +24,7 @@ import java.util.UUID;
 
 public class CommunityBuilds extends AppCompatActivity {
     DrawerLayout drawerLayout;
-    TextView tftName;
+    TextView tftName, currentPage;
     EditText mTitleEt, mDescriptionEt;
     Button mSaveBtn, mShowAllBtn;
     String pId, pTitle, pDescription, userId;
@@ -50,6 +50,7 @@ public class CommunityBuilds extends AppCompatActivity {
         //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
         tftName = findViewById(R.id.tftName);
+        currentPage = findViewById(R.id.currentPage);
         mTitleEt = findViewById(R.id.titleEt);
         mDescriptionEt = findViewById(R.id.descriptionEt);
         mSaveBtn = findViewById(R.id.saveBtn);
@@ -111,6 +112,7 @@ public class CommunityBuilds extends AppCompatActivity {
                 finish();
             });
         });
+        currentPage.setText("Community Builds");
     }
 
     private void updateData(String id, String title, String description) {
