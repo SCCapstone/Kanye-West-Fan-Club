@@ -56,7 +56,7 @@ public class CharacterInfo extends AppCompatActivity {
 
         viewPager2.setAdapter(cia);
 
-        PopulateInfo(champion);
+
 
         //Initialize Firebase elements
         fAuth = FirebaseAuth.getInstance();
@@ -74,7 +74,7 @@ public class CharacterInfo extends AppCompatActivity {
             tftName.setText(TFTName);
         });
         currentPage.setText("Current Characters");
-    }
+
 
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
