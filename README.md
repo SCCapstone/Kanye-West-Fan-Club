@@ -12,6 +12,7 @@ Detailed description: https://github.com/SCCapstone/Kanye-West-Fan-Club/wiki/Pro
 ## Setup
 
 ## Running
+Run our .apk for Android in Android Studio on a emulator or to a connected Android phone device.
 
 ## Deployment
 
@@ -24,9 +25,14 @@ new key to the code on the github.
 For future reference, we have applied for a production API key which we do not need to refresh. Riot dev API
 gets flooded with API key requests so we believe it will take a while for us to have access.
 
-For testing login you can use Test as the username and Test as the password. They are case sensitive so if you 
-input lowercase it will not work.
-
+For testing purposes create a email and password with one of the following (tft name and puiid). You can copy the values and hold down the text prompt on the emulator to paste:
+  #### 1.)
+  #### puiid: bWxLgFEOjkoSZh8rQ4hGNAvIDd_gWRGlybnlqQzVaQJdMKvHACDu0fzrMJGRYNra_C61q8z2vkXKng
+  #### tftname: Dangu
+  #### 2.)
+  #### puiid: tHue9Ykg5kKRq3of1RcmYXsLwFonrY6aKQm5cALKuE3K3CLpIq-Qh3SwiNMYmXZzXtmQBsMqOKeMpg
+  #### tftname: stanlee8
+      
 For testing search feature you can use "Liquid Goose" "NA1".
 
 ## Testing Technology
