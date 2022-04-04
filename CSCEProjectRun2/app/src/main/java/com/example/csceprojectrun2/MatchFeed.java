@@ -24,6 +24,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
+import android.content.Intent;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -31,7 +32,8 @@ import javax.json.JsonObject;
 public class MatchFeed extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ScrollView matchContainer;
-    TextView tftName;
+    TextView tftName, currentPage;
+
     String userId;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -222,7 +224,7 @@ public class MatchFeed extends AppCompatActivity {
             assert value != null;
             //RETRIEVE PUIID FROM FIREBASE
             String PUIID = value.getString("puiid");
-            Toast.makeText(MatchFeed.this, "This data is pulled from the user's puuid on firebase", Toast.LENGTH_LONG).show();
+            Toast.makeText(MatchFeed.this, "Pulling from your puuid through firebase", Toast.LENGTH_LONG).show();
             renderMatchHistoryWithPuuid(matchContainer, PUIID, 6);
         });
     }
@@ -237,6 +239,7 @@ public class MatchFeed extends AppCompatActivity {
         //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
         tftName = findViewById(R.id.tftName);
+        currentPage = findViewById(R.id.currentPage);
         matchContainer = findViewById(R.id.match_container);
         summonerIcon = findViewById(R.id.summonerIcon);
         player1 = findViewById(R.id.imageView1);
@@ -261,15 +264,21 @@ public class MatchFeed extends AppCompatActivity {
             tftName.setText(value.getString("tftName"));
             tftName.setVisibility(View.VISIBLE);
         });
+        currentPage.setText("Home");
     }
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-    public String getMyString() {
-        return matid;
-    }
-
     public void ClickMatch(View view) {
         //Toast.makeText(getApplicationContext(),"test",Toast.LENGTH_SHORT).show();
+
+
+        /*
+        Intent intent = new Intent(MatchFeed.this,MatchDetails.class);
+        String message = "yoink yoink";
+        intent.putExtra("message_key", message);
+        startActivity(intent);
+
+         */
         matid = "";
 
 //MatchData MatchID -> passed

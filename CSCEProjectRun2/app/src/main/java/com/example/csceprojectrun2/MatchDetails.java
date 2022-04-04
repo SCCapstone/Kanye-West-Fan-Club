@@ -3,17 +3,19 @@ package com.example.csceprojectrun2;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
+import android.content.Intent;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.widget.ArrayAdapter;
 import android.widget.ScrollView;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -29,24 +31,8 @@ public class MatchDetails extends AppCompatActivity {
     //String GameID = MainActivity
 
 
+    public static String[] viewMatchData(String MATCH, String puuid, String APIKEY) {
 
-    public static String[] viewMatchData() {
-        String APIKEY = "RGAPI-d6efc463-d5e1-4428-b4c9-629ca3e253c2";
-        String puuid = "bWxLgFEOjkoSZh8rQ4hGNAvIDd_gWRGlybnlqQzVaQJdMKvHACDu0fzrMJGRYNra_C61q8z2vkXKng";
-        String MATCH;
-
-        String MATCH1 = "NA1_4107774217";
-        String MATCH2 = "NA1_4172043823";
-        String MATCH3 = "NA1_4172045804";
-        String MATCH4 = "NA1_4172133214";
-        String MATCH5 = "NA1_4172088092";
-        String MATCH6 = "NA1_4172138764";
-
-        String[] boink = {MATCH1, MATCH2, MATCH3, MATCH4, MATCH5, MATCH6};
-        Random rand = new Random();
-        int mat = rand.nextInt(boink.length);
-        MATCH = boink[mat];
-        //String MATCH = "NA1_4172138764";
 
         URL call1;
         String call1resp;
@@ -54,14 +40,15 @@ public class MatchDetails extends AppCompatActivity {
 
         StringBuilder sb = new StringBuilder();
         try {
-            call1 = new URL("https://americas.api.riotgames.com/tft/match/v1/matches/" + MATCH + "?api_key=" + APIKEY);
-            BufferedReader read = new BufferedReader(new InputStreamReader(call1.openStream()));
-            while ((call1resp = read.readLine()) != null)
+            call1 = new URL ("https://americas.api.riotgames.com/tft/match/v1/matches/"+MATCH+"?api_key="+APIKEY);
+            BufferedReader read = new BufferedReader( new InputStreamReader(call1.openStream()));
+            while((call1resp = read.readLine()) != null)
                 sb.append(call1resp + "\n");
             read.close();
         } catch (Exception e) {
             System.out.println(e);
         }
+
 
 
         String tester = sb.toString();
@@ -75,91 +62,51 @@ public class MatchDetails extends AppCompatActivity {
         }
         x = total.lastIndexOf(puuid);
 
+
+
         //finding the end of players match data
         int y = 0;
         int first = 0;
         int index2;
         for (index2 = total.indexOf("companion"); index2 >= 0; index2 = total.indexOf("companion", index2 + 1)) {
-            if (index2 > x && first == 0) {
+            if(index2>x&&first==0) {
                 ++first;
                 y = index2;
             }
         }
 
+        ;
         String playersData = tester.substring(x, y);
 
-        int[] units = new int[700];
+        int [] units = new int[700];
         int i = 0;
-        for (int unitIndex = playersData.indexOf("TFT"); unitIndex >= 0; unitIndex = playersData.indexOf("TFT", unitIndex + 1)) {
-            units[i] = unitIndex;
+
+        for (int unitIndex = playersData.indexOf("\"character_id\":\"TFT");unitIndex >= 0; unitIndex = playersData.indexOf("\"character_id\":\"TFT", unitIndex + 1)) {
+            units [i] = unitIndex;
+
             i++;
         }
 
-
         int j = 0;
-        int[] unitE = new int[700];
-        for (int unitEnd = playersData.indexOf("\",\"items\":"); unitEnd >= 0; unitEnd = playersData.indexOf("\",\"items\":", unitEnd + 1)) {
-            unitE[j] = unitEnd;
+        int [] unitE = new int[700];
+        for (int unitEnd = playersData.indexOf("\",\"item");unitEnd >= 0; unitEnd = playersData.indexOf("\",\"item", unitEnd + 1)) {
+            unitE [j] = unitEnd;
             j++;
         }
-
         //adding units to list
-        String[] unitlist = new String[i];
-        for (int z = 0; i > z; z++) {
+        String [] unitlist = new String [i];
+        for(int z = 0; i> z; z++) {
             //Creates a list of units
-            unitlist[z] = playersData.substring(units[z], unitE[z]);
-
-
-            System.out.println(unitlist[z]);
+            unitlist [z] = playersData.substring(units[z]+16, unitE[z]);
         }
-
-
-        return (unitlist);
+        return(unitlist);
     }
-
 
 
     //Stock Stuff
     DrawerLayout drawerLayout;
 
-    /////////////////////////////////////////////////////////////////////////////////////////
-    //private static String z = MATCH;
-/*
-    public static void viewMatchData(){
-        String a = MATCH;
-        String z = a;
-    }
-    public static String matID(){
-        return z;
-    }*/
-    ////////////////////////////////////////////////////////////////////////////////////////////
 
-  /*
-    public static String units()
-    {
-        return z;
-    }
-    String myValue = MatchDetails.viewMatchData();
-    //Pass this in from match container somehow
-    String GameID =
-*/
-
-
-    /////////////////////////////////////////////////////////////////////////////////
-/*
-
-    //MatchID fetch
-    String matID[];
-    String [] listOfUnits = viewMatchData();
-
-    public class addtolist(){
-
-        int y = listOfUnits.length();
-        ListView Ulist;
-        for(int z = 0; y >= z; z++) {
-            matID[z] = listOfUnits[z];
-        }
-    }*/
 
     public static String[] viewMatchData2() {
 
@@ -173,15 +120,22 @@ public class MatchDetails extends AppCompatActivity {
         if(mat==1){
             return(boink1);
         }
-        if(mat==1){
+        if(mat==2){
             return(boink2);
         }
         else {
             return(boink3);
         }
     }
-    String matID[] = viewMatchData2();
-    //String matID[] = {"Vi", "Zac", "Urgot", "Yuumi", "Jinx", "Tahmkench", "Jayce"};
+
+
+    String MATCH = "NA1_4265735286";
+    String APIKEY = "RGAPI-f1315bcb-8c6e-41fa-9559-d9a069b1fb9c";
+    String puuid = "bWxLgFEOjkoSZh8rQ4hGNAvIDd_gWRGlybnlqQzVaQJdMKvHACDu0fzrMJGRYNra_C61q8z2vkXKng";
+    //String matchID[] = viewMatchData(MATCH, puuid, APIKEY);
+
+    //String matID[] = viewMatchData2();
+    String matchID[] = {"Vi", "Zac", "Urgot", "Yuumi", "Jinx", "Tahmkench", "Jayce"};
 
 
 
@@ -193,16 +147,26 @@ public class MatchDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.match_details);
 //v
-
-
         Ulist = findViewById(R.id.list);
         ArrayAdapter<String> arr;
         arr
                 = new ArrayAdapter<String>(
                 this,
-                R.layout.support_simple_spinner_dropdown_item, matID);
+                R.layout.support_simple_spinner_dropdown_item, matchID);
         Ulist.setAdapter(arr);
+
+        /*
+        String message = getIntent().getStringExtra("message_key");
+
+
+        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+        */
+
 //^
+
+
+
+
         drawerLayout = findViewById(R.id.drawer_layout);
 
         // temp functionality to go to match feed, to make merging everything in easier
@@ -210,18 +174,6 @@ public class MatchDetails extends AppCompatActivity {
         //Assign variable
         drawerLayout = findViewById(R.id.drawer_layout);
     }
-
-
-    public void ClickSearch(View view){
-        MainActivity.searchHandler.ClickSearch(view);
-    }
-
-
-
-
-
-
-
 
     public void ClickMenu(View view) {
         //Open drawer
@@ -253,6 +205,11 @@ public class MatchDetails extends AppCompatActivity {
         recreate();
     }
 
+    public void ClickSearch(View view) {
+        System.out.println("Clicked search from MainActivity");
+        MainActivity.searchHandler.ClickSearch(view);
+    }
+
     public void ClickPopularBuilds(View view) {
         //Redirect to Popular Builds activity
         redirectActivity(this, PopularBuilds.class);
@@ -274,37 +231,12 @@ public class MatchDetails extends AppCompatActivity {
     }
 
     public void ClickLogout(View view) {
-        //Logout and close the app
-        logout(this);
-    }
-
-    public static void logout(Activity activity) {
-        //Initialize alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        //Set title
-        builder.setTitle("Logout");
-        //Set message
-        builder.setMessage("Are you sure you want to logout ?");
-        //Click Yes Button
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //Complete activity
-                activity.finishAffinity();
-                //Exit app
-                System.exit(0);
-            }
-        });
-        //Click No Button
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //Dismiss dialog
-                dialog.dismiss();
-            }
-        });
-        //Show dialog
-        builder.show();
+        //Signs the user out of account
+        FirebaseAuth.getInstance().signOut();
+        //Returns to Login screen
+        Toast.makeText(MatchDetails.this, "Logout Successful.", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getApplicationContext(), Login.class));
+        finish();
     }
 
     public static void redirectActivity(Activity activity, Class aClass) {

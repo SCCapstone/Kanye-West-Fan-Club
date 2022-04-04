@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     public static SearchHandler searchHandler = new SearchHandler();
     public static final String TAG = "TAG";
     DrawerLayout drawerLayout;
-    TextView tftName;
+    TextView tftName, currentPage;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
@@ -32,10 +32,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        startActivity( new Intent(this, MatchFeed.class));
 
         //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
         tftName = findViewById(R.id.tftName);
+        currentPage = findViewById(R.id.currentPage);
 
         //Initialize Firebase elements
         fAuth = FirebaseAuth.getInstance();
@@ -57,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
             tftName.setText(TFTName);
             //RETRIEVE PUIID FROM FIREBASE
             String PUIID = value.getString("puiid");
-            Toast.makeText(MainActivity.this, ""+PUIID, Toast.LENGTH_LONG).show();
         });
 
         //CALL API KEY FROM FIREBASE
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             assert value != null;
             String currentAPIKey = value.getString("apikey");
         });
+        currentPage.setText("Home");
     }
 
     public void ClickMenu(View view) {

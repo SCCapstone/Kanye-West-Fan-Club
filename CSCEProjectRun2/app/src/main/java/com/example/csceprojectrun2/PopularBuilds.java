@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,12 +24,17 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PopularBuilds extends AppCompatActivity {
     //Initialize variable
     DrawerLayout drawerLayout;
     ScrollView typeContainer;
     List<BuildType> typeList = null;
+    TextView tftName, currentPage;
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +51,26 @@ public class PopularBuilds extends AppCompatActivity {
 
         //Assign variables
         drawerLayout = findViewById(R.id.drawer_layout);
+        tftName = findViewById(R.id.tftName);
+        currentPage = findViewById(R.id.currentPage);
         typeContainer = findViewById(R.id.kanye_container);
         renderTypes(typeContainer);
+
+        //Initialize Firebase elements
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+
+        //Display current user's tft name in navigation drawer
+        DocumentReference documentReference = fStore.collection("users").document(userId);
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve tft name and puiid from Firebase
+            assert value != null;
+            String TFTName = value.getString("tftName");
+            tftName.setVisibility(View.VISIBLE);
+            tftName.setText(TFTName);
+        });
+        currentPage.setText("Popular Builds");
     }
 
     private List<BuildType> readJsonStream(InputStream input) throws IOException {

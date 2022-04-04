@@ -14,13 +14,23 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DecimalFormat;
+import java.util.Objects;
 
 public class CharacterInfo extends AppCompatActivity {
     DrawerLayout drawerLayout;
+
     TabLayout tabLayout;
     ViewPager2 viewPager2;
+
+    TextView tftName, currentPage;
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+    String userId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,16 +38,44 @@ public class CharacterInfo extends AppCompatActivity {
         setContentView(R.layout.activity_character_info_1);
 
         drawerLayout = findViewById(R.id.drawer_layout);
+
         tabLayout = findViewById(R.id.characterinfoTabLayout);
         viewPager2 = findViewById(R.id.characterinfoViewPager);
+
+        tftName = findViewById(R.id.tftName);
+        currentPage = findViewById(R.id.currentPage);
+
+
 
         Bundle bundle = getIntent().getExtras();
 
         Champion champion = (Champion)bundle.getSerializable("champion");
 
+
         final CharacterInfoAdapter cia = new CharacterInfoAdapter(this, tabLayout.getTabCount(), getSupportFragmentManager(), getLifecycle(), champion, this);
 
         viewPager2.setAdapter(cia);
+
+        PopulateInfo(champion);
+
+        //Initialize Firebase elements
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+
+
+        //Display current user's tft name in navigation drawer
+        DocumentReference documentReference = fStore.collection("users").document(userId);
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve tft name and puiid from Firebase
+            assert value != null;
+            String TFTName = value.getString("tftName");
+            tftName.setVisibility(View.VISIBLE);
+            tftName.setText(TFTName);
+        });
+        currentPage.setText("Current Characters");
+    }
+
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
             public void onTabSelected(TabLayout.Tab t){

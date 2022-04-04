@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -30,6 +32,7 @@ public class CommunityBuildList extends AppCompatActivity {
     FirebaseFirestore fStore;
     FloatingActionButton mAddBtn;
     CustomAdapter adapter;
+    TextView tftName, currentPage;
     ProgressDialog pd;
 
     @Override
@@ -46,6 +49,8 @@ public class CommunityBuildList extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         mRecyclerView = findViewById(R.id.recycler_view);
         mAddBtn = findViewById(R.id.addBtn);
+        tftName = findViewById(R.id.tftName);
+        currentPage = findViewById(R.id.currentPage);
 
         //Set recycler view properties
         mRecyclerView.setHasFixedSize(true);
@@ -64,6 +69,16 @@ public class CommunityBuildList extends AppCompatActivity {
             finish();
         });
 
+        //Display current user's tft name in navigation drawer
+        DocumentReference documentReference = fStore.collection("users").document(userId);
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve tft name and puiid from Firebase
+            assert value != null;
+            String TFTName = value.getString("tftName");
+            tftName.setVisibility(View.VISIBLE);
+            tftName.setText(TFTName);
+        });
+        currentPage.setText("Community Builds");
     }
 
     private void displayData() {
