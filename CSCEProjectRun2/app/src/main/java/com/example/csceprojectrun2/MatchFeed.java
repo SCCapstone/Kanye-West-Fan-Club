@@ -24,6 +24,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
+import android.content.Intent;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -264,12 +265,17 @@ public class MatchFeed extends AppCompatActivity {
     }
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-    public String getMyString() {
-        return matid;
-    }
-
     public void ClickMatch(View view) {
         //Toast.makeText(getApplicationContext(),"test",Toast.LENGTH_SHORT).show();
+
+
+        /*
+        Intent intent = new Intent(MatchFeed.this,MatchDetails.class);
+        String message = "yoink yoink";
+        intent.putExtra("message_key", message);
+        startActivity(intent);
+
+         */
         matid = "";
 
 //MatchData MatchID -> passed
