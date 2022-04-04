@@ -15,6 +15,7 @@
         <entry key="..\:/Android/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/main_top_bar.xml" value="0.165" />
         <entry key="..\:/Users/Sincere/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/drawable-anydpi/ic_action_add.xml" value="0.1" />
         <entry key="..\:/Users/Sincere/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/activity_character_info.xml" value="0.38453038674033146" />
+        <entry key="..\:/Users/Sincere/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/activity_character_info_1.xml" value="0.1" />
         <entry key="..\:/Users/Sincere/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/activity_community_builds.xml" value="0.31068840579710144" />
         <entry key="..\:/Users/Sincere/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/activity_create_account.xml" value="0.22" />
         <entry key="..\:/Users/Sincere/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/activity_current_characters.xml" value="0.31068840579710144" />
@@ -107,15 +108,12 @@
         <entry key="..\:/Users/jws29/OneDrive/Documents/GitHub/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/activity_main.xml" value="0.4244791666666667" />
         <entry key="..\:/Users/jws29/OneDrive/Documents/GitHub/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/main_nav_drawer.xml" value="0.4244791666666667" />
         <entry key="..\:/Users/socke/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/a1.xml" value="0.22" />
-        <entry key="..\:/Users/socke/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/activity_character_info.xml" value="0.25" />
-        <entry key="..\:/Users/socke/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/activity_character_info_1.xml" value="0.25" />
+        <entry key="..\:/Users/socke/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/activity_character_info.xml" value="0.15" />
         <entry key="..\:/Users/socke/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/activity_current_characters.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/socke/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/character_card.xml" value="0.25" />
         <entry key="..\:/Users/socke/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/character_card1.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/socke/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/character_container.xml" value="0.22" />
         <entry key="..\:/Users/socke/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/character_feed.xml" value="0.25" />
-        <entry key="..\:/Users/socke/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/fragment_ability.xml" value="0.33" />
-        <entry key="..\:/Users/socke/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/fragment_stats.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/socke/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/main_top_bar.xml" value="0.23052536231884058" />
         <entry key="..\:/Users/socke/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/match_card.xml" value="0.33" />
         <entry key="..\:/Users/socke/AndroidStudioProjects/Kanye-West-Fan-Club/CSCEProjectRun2/app/src/main/res/layout/match_container.xml" value="0.25" />
