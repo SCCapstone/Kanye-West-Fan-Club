@@ -82,6 +82,7 @@ public class CommunityBuilds extends AppCompatActivity {
             //Retrieve tft name from Firebase
             assert value != null;
             tftName.setText(value.getString("tftName"));
+            tftName.setVisibility(View.VISIBLE);
 
             //click button to upload data
             mSaveBtn.setOnClickListener(view -> {

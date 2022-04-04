@@ -11,11 +11,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DecimalFormat;
+import java.util.Objects;
 
 public class CharacterInfo extends AppCompatActivity {
     DrawerLayout drawerLayout;
+    TextView tftName;
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +30,31 @@ public class CharacterInfo extends AppCompatActivity {
         setContentView(R.layout.activity_character_info);
 
         drawerLayout = findViewById(R.id.drawer_layout);
+        tftName = findViewById(R.id.tftName);
+
 
         Bundle bundle = getIntent().getExtras();
 
         Champion champion = (Champion)bundle.getSerializable("champion");
 
         PopulateInfo(champion);
+
+        //Initialize Firebase elements
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+
+
+        //Display current user's tft name in navigation drawer
+        DocumentReference documentReference = fStore.collection("users").document(userId);
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve tft name and puiid from Firebase
+            assert value != null;
+            String TFTName = value.getString("tftName");
+            tftName.setVisibility(View.VISIBLE);
+            tftName.setText(TFTName);
+        });
+
     }
 
     public void PopulateInfo(Champion champion){
