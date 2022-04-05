@@ -46,16 +46,14 @@ public class CharacterInfo extends AppCompatActivity {
         currentPage = findViewById(R.id.currentPage);
 
 
-
         Bundle bundle = getIntent().getExtras();
 
-        Champion champion = (Champion)bundle.getSerializable("champion");
+        Champion champion = (Champion) bundle.getSerializable("champion");
 
 
         final CharacterInfoAdapter cia = new CharacterInfoAdapter(this, tabLayout.getTabCount(), getSupportFragmentManager(), getLifecycle(), champion, this);
 
         viewPager2.setAdapter(cia);
-
 
 
         //Initialize Firebase elements
@@ -76,14 +74,17 @@ public class CharacterInfo extends AppCompatActivity {
         currentPage.setText("Current Characters");
 
 
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            public void onTabSelected(TabLayout.Tab t) {
+                viewPager2.setCurrentItem(t.getPosition());
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
-            public void onTabSelected(TabLayout.Tab t){
-            viewPager2.setCurrentItem(t.getPosition());
+            }
 
-        }
-            public void onTabUnselected(TabLayout.Tab t){}
-            public void onTabReselected(TabLayout.Tab t){}
+            public void onTabUnselected(TabLayout.Tab t) {
+            }
+
+            public void onTabReselected(TabLayout.Tab t) {
+            }
         });
 
         String championImage = champion.getName().toLowerCase().replace(".", "").replace(" ", "").replace("'", "") + "_square";
@@ -98,7 +99,8 @@ public class CharacterInfo extends AppCompatActivity {
         characterImageUI.setImageResource(championID);
 
     }
-    public void PopulateAbilityInfo(Champion champion){
+
+    public void PopulateAbilityInfo(Champion champion) {
         TextView characterAbilityNameUI = findViewById(R.id.characterinfoAbilityName);
         TextView characterAbilityDescriptionUI = findViewById(R.id.characterinfoAbilityDescription);
 
@@ -106,10 +108,7 @@ public class CharacterInfo extends AppCompatActivity {
         characterAbilityDescriptionUI.setText(champion.getAbility().getAbilityDesc());
     }
 
-    public void PopulateStatsInfo(Champion champion){
-
-
-
+    public void PopulateStatsInfo(Champion champion) {
 
 
         TextView characterStatArmor = findViewById(R.id.characterinfoStatArmorValue);
@@ -127,7 +126,6 @@ public class CharacterInfo extends AppCompatActivity {
         DecimalFormat df = new DecimalFormat("0.00");
 
 
-
         characterStatArmor.setText(Integer.toString(champion.getStats().getArmor()));
         characterStatDamage.setText(Integer.toString(champion.getStats().getDamage()));
         characterStatHP.setText(Integer.toString(champion.getStats().getHp()));
@@ -141,7 +139,9 @@ public class CharacterInfo extends AppCompatActivity {
 
     }
 
-
+    public void ClickBack(View view) {
+        MainActivity.redirectActivity(this, CurrentCharacters.class);
+    }
 
     public void ClickMenu(View view) {
         //Open drawer
@@ -155,27 +155,27 @@ public class CharacterInfo extends AppCompatActivity {
 
     public void ClickHome(View view) {
         //Redirect to home activity
-        MainActivity.redirectActivity(this,MatchFeed.class);
+        MainActivity.redirectActivity(this, MatchFeed.class);
     }
 
-    public void ClickPopularBuilds(View view){
+    public void ClickPopularBuilds(View view) {
         //Redirect to Popular Builds activity
         MainActivity.redirectActivity(this, PopularBuilds.class);
     }
 
     public void ClickCommunityBuilds(View view) {
         //Redirect to Community Builds activity
-        MainActivity.redirectActivity(this,CommunityBuilds.class);
+        MainActivity.redirectActivity(this, CommunityBuildList.class);
     }
 
     public void ClickCurrentCharacters(View view) {
         //Redirect to Current Character activity
-        MainActivity.redirectActivity(this,CurrentCharacters.class);
+        MainActivity.redirectActivity(this, CurrentCharacters.class);
     }
 
     public void ClickItemBuilder(View view) {
         //Redirect to Item Builder activity
-        MainActivity.redirectActivity(this,ItemBuilder.class);
+        MainActivity.redirectActivity(this, ItemBuilder.class);
     }
 
     public void ClickLogout(View view) {
@@ -188,7 +188,7 @@ public class CharacterInfo extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
         //Close drawer
         MainActivity.closeDrawer(drawerLayout);

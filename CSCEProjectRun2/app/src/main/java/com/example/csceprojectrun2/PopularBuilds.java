@@ -229,7 +229,7 @@ public class PopularBuilds extends AppCompatActivity {
 
     public void ClickCommunityBuilds(View view) {
         //Recreate the Community Builds activity
-        MainActivity.redirectActivity(this, CommunityBuilds.class);
+        MainActivity.redirectActivity(this, CommunityBuildList.class);
     }
 
     public void ClickCurrentCharacters(View view) {

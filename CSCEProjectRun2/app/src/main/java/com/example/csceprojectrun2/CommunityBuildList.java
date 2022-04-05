@@ -154,7 +154,7 @@ public class CommunityBuildList extends AppCompatActivity {
 
     public void ClickCommunityBuilds(View view) {
         //Recreate the Community Builds activity
-        MainActivity.redirectActivity(this, CommunityBuilds.class);
+        recreate();
     }
 
     public void ClickCurrentCharacters(View view) {

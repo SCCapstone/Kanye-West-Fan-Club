@@ -96,6 +96,8 @@ public class CommunityBuilds extends AppCompatActivity {
                     String description = mDescriptionEt.getText().toString().trim();
                     //Call function to update data
                     updateData(id, title, description);
+                    startActivity(new Intent(CommunityBuilds.this, CommunityBuildList.class));
+                    finish();
                 } else {
                     //ADDING NEW DATA
                     //input data
@@ -103,6 +105,8 @@ public class CommunityBuilds extends AppCompatActivity {
                     String description = mDescriptionEt.getText().toString().trim();
                     //Call function to upload data
                     uploadData(title, description);
+                    startActivity(new Intent(CommunityBuilds.this, CommunityBuildList.class));
+                    finish();
                 }
             });
 
@@ -162,6 +166,10 @@ public class CommunityBuilds extends AppCompatActivity {
         });
     }
 
+    public void ClickBack(View view) {
+        MainActivity.redirectActivity(this, CommunityBuildList.class);
+    }
+
     public void ClickMenu(View view) {
         //Open drawer
         MainActivity.openDrawer(drawerLayout);
@@ -184,7 +192,7 @@ public class CommunityBuilds extends AppCompatActivity {
 
     public void ClickCommunityBuilds(View view) {
         //Recreate the Community Builds activity
-        recreate();
+        MainActivity.redirectActivity(this, CommunityBuildList.class);
     }
 
     public void ClickCurrentCharacters(View view) {

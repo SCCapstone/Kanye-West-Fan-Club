@@ -161,6 +161,9 @@ public class PopularBuildInfo extends AppCompatActivity {
 
     }
 
+    public void ClickBack(View view) {
+        MainActivity.redirectActivity(this, PopularBuilds.class);
+    }
 
     public void ClickMenu(View view) {
         //Open drawer
@@ -184,7 +187,7 @@ public class PopularBuildInfo extends AppCompatActivity {
 
     public void ClickCommunityBuilds(View view) {
         //Redirect to Community Builds activity
-        MainActivity.redirectActivity(this, CommunityBuilds.class);
+        MainActivity.redirectActivity(this, CommunityBuildList.class);
     }
 
     public void ClickCurrentCharacters(View view) {

@@ -324,7 +324,7 @@ public class MatchFeed extends AppCompatActivity {
 
     public void ClickCommunityBuilds(View view) {
         //Redirect to Community Builds activity
-        redirectActivity(this, CommunityBuilds.class);
+        redirectActivity(this, CommunityBuildList.class);
     }
 
     public void ClickCurrentCharacters(View view) {
