@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <include
-            layout="@layout/main_top_bar"
+            layout="@layout/secondary_top_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -26,12 +26,6 @@
             android:layout_height="wrap_content"
             android:paddingTop="75dp" />
     </LinearLayout>
-
-
-    <include
-        android:id="@+id/include"
-        layout="@layout/main_top_bar" />
-
 
     <RelativeLayout
         android:layout_width="300dp"

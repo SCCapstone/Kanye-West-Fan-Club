@@ -24,7 +24,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
-import android.content.Intent;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -33,13 +32,40 @@ public class MatchFeed extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ScrollView matchContainer;
     TextView tftName, currentPage;
-
     String userId;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-    ImageView summonerIcon, player1, player2, player3, player4, player5, player6;
 
-    String matid;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.match_feed);
+
+        System.out.println("onCreate!!!!!!!!!");
+
+        //Initialize views
+        drawerLayout = findViewById(R.id.drawer_layout);
+        tftName = findViewById(R.id.tftName);
+        currentPage = findViewById(R.id.currentPage);
+        matchContainer = findViewById(R.id.match_container);
+
+        //Initialize Firebase elements
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+
+        renderMatchHistory(matchContainer);
+
+        //Display current user's tft name in navigation drawer
+        DocumentReference documentReference = fStore.collection("users").document(userId);
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve tft name from Firebase
+            assert value != null;
+            tftName.setText(value.getString("tftName"));
+            tftName.setVisibility(View.VISIBLE);
+        });
+        currentPage.setText("Home");
+    }
 
     public void ClickSearch(View view) {
         System.out.println("Clicked search from MatchFeed");
@@ -147,32 +173,37 @@ public class MatchFeed extends AppCompatActivity {
 
         String gameLength = convertToTimestamp(info.getInt("game_length"));
         String queueType = getQueueType(info.getInt("queue_id"));
+        assert participantData != null;
         String placementNum = Integer.toString(participantData.getInt("placement"));
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                // build new match tiles
-                LayoutInflater inflater = getLayoutInflater();
+        runOnUiThread(() -> {
+            // build new match tiles
+            LayoutInflater inflater = getLayoutInflater();
 
-                // create the card UI element
-                inflater.inflate(R.layout.match_card, linearLayout, true);
+            // create the card UI element
+            inflater.inflate(R.layout.match_card, linearLayout, true);
 
-                // get and update new card
-                View newMatchCard = linearLayout.getChildAt(cardPosition);
+            // get and update new card
+            View newMatchCard = linearLayout.getChildAt(cardPosition);
 
-                TextView gameTypeUI = newMatchCard.findViewById(R.id.gameType);
-                TextView gameLengthUI = newMatchCard.findViewById((R.id.gameLength));
-                TextView matchIdUI = newMatchCard.findViewById(R.id.matchID);
-                TextView placementUI = newMatchCard.findViewById(R.id.placement);
+            TextView gameTypeUI = newMatchCard.findViewById(R.id.gameType);
+            TextView gameLengthUI = newMatchCard.findViewById((R.id.gameLength));
+            TextView matchIdUI = newMatchCard.findViewById(R.id.matchID);
+            TextView placementUI = newMatchCard.findViewById(R.id.placement);
 
-                matchIdUI.setText(matchId);
-                gameLengthUI.setText(gameLength);
-                gameTypeUI.setText(queueType);
-                placementUI.setText("Placed: " + placementNum);
+            matchIdUI.setText(matchId);
+            gameLengthUI.setText(gameLength);
+            gameTypeUI.setText(queueType);
+            placementUI.setText("Placed: " + placementNum);
 
-                applyChampionImages(newMatchCard, participantData);
-            }
+            applyChampionImages(newMatchCard, participantData);
+
+            newMatchCard.setOnClickListener(view -> {
+                Intent intent = new Intent(MatchFeed.this, MatchDetails.class);
+                intent.putExtra("matchID", matchId);
+                intent.putExtra("puuid", ownerPuuid);
+                startActivity(intent);
+            });
         });
     }
 
@@ -189,23 +220,21 @@ public class MatchFeed extends AppCompatActivity {
             assert value != null;
             String currentAPIKey = value.getString("apikey");
             // spawn thread and collect data from riot api
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    // get recent played match's IDs
-                    String[] matchIds = RiotAPIHelper.getMatchesFromPuuid(puuid, 6, currentAPIKey);
+            new Thread(() -> {
+                // get recent played match's IDs
+                String[] matchIds = RiotAPIHelper.getMatchesFromPuuid(puuid, numMatchesToReturn, currentAPIKey);
 
-                    if (matchIds == null) {
-                        System.out.println("Unable to retrieve match ids!");
-                        return;
-                    }
+                if (matchIds == null) {
+                    System.out.println("Unable to retrieve match ids!");
+                    return;
+                }
 
-                    // populate match feed
-                    for (int i = 0; i < matchIds.length; i++) {
-                        String matchId = matchIds[i];
-                        JsonObject matchData = RiotAPIHelper.getMatchData(matchId, currentAPIKey);
-                        createMatchCard(i, matchId, matchData, puuid);
-                    }
+                // populate match feed
+                for (int i = 0; i < matchIds.length; i++) {
+                    String matchId = matchIds[i];
+                    JsonObject matchData = RiotAPIHelper.getMatchData(matchId, currentAPIKey);
+                    assert matchData != null;
+                    createMatchCard(i, matchId, matchData, puuid);
                 }
             }).start();
         });
@@ -225,67 +254,9 @@ public class MatchFeed extends AppCompatActivity {
             //RETRIEVE PUIID FROM FIREBASE
             String PUIID = value.getString("puiid");
             Toast.makeText(MatchFeed.this, "Pulling from your puuid through firebase", Toast.LENGTH_LONG).show();
-            renderMatchHistoryWithPuuid(matchContainer, PUIID, 6);
+            renderMatchHistoryWithPuuid(matchContainer, PUIID, 10);
         });
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.match_feed);
-
-        System.out.println("onCreate!!!!!!!!!");
-
-        //Initialize views
-        drawerLayout = findViewById(R.id.drawer_layout);
-        tftName = findViewById(R.id.tftName);
-        currentPage = findViewById(R.id.currentPage);
-        matchContainer = findViewById(R.id.match_container);
-        summonerIcon = findViewById(R.id.summonerIcon);
-        player1 = findViewById(R.id.imageView1);
-        player2 = findViewById(R.id.imageView2);
-        player3 = findViewById(R.id.imageView3);
-        player4 = findViewById(R.id.imageView4);
-        player5 = findViewById(R.id.imageView5);
-        player6 = findViewById(R.id.imageView6);
-
-        //Initialize Firebase elements
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
-        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
-
-        renderMatchHistory(matchContainer);
-
-        //Display current user's tft name in navigation drawer
-        DocumentReference documentReference = fStore.collection("users").document(userId);
-        documentReference.addSnapshotListener(this, (value, error) -> {
-            //Retrieve tft name from Firebase
-            assert value != null;
-            tftName.setText(value.getString("tftName"));
-            tftName.setVisibility(View.VISIBLE);
-        });
-        currentPage.setText("Home");
-    }
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-    public void ClickMatch(View view) {
-        //Toast.makeText(getApplicationContext(),"test",Toast.LENGTH_SHORT).show();
-
-
-        /*
-        Intent intent = new Intent(MatchFeed.this,MatchDetails.class);
-        String message = "yoink yoink";
-        intent.putExtra("message_key", message);
-        startActivity(intent);
-
-         */
-        matid = "";
-
-//MatchData MatchID -> passed
-        redirectActivity(this, MatchDetails.class);
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
 
     public void ClickMenu(View view) {
         //Open drawer

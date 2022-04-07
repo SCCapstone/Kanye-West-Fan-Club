@@ -14,6 +14,7 @@ import android.widget.ScrollView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,13 +25,39 @@ import java.net.*;
 import java.util.Random;
 
 public class MatchDetails extends AppCompatActivity {
-
+    DrawerLayout drawerLayout;
     ScrollView matchDetailsContainer;
+    String MATCHID;
+    String PUUID;
+    TextView currentPage;
 
-//    String myValue = MainActivity.getMyString();
-    //Pass this in from match container somehow
-    //String GameID = MainActivity
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.match_details);
 
+        //Initialize views
+        drawerLayout = findViewById(R.id.drawer_layout);
+        currentPage = findViewById(R.id.currentPage);
+
+        //Receives match id and puuid from a match card clicked on Match feed
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            MATCHID = bundle.getString("matchID");
+            PUUID = bundle.getString("puuid");
+        }
+
+        currentPage.setText("Match Details");
+
+
+        Ulist = findViewById(R.id.list);
+        ArrayAdapter<String> arr;
+        arr
+                = new ArrayAdapter<String>(
+                this,
+                R.layout.support_simple_spinner_dropdown_item, matchID);
+        Ulist.setAdapter(arr);
+    }
 
     public static String[] viewMatchData(String MATCH, String puuid, String APIKEY) {
 
@@ -102,10 +129,6 @@ public class MatchDetails extends AppCompatActivity {
     }
 
 
-    //Stock Stuff
-    DrawerLayout drawerLayout;
-
-
     public static String[] viewMatchData2() {
 
 
@@ -136,37 +159,6 @@ public class MatchDetails extends AppCompatActivity {
 
 
     ListView Ulist;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.match_details);
-//v
-        Ulist = findViewById(R.id.list);
-        ArrayAdapter<String> arr;
-        arr
-                = new ArrayAdapter<String>(
-                this,
-                R.layout.support_simple_spinner_dropdown_item, matchID);
-        Ulist.setAdapter(arr);
-
-        /*
-        String message = getIntent().getStringExtra("message_key");
-
-
-        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
-        */
-
-//^
-
-
-        drawerLayout = findViewById(R.id.drawer_layout);
-
-        // temp functionality to go to match feed, to make merging everything in easier
-
-        //Assign variable
-        drawerLayout = findViewById(R.id.drawer_layout);
-    }
 
     public void ClickBack(View view) {
         MainActivity.redirectActivity(this, MatchFeed.class);
