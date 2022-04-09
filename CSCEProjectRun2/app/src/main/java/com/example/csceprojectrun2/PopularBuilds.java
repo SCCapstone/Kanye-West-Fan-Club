@@ -64,7 +64,7 @@ public class PopularBuilds extends AppCompatActivity {
         //Display current user's tft name in navigation drawer
         DocumentReference documentReference = fStore.collection("users").document(userId);
         documentReference.addSnapshotListener(this, (value, error) -> {
-            //Retrieve tft name and puiid from Firebase
+            //Retrieve tft name and puuid from Firebase
             assert value != null;
             String TFTName = value.getString("tftName");
             tftName.setVisibility(View.VISIBLE);

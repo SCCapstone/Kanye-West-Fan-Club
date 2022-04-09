@@ -118,8 +118,6 @@ public class MatchFeed extends AppCompatActivity {
                     }).start();
                 }
             });
-            ////////////////////////////////////////////////////////
-
         });
     }
 
@@ -246,15 +244,15 @@ public class MatchFeed extends AppCompatActivity {
         LinearLayout linearLayout = matchContainer.findViewById(R.id.match_container_linear_layout);
         linearLayout.removeAllViews();
 
-        //Get a user's puiid
+        //Get a user's puuid
         DocumentReference documentReference = fStore.collection("users").document(userId);
         documentReference.addSnapshotListener(this, (value, error) -> {
-            //Retrieve tft name and puiid from Firebase
+            //Retrieve tft name and puuid from Firebase
             assert value != null;
-            //RETRIEVE PUIID FROM FIREBASE
-            String PUIID = value.getString("puiid");
+            //RETRIEVE PUUID FROM FIREBASE
+            String PUUID = value.getString("puiid");
             Toast.makeText(MatchFeed.this, "Pulling from your puuid through firebase", Toast.LENGTH_LONG).show();
-            renderMatchHistoryWithPuuid(matchContainer, PUIID, 10);
+            renderMatchHistoryWithPuuid(matchContainer, PUUID, 10);
         });
     }
 

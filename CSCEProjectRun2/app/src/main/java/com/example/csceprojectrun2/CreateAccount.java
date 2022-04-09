@@ -24,7 +24,7 @@ import java.util.Objects;
 
 public class CreateAccount extends AppCompatActivity {
     public static final String TAG = "TAG";
-    EditText mEmail, mPassword, mTFTName, mPUIID;
+    EditText mEmail, mPassword, mTFTName, mPUUID;
     Button mRegisterBtn;
     TextView mLoginBtn;
     FirebaseAuth fAuth;
@@ -40,7 +40,7 @@ public class CreateAccount extends AppCompatActivity {
         mEmail = findViewById(R.id.create_account_email);
         mPassword = findViewById(R.id.create_account_password);
         mTFTName = findViewById(R.id.create_account_tft);
-        mPUIID = findViewById(R.id.create_account_puiid);
+        mPUUID = findViewById(R.id.create_account_puuid);
         mRegisterBtn = findViewById(R.id.createAccountBtn);
         mLoginBtn = findViewById(R.id.create_account_login);
 
@@ -58,7 +58,7 @@ public class CreateAccount extends AppCompatActivity {
             String email = mEmail.getText().toString().trim();
             String password = mPassword.getText().toString().trim();
             String tftName = mTFTName.getText().toString().trim();
-            String puiid = mPUIID.getText().toString().trim();
+            String puuid = mPUUID.getText().toString().trim();
 
             //Display errors when email or password are empty, or password is too short
             if (TextUtils.isEmpty(email)) {
@@ -87,7 +87,7 @@ public class CreateAccount extends AppCompatActivity {
 
                     Map<String, Object> user = new HashMap<>();
                     user.put("tftName", tftName);
-                    user.put("puiid", puiid);
+                    user.put("puiid", puuid);
 
                     documentReference.set(user).addOnSuccessListener((OnSuccessListener) (aVoid) -> Log.d(TAG, "onSuccess: " + " User Profile is created for " + userID)).addOnFailureListener(e -> Log.d(TAG, "onFailure: " + e));
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));

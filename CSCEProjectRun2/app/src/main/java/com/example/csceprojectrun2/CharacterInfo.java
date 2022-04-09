@@ -1,15 +1,12 @@
 package com.example.csceprojectrun2;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
@@ -65,7 +62,7 @@ public class CharacterInfo extends AppCompatActivity {
         //Display current user's tft name in navigation drawer
         DocumentReference documentReference = fStore.collection("users").document(userId);
         documentReference.addSnapshotListener(this, (value, error) -> {
-            //Retrieve tft name and puiid from Firebase
+            //Retrieve tft name and puuid from Firebase
             assert value != null;
             String TFTName = value.getString("tftName");
             tftName.setVisibility(View.VISIBLE);
@@ -141,56 +138,5 @@ public class CharacterInfo extends AppCompatActivity {
 
     public void ClickBack(View view) {
         MainActivity.redirectActivity(this, CurrentCharacters.class);
-    }
-
-    public void ClickMenu(View view) {
-        //Open drawer
-        MainActivity.openDrawer(drawerLayout);
-    }
-
-    public void ClickLogo(View view) {
-        //Close drawer
-        MainActivity.closeDrawer(drawerLayout);
-    }
-
-    public void ClickHome(View view) {
-        //Redirect to home activity
-        MainActivity.redirectActivity(this, MatchFeed.class);
-    }
-
-    public void ClickPopularBuilds(View view) {
-        //Redirect to Popular Builds activity
-        MainActivity.redirectActivity(this, PopularBuilds.class);
-    }
-
-    public void ClickCommunityBuilds(View view) {
-        //Redirect to Community Builds activity
-        MainActivity.redirectActivity(this, CommunityBuildList.class);
-    }
-
-    public void ClickCurrentCharacters(View view) {
-        //Redirect to Current Character activity
-        MainActivity.redirectActivity(this, CurrentCharacters.class);
-    }
-
-    public void ClickItemBuilder(View view) {
-        //Redirect to Item Builder activity
-        MainActivity.redirectActivity(this, ItemBuilder.class);
-    }
-
-    public void ClickLogout(View view) {
-        //Signs the user out of account
-        FirebaseAuth.getInstance().signOut();
-        //Returns to Login screen
-        Toast.makeText(CharacterInfo.this, "Logout Successful.", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(getApplicationContext(), Login.class));
-        finish();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //Close drawer
-        MainActivity.closeDrawer(drawerLayout);
     }
 }

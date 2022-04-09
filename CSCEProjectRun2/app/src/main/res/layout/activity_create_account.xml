@@ -9,8 +9,8 @@
 
     <Button
         android:id="@+id/createAccountBtn"
-        android:layout_width="170dp"
-        android:layout_height="49dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="121dp"
         android:layout_marginEnd="121dp"
         android:backgroundTint="@color/grey"
@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_account_puiid"
+        app:layout_constraintTop_toBottomOf="@+id/create_account_puuid"
         app:layout_constraintVertical_bias="0.223" />
 
     <EditText
@@ -82,7 +82,7 @@
         app:layout_constraintTop_toBottomOf="@+id/create_account_password" />
 
     <EditText
-        android:id="@+id/create_account_puiid"
+        android:id="@+id/create_account_puuid"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -90,7 +90,7 @@
         android:layout_marginEnd="16dp"
         android:background="@color/gold"
         android:ems="10"
-        android:hint="puiid"
+        android:hint="puuid"
         android:inputType="text"
         android:minHeight="48dp"
         android:padding="10dp"

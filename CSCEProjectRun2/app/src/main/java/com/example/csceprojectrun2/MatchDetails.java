@@ -164,83 +164,8 @@ public class MatchDetails extends AppCompatActivity {
         MainActivity.redirectActivity(this, MatchFeed.class);
     }
 
-    public void ClickMenu(View view) {
-        //Open drawer
-        openDrawer(drawerLayout);
-    }
-
-    public static void openDrawer(DrawerLayout drawerLayout) {
-        //Open drawer layout
-        drawerLayout.openDrawer(GravityCompat.START);
-    }
-
-    public void ClickLogo(View view) {
-        //Close drawer
-        closeDrawer(drawerLayout);
-    }
-
-    public static void closeDrawer(DrawerLayout drawerLayout) {
-        //Close drawer layout
-        //Check condition
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            //When drawer is open
-            //Close drawer
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }
-    }
-
-    public void ClickHome(View view) {
-        //Recreate the Home activity
-        recreate();
-    }
-
     public void ClickSearch(View view) {
         System.out.println("Clicked search from MainActivity");
         MainActivity.searchHandler.ClickSearch(view);
-    }
-
-    public void ClickPopularBuilds(View view) {
-        //Redirect to Popular Builds activity
-        redirectActivity(this, PopularBuilds.class);
-    }
-
-    public void ClickCommunityBuilds(View view) {
-        //Redirect to Community Builds activity
-        redirectActivity(this, CommunityBuilds.class);
-    }
-
-    public void ClickCurrentCharacters(View view) {
-        //Redirect to Current Characters activity
-        redirectActivity(this, CurrentCharacters.class);
-    }
-
-    public void ClickItemBuilder(View view) {
-        //Redirect to Item Builder activity
-        redirectActivity(this, ItemBuilder.class);
-    }
-
-    public void ClickLogout(View view) {
-        //Signs the user out of account
-        FirebaseAuth.getInstance().signOut();
-        //Returns to Login screen
-        Toast.makeText(MatchDetails.this, "Logout Successful.", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(getApplicationContext(), Login.class));
-        finish();
-    }
-
-    public static void redirectActivity(Activity activity, Class aClass) {
-        //Initialize intent
-        Intent intent = new Intent(activity, aClass);
-        //Set flag
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //Start activity
-        activity.startActivity(intent);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //Close drawer
-        closeDrawer(drawerLayout);
     }
 }

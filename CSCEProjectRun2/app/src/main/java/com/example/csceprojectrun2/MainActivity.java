@@ -52,13 +52,13 @@ public class MainActivity extends AppCompatActivity {
         //Display current user's tft name in navigation drawer
         DocumentReference documentReference = fStore.collection("users").document(userId);
         documentReference.addSnapshotListener(this, (value, error) -> {
-            //Retrieve tft name and puiid from Firebase
+            //Retrieve tft name and puuid from Firebase
             assert value != null;
             String TFTName = value.getString("tftName");
             tftName.setVisibility(View.VISIBLE);
             tftName.setText(TFTName);
-            //RETRIEVE PUIID FROM FIREBASE
-            String PUIID = value.getString("puiid");
+            //RETRIEVE PUUID FROM FIREBASE
+            String PUUID = value.getString("puiid");
         });
 
         //CALL API KEY FROM FIREBASE
