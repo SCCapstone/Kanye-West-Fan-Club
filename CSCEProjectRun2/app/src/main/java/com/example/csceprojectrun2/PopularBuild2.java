@@ -2,7 +2,7 @@ package com.example.csceprojectrun2;
 
 import java.io.Serializable;
 
-public class PopularBuild implements Serializable {
+public class PopularBuild2 implements Serializable {
     String buildName;
     String unit1;
     String unit2;
@@ -13,7 +13,7 @@ public class PopularBuild implements Serializable {
     String unit7;
     String unit8;
 
-    public PopularBuild(String buildName, String unit1, String unit2, String unit3, String unit4, String unit5, String unit6, String unit7, String unit8) {
+    public PopularBuild2(String buildName, String unit1, String unit2, String unit3, String unit4, String unit5, String unit6, String unit7, String unit8) {
         this.buildName = buildName;
         this.unit1 = unit1;
         this.unit2 = unit2;

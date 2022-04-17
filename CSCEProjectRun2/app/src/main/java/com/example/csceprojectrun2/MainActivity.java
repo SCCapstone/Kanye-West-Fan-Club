@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
-        tftName = findViewById(R.id.tftName);
+        tftName = findViewById(R.id.TFTName);
         currentPage = findViewById(R.id.currentPage);
 
         //Initialize Firebase elements
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         tempOpenFeed.setOnClickListener(v -> startActivity(intent));
 
         //Display current user's tft name in navigation drawer
-        DocumentReference documentReference = fStore.collection("users").document(userId);
+        DocumentReference documentReference = fStore.collection("user").document(userId);
         documentReference.addSnapshotListener(this, (value, error) -> {
             //Retrieve tft name and puuid from Firebase
             assert value != null;
@@ -82,11 +82,6 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.openDrawer(GravityCompat.START);
     }
 
-    public void ClickLogo(View view) {
-        //Close drawer
-        closeDrawer(drawerLayout);
-    }
-
     public static void closeDrawer(DrawerLayout drawerLayout) {
         //Close drawer layout
         //Check condition
@@ -109,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void ClickPopularBuilds(View view) {
         //Redirect to Popular Builds activity
-        redirectActivity(this, PopularBuilds.class);
+        redirectActivity(this, PopularBuilds2.class);
     }
 
     public void ClickCommunityBuilds(View view) {

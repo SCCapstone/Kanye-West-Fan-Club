@@ -24,13 +24,14 @@ import java.util.Objects;
 
 public class CreateAccount extends AppCompatActivity {
     public static final String TAG = "TAG";
-    EditText mEmail, mPassword, mTFTName, mPUUID;
+    EditText mEmail, mPassword, mTFTName, mPUIID;
     Button mRegisterBtn;
     TextView mLoginBtn;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
     FirebaseFirestore fStore;
     String userID;
+    public Map<String, Object> userCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class CreateAccount extends AppCompatActivity {
         mEmail = findViewById(R.id.create_account_email);
         mPassword = findViewById(R.id.create_account_password);
         mTFTName = findViewById(R.id.create_account_tft);
-        mPUUID = findViewById(R.id.create_account_puuid);
+        mPUIID = findViewById(R.id.create_account_puiid);
         mRegisterBtn = findViewById(R.id.createAccountBtn);
         mLoginBtn = findViewById(R.id.create_account_login);
 
@@ -58,9 +59,9 @@ public class CreateAccount extends AppCompatActivity {
             String email = mEmail.getText().toString().trim();
             String password = mPassword.getText().toString().trim();
             String tftName = mTFTName.getText().toString().trim();
-            String puuid = mPUUID.getText().toString().trim();
+            String puiid = mPUIID.getText().toString().trim();
 
-            //Display errors when email or password are empty, or password is too short
+            //Display errors when email, password, tftname, or puuid are empty, or password is too short
             if (TextUtils.isEmpty(email)) {
                 mEmail.setError("Email is Required.");
                 return;
@@ -73,6 +74,15 @@ public class CreateAccount extends AppCompatActivity {
                 mPassword.setError("Password Must Be At Least 6 Characters.");
                 return;
             }
+            if (TextUtils.isEmpty(tftName)) {
+                mTFTName.setError("TFT Name is Required.");
+                return;
+            }
+            if (TextUtils.isEmpty(puiid)) {
+                mPUIID.setError("PUIID is Required.");
+                return;
+            }
+
             progressBar.setVisibility(View.VISIBLE);
 
             //Register the user in firebase
@@ -83,14 +93,14 @@ public class CreateAccount extends AppCompatActivity {
 
                     //Store user profile data to Firestore
                     userID = fAuth.getCurrentUser().getUid();
-                    DocumentReference documentReference = fStore.collection("users").document(userID);
+                    DocumentReference documentReference = fStore.collection("user").document(userID);
 
                     Map<String, Object> user = new HashMap<>();
                     user.put("tftName", tftName);
-                    user.put("puiid", puuid);
+                    user.put("puiid", puiid);
 
                     documentReference.set(user).addOnSuccessListener((OnSuccessListener) (aVoid) -> Log.d(TAG, "onSuccess: " + " User Profile is created for " + userID)).addOnFailureListener(e -> Log.d(TAG, "onFailure: " + e));
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), AppInfo.class));
                 } else {
                     Toast.makeText(CreateAccount.this, "Error! " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
@@ -98,5 +108,18 @@ public class CreateAccount extends AppCompatActivity {
             });
         });
         mLoginBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Login.class)));
+    }
+
+    public boolean doesUserExist(String tftName, String puiid) {
+        if (!userCheck.isEmpty() && userCheck.get("tftName").equals(tftName)) {
+            if (userCheck.get("puiid").equals(puiid)) {
+                //Both tftName and puiid exist already
+                return true;
+            } else {
+                //tftName exist but puiid does not exist.
+            }
+        }
+        return false;
+
     }
 }

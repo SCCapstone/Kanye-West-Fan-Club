@@ -45,7 +45,7 @@ public class MatchFeed extends AppCompatActivity {
 
         //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
-        tftName = findViewById(R.id.tftName);
+        tftName = findViewById(R.id.TFTName);
         currentPage = findViewById(R.id.currentPage);
         matchContainer = findViewById(R.id.match_container);
 
@@ -57,7 +57,7 @@ public class MatchFeed extends AppCompatActivity {
         renderMatchHistory(matchContainer);
 
         //Display current user's tft name in navigation drawer
-        DocumentReference documentReference = fStore.collection("users").document(userId);
+        DocumentReference documentReference = fStore.collection("user").document(userId);
         documentReference.addSnapshotListener(this, (value, error) -> {
             //Retrieve tft name from Firebase
             assert value != null;
@@ -245,7 +245,7 @@ public class MatchFeed extends AppCompatActivity {
         linearLayout.removeAllViews();
 
         //Get a user's puuid
-        DocumentReference documentReference = fStore.collection("users").document(userId);
+        DocumentReference documentReference = fStore.collection("user").document(userId);
         documentReference.addSnapshotListener(this, (value, error) -> {
             //Retrieve tft name and puuid from Firebase
             assert value != null;
@@ -266,11 +266,6 @@ public class MatchFeed extends AppCompatActivity {
         drawerLayout.openDrawer(GravityCompat.START);
     }
 
-    public void ClickLogo(View view) {
-        //Close drawer
-        closeDrawer(drawerLayout);
-    }
-
     public static void closeDrawer(DrawerLayout drawerLayout) {
         //Close drawer layout
         //Check condition
@@ -288,7 +283,7 @@ public class MatchFeed extends AppCompatActivity {
 
     public void ClickPopularBuilds(View view) {
         //Redirect to Popular Builds activity
-        redirectActivity(this, PopularBuilds.class);
+        redirectActivity(this, PopularBuildList.class);
     }
 
     public void ClickCommunityBuilds(View view) {

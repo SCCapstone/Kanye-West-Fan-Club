@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
@@ -73,6 +74,6 @@ public class Login extends AppCompatActivity {
         });
 
         //Click on the create account button
-        mCreateBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), CreateAccount.class)));
+        mCreateBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), CreateAccountInfo.class)));
     }
 }

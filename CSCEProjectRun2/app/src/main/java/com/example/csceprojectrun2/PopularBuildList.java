@@ -16,24 +16,23 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class CommunityBuildList extends AppCompatActivity {
+public class PopularBuildList extends AppCompatActivity {
     DrawerLayout drawerLayout;
+    TextView tftName, currentPage;
+    String userId;
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
     List<Model> modelList = new ArrayList<>();
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager layoutManager;
-    String userId;
-    TextView tftName, currentPage;
-    FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
     FloatingActionButton mAddBtn;
-    CommunityBuildAdapter adapter;
+    PopularBuildAdapter adapter;
     ProgressDialog pd;
 
     @Override
@@ -41,17 +40,17 @@ public class CommunityBuildList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.community_build_feed);
 
-        //Initialize Firebase elements
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
-        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
-
         //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
         tftName = findViewById(R.id.TFTName);
         mRecyclerView = findViewById(R.id.recycler_view);
         mAddBtn = findViewById(R.id.addBtn);
         currentPage = findViewById(R.id.currentPage);
+
+        //Initialize Firebase elements
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
 
         //Set recycler view properties
         mRecyclerView.setHasFixedSize(true);
@@ -70,9 +69,9 @@ public class CommunityBuildList extends AppCompatActivity {
         //Show data in recyclerView
         displayData();
 
-        //Click add button
+        //Click add button to return to community build list to pick more builds
         mAddBtn.setOnClickListener(view -> {
-            startActivity(new Intent(CommunityBuildList.this, CommunityBuilds.class));
+            startActivity(new Intent(PopularBuildList.this, CommunityBuildList.class));
             finish();
         });
 
@@ -85,7 +84,7 @@ public class CommunityBuildList extends AppCompatActivity {
             tftName.setVisibility(View.VISIBLE);
             tftName.setText(TFTName);
         });
-        currentPage.setText("Community Builds");
+        currentPage.setText("Popular Builds");
     }
 
     private void displayData() {
@@ -93,7 +92,7 @@ public class CommunityBuildList extends AppCompatActivity {
         pd.setTitle("Loading Data...");
         //show progress dialog
         pd.show();
-        fStore.collection("communityBuilds").get().addOnCompleteListener(task -> {
+        fStore.collection("user").document(userId).collection("popularBuilds").get().addOnCompleteListener(task -> {
             modelList.clear();
             //called when data is retrieved
             pd.dismiss();
@@ -108,51 +107,36 @@ public class CommunityBuildList extends AppCompatActivity {
                 modelList.add(model);
             }
             //adapter
-            adapter = new CommunityBuildAdapter(CommunityBuildList.this, modelList);
+            adapter = new PopularBuildAdapter(PopularBuildList.this, modelList);
             //set adapter to recyclerview
             mRecyclerView.setAdapter(adapter);
         }).addOnFailureListener(e -> {
             //called when there is any error while retrieving
             pd.dismiss();
-            Toast.makeText(CommunityBuildList.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(PopularBuildList.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         });
     }
 
-    public void deleteData(int index) {
+    public void removeData(int index) {
         //set title of progress dialog
-        pd.setTitle("Deleting Data...");
+        pd.setTitle("Removing  Data...");
         //show progress dialog
         pd.show();
 
         //Find selected build in Firebase
-        fStore.collection("communityBuilds")
-                .document(modelList.get(index).getId())
-                .delete()
-                .addOnCompleteListener(task -> {
-                    //Called when task is successful
-                    Toast.makeText(CommunityBuildList.this, "Deleted...", Toast.LENGTH_SHORT).show();
-                    //Display updated data
-                    displayData();
-                })
-                .addOnFailureListener(e -> {
-                    //Called when a error occur
-                    pd.dismiss();
-                    Toast.makeText(CommunityBuildList.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
-
-        //Delete in individual user's popular builds
         fStore.collection("user").document(userId).collection("popularBuilds")
                 .document(modelList.get(index).getId())
                 .delete()
                 .addOnCompleteListener(task -> {
                     //Called when task is successful
-                    Toast.makeText(CommunityBuildList.this, "Deleted...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PopularBuildList.this, "Removed...", Toast.LENGTH_SHORT).show();
                     //Display updated data
                     displayData();
                 })
                 .addOnFailureListener(e -> {
                     //Called when a error occur
                     pd.dismiss();
+                    Toast.makeText(PopularBuildList.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 
@@ -168,7 +152,7 @@ public class CommunityBuildList extends AppCompatActivity {
 
     public void ClickPopularBuilds(View view) {
         //Redirect to Popular Builds activity
-        MainActivity.redirectActivity(this, PopularBuildList.class);
+        recreate();
     }
 
     public void ClickCommunityBuilds(View view) {
@@ -190,7 +174,7 @@ public class CommunityBuildList extends AppCompatActivity {
         //Signs the user out of account
         FirebaseAuth.getInstance().signOut();
         //Returns to Login screen
-        Toast.makeText(CommunityBuildList.this, "Logout Successful.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(PopularBuildList.this, "Logout Successful.", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
     }

@@ -73,15 +73,6 @@
         "attr2": "Health: +150",
         "attr3": "",
         "desc": "Passive: At the start of combat, the wearer and all allies within 1 hex in the same row to the left and right gain 30% bonus attack speed for the rest of combat."
-      },
-      {
-        "buildName": "",
-        "firstItemName": "",
-        "secondItemName": "",
-        "attr1": "",
-        "attr2": "",
-        "attr3": "",
-        "desc": ""
       }
     ]
   },
@@ -159,15 +150,6 @@
         "attr2": "Attack Speed: +10%",
         "attr3": "",
         "desc": "Passive: When the wearer basic attacks or takes damage from any source, grants 2 bonus attack damage and 2 ability power for the rest of combat, stacking up 25 times for a maximum of 50."
-      },
-      {
-        "buildName": "",
-        "firstItemName": "",
-        "secondItemName": "",
-        "attr1": "",
-        "attr2": "",
-        "attr3": "",
-        "desc": ""
       }
     ]
   },
@@ -246,16 +228,6 @@
         "attr3": "",
         "desc": "Passive: At the start of combat, the wearer taunts enemies within 4 hexes. When the wearer dies, a Voidspawn arises, taunting nearby enemies. Summoned units can spawn Voidspawns at 25% effectiveness."
       }
-    ,
-      {
-        "buildName": "",
-        "firstItemName": "",
-        "secondItemName": "",
-        "attr1": "",
-        "attr2": "",
-        "attr3": "",
-        "desc": ""
-      }
     ]
   },
   {
@@ -333,16 +305,6 @@
         "attr3": "",
         "desc": "When equipped Spell Damage +50% AP."
       }
-    ,
-      {
-        "buildName": "",
-        "firstItemName": "",
-        "secondItemName": "",
-        "attr1": "",
-        "attr2": "",
-        "attr3": "",
-        "desc": ""
-      }
     ]
   },
   {
@@ -410,16 +372,6 @@
         "attr2": "Magic Resist: +20",
         "attr3": "",
         "desc": "Passive: At the start of combat, Stasis banishes for 5 seconds the unit that mirrors the wielder's placement on the other side of the board. Pierces through CC immunity effects."
-      }
-    ,
-      {
-        "buildName": "",
-        "firstItemName": "",
-        "secondItemName": "",
-        "attr1": "",
-        "attr2": "",
-        "attr3": "",
-        "desc": ""
       }
     ]
   },
@@ -497,15 +449,6 @@
         "attr2": "Health: +150",
         "attr3": "",
         "desc": "Passive: At the start of combat, the wearer taunts enemies within 4 hexes. When the wearer dies, a Voidspawn arises, taunting nearby enemies. Summoned units can spawn Voidspawns at 25% effectiveness."
-      },
-      {
-        "buildName": "",
-        "firstItemName": "",
-        "secondItemName": "",
-        "attr1": "",
-        "attr2": "",
-        "attr3": "",
-        "desc": ""
       }
     ]
   },
@@ -565,15 +508,6 @@
         "attr2": "",
         "attr3": "",
         "desc": "Passive: At the beginning of each round, the wearer equips 2 random items that are removed at the end of the round. The quality of these items are based on player level."
-      },
-      {
-        "buildName": "",
-        "firstItemName": "",
-        "secondItemName": "",
-        "attr1": "",
-        "attr2": "",
-        "attr3": "",
-        "desc": ""
       }
     ]
   },
@@ -665,37 +599,6 @@
         "attr2": "Starting Mana: +15",
         "attr3": "",
         "desc": "Passive: Every third basic attack from the wearer deals 70 magic damage to the target and 3 additional targets, while also reducing their magic resistance by 50% for 5 seconds."
-      },
-      {
-        "buildName": "",
-        "firstItemName": "",
-        "secondItemName": "",
-        "attr1": "",
-        "attr2": "",
-        "attr3": "",
-        "desc": ""
-      }
-    ]
-  },
-  {
-    "name": "",
-    "buildItems": [
-      {
-        "buildName": "",
-        "secondItemName": "",
-        "attr1": "",
-        "attr2": "",
-        "attr3": "",
-        "desc": ""
-      },
-      {
-        "buildName": "",
-        "firstItemName": "",
-        "secondItemName": "",
-        "attr1": "",
-        "attr2": "",
-        "attr3": "",
-        "desc": ""
       }
     ]
   }

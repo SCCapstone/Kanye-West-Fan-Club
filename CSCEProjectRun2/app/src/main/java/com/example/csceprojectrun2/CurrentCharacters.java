@@ -47,7 +47,7 @@ public class CurrentCharacters extends AppCompatActivity {
 
 
         drawerLayout = findViewById(R.id.drawer_layout);
-        tftName = findViewById(R.id.tftName);
+        tftName = findViewById(R.id.TFTName);
         currentPage = findViewById(R.id.currentPage);
         characterContainer = findViewById(R.id.character_container);
         renderMatchHistory(characterContainer);
@@ -59,7 +59,7 @@ public class CurrentCharacters extends AppCompatActivity {
 
 
         //Display current user's tft name in navigation drawer
-        DocumentReference documentReference = fStore.collection("users").document(userId);
+        DocumentReference documentReference = fStore.collection("user").document(userId);
         documentReference.addSnapshotListener(this, (value, error) -> {
             //Retrieve tft name and puuid from Firebase
             assert value != null;
@@ -250,7 +250,6 @@ public class CurrentCharacters extends AppCompatActivity {
         //System.out.println("-----------@-@-------------" + champion.getName());
         //Start activity
         this.startActivity(intent);
-
     }
 
     public void ClickMenu(View view) {
@@ -258,10 +257,6 @@ public class CurrentCharacters extends AppCompatActivity {
         MainActivity.openDrawer(drawerLayout);
     }
 
-    public void ClickLogo(View view) {
-        //Close drawer
-        MainActivity.closeDrawer(drawerLayout);
-    }
 
     public void ClickHome(View view) {
         //Redirect to home activity
@@ -270,7 +265,7 @@ public class CurrentCharacters extends AppCompatActivity {
 
     public void ClickPopularBuilds(View view){
         //Redirect to Popular Builds activity
-        MainActivity.redirectActivity(this, PopularBuilds.class);
+        MainActivity.redirectActivity(this, PopularBuildList.class);
     }
 
     public void ClickCommunityBuilds(View view) {

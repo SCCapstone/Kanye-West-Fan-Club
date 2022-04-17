@@ -52,7 +52,7 @@ public class ItemBuilder extends AppCompatActivity {
 
         //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
-        tftName = findViewById(R.id.tftName);
+        tftName = findViewById(R.id.TFTName);
         currentPage = findViewById(R.id.currentPage);
         itemContainer = findViewById(R.id.item_container);
         renderItems(itemContainer);
@@ -63,7 +63,7 @@ public class ItemBuilder extends AppCompatActivity {
         userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
 
         //Display current user's tft name in navigation drawer
-        DocumentReference documentReference = fStore.collection("users").document(userId);
+        DocumentReference documentReference = fStore.collection("user").document(userId);
         documentReference.addSnapshotListener(this, (value, error) -> {
             //Retrieve tft name and puuid from Firebase
             assert value != null;
@@ -214,11 +214,6 @@ public class ItemBuilder extends AppCompatActivity {
         MainActivity.openDrawer(drawerLayout);
     }
 
-    public void ClickLogo(View view) {
-        //Close drawer
-        MainActivity.closeDrawer(drawerLayout);
-    }
-
     public void ClickHome(View view) {
         //Redirect to home activity
         MainActivity.redirectActivity(this, MatchFeed.class);
@@ -226,7 +221,7 @@ public class ItemBuilder extends AppCompatActivity {
 
     public void ClickPopularBuilds(View view) {
         //Redirect to Popular Builds activity
-        MainActivity.redirectActivity(this, PopularBuilds.class);
+        MainActivity.redirectActivity(this, PopularBuildList.class);
     }
 
     public void ClickCommunityBuilds(View view) {

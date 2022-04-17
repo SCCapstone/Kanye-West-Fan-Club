@@ -20,7 +20,9 @@
 
         <include
             android:id="@+id/character_container"
-            layout="@layout/character_container" />
+            layout="@layout/character_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

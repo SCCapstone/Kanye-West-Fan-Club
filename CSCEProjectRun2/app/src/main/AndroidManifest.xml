@@ -30,10 +30,10 @@
             android:name=".Login"
             android:exported="true" />
         <activity
-            android:name=".PopularBuilds"
+            android:name=".PopularBuilds2"
             android:exported="true" />
         <activity
-            android:name=".PopularBuildInfo"
+            android:name=".PopularBuild2Info"
             android:exported="true" />
         <activity
             android:name=".CommunityBuilds"
@@ -59,10 +59,15 @@
         <activity
             android:name=".CommunityBuildInfo"
             android:exported="true" />
+        <activity android:name=".AppInfo" />
+        <activity android:name=".CreateAccountInfo" />
+        <activity android:name=".PopularBuildList" />
+        <activity android:name=".PopularBuildInfo" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.CSCEProjectRun2.NoActionBar" />
+
     </application>
 
 </manifest>

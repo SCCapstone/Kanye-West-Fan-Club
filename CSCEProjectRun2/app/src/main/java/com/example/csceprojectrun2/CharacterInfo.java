@@ -39,7 +39,7 @@ public class CharacterInfo extends AppCompatActivity {
         tabLayout = findViewById(R.id.characterinfoTabLayout);
         viewPager2 = findViewById(R.id.characterinfoViewPager);
 
-        tftName = findViewById(R.id.tftName);
+        tftName = findViewById(R.id.TFTName);
         currentPage = findViewById(R.id.currentPage);
 
 
@@ -60,7 +60,7 @@ public class CharacterInfo extends AppCompatActivity {
 
 
         //Display current user's tft name in navigation drawer
-        DocumentReference documentReference = fStore.collection("users").document(userId);
+        DocumentReference documentReference = fStore.collection("user").document(userId);
         documentReference.addSnapshotListener(this, (value, error) -> {
             //Retrieve tft name and puuid from Firebase
             assert value != null;

@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SplashPage extends AppCompatActivity {
-    private static final int SPLASH_TIME_OUT = 1000;
+    private static final int SPLASH_TIME_OUT = 500;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override

@@ -1,6 +1,5 @@
 package com.example.csceprojectrun2;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -40,7 +38,7 @@ public class ItemBuildInfo extends AppCompatActivity {
 
         ////Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
-        tftName = findViewById(R.id.tftName);
+        tftName = findViewById(R.id.TFTName);
         currentPage = findViewById(R.id.currentPage);
         buildItemContainer = findViewById(R.id.item_build_container);
         renderBuildItems(buildItemContainer, details);
@@ -52,7 +50,7 @@ public class ItemBuildInfo extends AppCompatActivity {
 
 
         //Display current user's tft name in navigation drawer
-        DocumentReference documentReference = fStore.collection("users").document(userId);
+        DocumentReference documentReference = fStore.collection("user").document(userId);
         documentReference.addSnapshotListener(this, (value, error) -> {
             //Retrieve tft name and puuid from Firebase
             assert value != null;

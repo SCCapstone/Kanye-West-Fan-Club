@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class PopularBuilds extends AppCompatActivity {
+public class PopularBuilds2 extends AppCompatActivity {
     //Initialize variable
     DrawerLayout drawerLayout;
     ScrollView typeContainer;
@@ -51,7 +51,7 @@ public class PopularBuilds extends AppCompatActivity {
 
         //Assign variables
         drawerLayout = findViewById(R.id.drawer_layout);
-        tftName = findViewById(R.id.tftName);
+        tftName = findViewById(R.id.TFTName);
         currentPage = findViewById(R.id.currentPage);
         typeContainer = findViewById(R.id.kanye_container);
         renderTypes(typeContainer);
@@ -62,7 +62,7 @@ public class PopularBuilds extends AppCompatActivity {
         userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
 
         //Display current user's tft name in navigation drawer
-        DocumentReference documentReference = fStore.collection("users").document(userId);
+        DocumentReference documentReference = fStore.collection("user").document(userId);
         documentReference.addSnapshotListener(this, (value, error) -> {
             //Retrieve tft name and puuid from Firebase
             assert value != null;
@@ -93,7 +93,7 @@ public class PopularBuilds extends AppCompatActivity {
 
     private BuildType readTypes(JsonReader reader) throws IOException {
         String typeName = "";
-        List<PopularBuild> popularBuilds = null;
+        List<PopularBuild2> popularBuild2s = null;
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -101,28 +101,28 @@ public class PopularBuilds extends AppCompatActivity {
             if (type.equals("type")) {
                 typeName = reader.nextString();
             } else if (type.equals("popularBuilds")) {
-                popularBuilds = readPopularBuildArray(reader);
+                popularBuild2s = readPopularBuildArray(reader);
             } else {
                 reader.skipValue();
             }
         }
         reader.endObject();
-        return new BuildType(typeName, popularBuilds);
+        return new BuildType(typeName, popularBuild2s);
     }
 
-    private List<PopularBuild> readPopularBuildArray(JsonReader reader) throws IOException {
+    private List<PopularBuild2> readPopularBuildArray(JsonReader reader) throws IOException {
         // Create a list of popular builds
-        List<PopularBuild> popularBuilds = new ArrayList<>();
+        List<PopularBuild2> popularBuild2s = new ArrayList<>();
         // Read popular build and add it to the list
         reader.beginArray();
         while (reader.hasNext()) {
-            popularBuilds.add(readDetails(reader));
+            popularBuild2s.add(readDetails(reader));
         }
         reader.endArray();
-        return popularBuilds;
+        return popularBuild2s;
     }
 
-    private PopularBuild readDetails(JsonReader reader) throws IOException {
+    private PopularBuild2 readDetails(JsonReader reader) throws IOException {
         String buildName = "";
         String unit1 = "";
         String unit2 = "";
@@ -159,7 +159,7 @@ public class PopularBuilds extends AppCompatActivity {
             }
         }
         reader.endObject();
-        return new PopularBuild(buildName, unit1, unit2, unit3, unit4, unit5, unit6, unit7, unit8);
+        return new PopularBuild2(buildName, unit1, unit2, unit3, unit4, unit5, unit6, unit7, unit8);
     }
 
     private void renderTypes(ScrollView typeContainer) {
@@ -201,7 +201,7 @@ public class PopularBuilds extends AppCompatActivity {
                 type = typeList.get(i);
             }
         }
-        Intent intent = new Intent(this, PopularBuildInfo.class);
+        Intent intent = new Intent(this, PopularBuild2Info.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("type", type);
         this.startActivity(intent);
@@ -210,11 +210,6 @@ public class PopularBuilds extends AppCompatActivity {
     public void ClickMenu(View view) {
         //Open drawer
         MainActivity.openDrawer(drawerLayout);
-    }
-
-    public void ClickLogo(View view) {
-        //Close drawer
-        MainActivity.closeDrawer(drawerLayout);
     }
 
     public void ClickHome(View view) {
@@ -246,7 +241,7 @@ public class PopularBuilds extends AppCompatActivity {
         //Signs the user out of account
         FirebaseAuth.getInstance().signOut();
         //Returns to Login screen
-        Toast.makeText(PopularBuilds.this, "Logout Successful.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(PopularBuilds2.this, "Logout Successful.", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
     }

@@ -3,6 +3,8 @@ package com.example.csceprojectrun2;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,11 +15,18 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -49,7 +58,7 @@ public class CommunityBuilds extends AppCompatActivity {
 
         //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
-        tftName = findViewById(R.id.tftName);
+        tftName = findViewById(R.id.TFTName);
         currentPage = findViewById(R.id.currentPage);
         mTitleEt = findViewById(R.id.titleEt);
         mDescriptionEt = findViewById(R.id.descriptionEt);
@@ -78,22 +87,32 @@ public class CommunityBuilds extends AppCompatActivity {
         }
 
         //Display current user's tft name in navigation drawer
-        DocumentReference documentReference = fStore.collection("users").document(userId);
+        DocumentReference documentReference = fStore.collection("user").document(userId);
         documentReference.addSnapshotListener(this, (value, error) -> {
             //Retrieve tft name from Firebase
             assert value != null;
-            tftName.setText(value.getString("tftName"));
-            tftName.setVisibility(View.VISIBLE);
+            String loggedInUser = value.getString("tftName");
+            tftName.setText(loggedInUser);
 
             //click button to upload data
             mSaveBtn.setOnClickListener(view -> {
-                Bundle bundle1 = getIntent().getExtras();
                 if (bundle != null) {
                     //UPDATING DATA
                     //input data
                     String id = pId;
                     String title = mTitleEt.getText().toString().trim();
                     String description = mDescriptionEt.getText().toString().trim();
+
+                    //Display errors when title or description is empty.
+                    if (TextUtils.isEmpty(title)) {
+                        mTitleEt.setError("Title is Required.");
+                        return;
+                    }
+                    if (TextUtils.isEmpty(description)) {
+                        mDescriptionEt.setError("Description is Required.");
+                        return;
+                    }
+
                     //Call function to update data
                     updateData(id, title, description);
                     startActivity(new Intent(CommunityBuilds.this, CommunityBuildList.class));
@@ -103,8 +122,19 @@ public class CommunityBuilds extends AppCompatActivity {
                     //input data
                     String title = mTitleEt.getText().toString().trim();
                     String description = mDescriptionEt.getText().toString().trim();
+
+                    //Display errors when title or description is empty.
+                    if (TextUtils.isEmpty(title)) {
+                        mTitleEt.setError("Title is Required.");
+                        return;
+                    }
+                    if (TextUtils.isEmpty(description)) {
+                        mDescriptionEt.setError("Description is Required.");
+                        return;
+                    }
+
                     //Call function to upload data
-                    uploadData(title, description);
+                    uploadData(title, description, loggedInUser);
                     startActivity(new Intent(CommunityBuilds.this, CommunityBuildList.class));
                     finish();
                 }
@@ -116,6 +146,7 @@ public class CommunityBuilds extends AppCompatActivity {
                 finish();
             });
         });
+
         currentPage.setText("Community Builds");
     }
 
@@ -125,23 +156,51 @@ public class CommunityBuilds extends AppCompatActivity {
         //show progress bar when user click save button
         progressDialog.show();
 
-        fStore.collection("users").document(userId).collection("builds").document(id)
-                .update("title", title, "description", description)
+        //Update in community builds
+        fStore.collection("communityBuilds").document(id)
+                .update("title", title, "description", description, "timeStamp", FieldValue.serverTimestamp())
                 .addOnCompleteListener(task -> {
                     //called when updated successfully
                     progressDialog.dismiss();
                     Toast.makeText(CommunityBuilds.this, "Updated...", Toast.LENGTH_SHORT).show();
-
                 })
                 .addOnFailureListener(e -> {
                     //called when there is any error
                     progressDialog.dismiss();
                     Toast.makeText(CommunityBuilds.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
+
+        //Update in logged in user's popular builds
+        fStore.collection("user").document(userId).collection("popularBuilds").document(id)
+                .update("title", title, "description", description, "timeStamp", FieldValue.serverTimestamp())
+                .addOnCompleteListener(task -> {
+                    //called when updated successfully
+                    progressDialog.dismiss();
+                    Toast.makeText(CommunityBuilds.this, "Updated...", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    //called when there is any error
+                    progressDialog.dismiss();
+                });
+
+
+        //Update in other in user's popular builds
+        fStore.collection("user").document().collection("popularBuilds").document(id)
+                .update("title", title, "description", description, "timeStamp", FieldValue.serverTimestamp())
+                .addOnCompleteListener(task -> {
+                    //called when updated successfully
+                    progressDialog.dismiss();
+                    Toast.makeText(CommunityBuilds.this, "Updated...", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    //called when there is any error
+                    progressDialog.dismiss();
+                });
+
     }
 
     //Upload data to Firebase for storage
-    private void uploadData(String title, String description) {
+    private void uploadData(String title, String description, String loggedInUser) {
         ///Set title of progress bar
         progressDialog.setTitle("Adding Data to Firestore");
         //Show the progress bar when user click the save button
@@ -153,9 +212,13 @@ public class CommunityBuilds extends AppCompatActivity {
         doc.put("id", id);
         doc.put("title", title);
         doc.put("description", description);
+        doc.put("postedBy", loggedInUser);
+        doc.put("userID", userId);
+        doc.put("timeStamp", FieldValue.serverTimestamp());
+
 
         //add this data
-        fStore.collection("users").document(userId).collection("builds").document(id).set(doc).addOnCompleteListener(task -> {
+        fStore.collection("communityBuilds").document(id).set(doc).addOnCompleteListener(task -> {
             //Data is added successfully
             progressDialog.dismiss();
             Toast.makeText(CommunityBuilds.this, "Uploaded...", Toast.LENGTH_SHORT).show();

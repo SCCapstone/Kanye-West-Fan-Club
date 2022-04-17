@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ViewHolder extends RecyclerView.ViewHolder {
-    TextView mTitleTv, mDescriptionTv;
+    TextView mTitleTv, mDescriptionTv, mAccountNameTv, mAccountIDTv;
     View mView;
 
     public ViewHolder(@NonNull View itemView) {
@@ -24,7 +24,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
         //Initialize views
         mTitleTv = itemView.findViewById(R.id.rTitleTv);
-        mDescriptionTv = itemView.findViewById(R.id.rDescriptionTV);
+        mDescriptionTv = itemView.findViewById(R.id.rDescriptionTv);
+        mAccountNameTv = itemView.findViewById(R.id.rAccountNameTv);
+        mAccountIDTv = itemView.findViewById(R.id.rAccountIDTv);
     }
 
     private ViewHolder.ClickListener mClickListener;

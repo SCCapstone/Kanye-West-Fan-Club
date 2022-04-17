@@ -5,18 +5,18 @@ import java.util.List;
 
 public class BuildType implements Serializable {
     private final String name;
-    private final List<PopularBuild> popularBuilds;
+    private final List<PopularBuild2> popularBuild2s;
 
-    public BuildType(String name, List<PopularBuild> popularBuilds) {
+    public BuildType(String name, List<PopularBuild2> popularBuild2s) {
         this.name = name;
-        this.popularBuilds = popularBuilds;
+        this.popularBuild2s = popularBuild2s;
     }
 
     public String getName() {
         return name;
     }
 
-    public List<PopularBuild> getPopularBuilds() {
-        return popularBuilds;
+    public List<PopularBuild2> getPopularBuilds() {
+        return popularBuild2s;
     }
 }

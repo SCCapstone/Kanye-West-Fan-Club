@@ -19,7 +19,9 @@
 
         <include
             android:id="@+id/item_build_container"
-            layout="@layout/item_build_container" />
+            layout="@layout/item_build_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

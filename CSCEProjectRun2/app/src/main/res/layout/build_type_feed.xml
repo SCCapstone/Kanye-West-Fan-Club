@@ -19,7 +19,9 @@
 
         <include
             android:id="@+id/kanye_container"
-            layout="@layout/build_type_container" />
+            layout="@layout/build_type_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

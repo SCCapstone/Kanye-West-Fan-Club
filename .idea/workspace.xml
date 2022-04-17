@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46bd2cb9-096d-470e-99ff-9fe4496c1d76" name="Default Changelist" comment="" />
+    <list default="true" id="46bd2cb9-096d-470e-99ff-9fe4496c1d76" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/CSCEProjectRun2/app/src/main/java/com/example/csceprojectrun2/CurrentCharacters.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSCEProjectRun2/app/src/main/java/com/example/csceprojectrun2/CurrentCharacters.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
