@@ -22,52 +22,27 @@ public class CharacterInfo extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager2 viewPager2;
-
     TextView tftName, currentPage;
-    FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
-    String userId;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_info_1);
 
+        //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
-
         tabLayout = findViewById(R.id.characterinfoTabLayout);
         viewPager2 = findViewById(R.id.characterinfoViewPager);
-
         tftName = findViewById(R.id.TFTName);
         currentPage = findViewById(R.id.currentPage);
 
 
         Bundle bundle = getIntent().getExtras();
-
         Champion champion = (Champion) bundle.getSerializable("champion");
 
-
         final CharacterInfoAdapter cia = new CharacterInfoAdapter(this, tabLayout.getTabCount(), getSupportFragmentManager(), getLifecycle(), champion, this);
-
         viewPager2.setAdapter(cia);
 
-
-        //Initialize Firebase elements
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
-        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
-
-
-        //Display current user's tft name in navigation drawer
-        DocumentReference documentReference = fStore.collection("user").document(userId);
-        documentReference.addSnapshotListener(this, (value, error) -> {
-            //Retrieve tft name and puuid from Firebase
-            assert value != null;
-            String TFTName = value.getString("tftName");
-            tftName.setVisibility(View.VISIBLE);
-            tftName.setText(TFTName);
-        });
         currentPage.setText("Current Characters");
 
 
@@ -106,8 +81,6 @@ public class CharacterInfo extends AppCompatActivity {
     }
 
     public void PopulateStatsInfo(Champion champion) {
-
-
         TextView characterStatArmor = findViewById(R.id.characterinfoStatArmorValue);
         TextView characterStatDamage = findViewById(R.id.characterinfoStatDamageValue);
         TextView characterStatHP = findViewById(R.id.characterinfoStatHPValue);
@@ -119,9 +92,7 @@ public class CharacterInfo extends AppCompatActivity {
         TextView characterStatInitialMana = findViewById(R.id.characterinfoStatInitialManaValue);
         TextView characterStatMagicResist = findViewById(R.id.characterinfoStatMagicResistValue);
 
-
         DecimalFormat df = new DecimalFormat("0.00");
-
 
         characterStatArmor.setText(Integer.toString(champion.getStats().getArmor()));
         characterStatDamage.setText(Integer.toString(champion.getStats().getDamage()));
@@ -133,7 +104,6 @@ public class CharacterInfo extends AppCompatActivity {
         characterStatCritMultiplier.setText(df.format(champion.getStats().getAttackSpeed()));
         characterStatInitialMana.setText(Integer.toString(champion.getStats().getInitialMana()));
         characterStatMagicResist.setText(Integer.toString(champion.getStats().getMagicResist()));
-
     }
 
     public void ClickBack(View view) {

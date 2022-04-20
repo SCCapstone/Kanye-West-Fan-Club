@@ -13,6 +13,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -24,9 +25,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
     DrawerLayout drawerLayout;
     TextView tftName, currentPage;
-    FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
-    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,37 +37,10 @@ public class MainActivity extends AppCompatActivity {
         tftName = findViewById(R.id.TFTName);
         currentPage = findViewById(R.id.currentPage);
 
-        //Initialize Firebase elements
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
-        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
-
         // temp functionality to go to match feed, to make merging everything in easier
         Intent intent = new Intent(this, MatchFeed.class);
         Button tempOpenFeed = drawerLayout.findViewById(R.id.tempOpenMatchFeed);
         tempOpenFeed.setOnClickListener(v -> startActivity(intent));
-
-        //Display current user's tft name in navigation drawer
-        DocumentReference documentReference = fStore.collection("user").document(userId);
-        documentReference.addSnapshotListener(this, (value, error) -> {
-            //Retrieve tft name and puuid from Firebase
-            assert value != null;
-            String TFTName = value.getString("tftName");
-            tftName.setVisibility(View.VISIBLE);
-            tftName.setText(TFTName);
-            //RETRIEVE PUUID FROM FIREBASE
-            String PUUID = value.getString("puiid");
-        });
-
-        //CALL API KEY FROM FIREBASE
-        //Display the current api key
-        documentReference = fStore.collection("apikey").document("key");
-        documentReference.addSnapshotListener(this, (value, error) -> {
-            //Retrieve api key from Firebase
-            assert value != null;
-            String currentAPIKey = value.getString("apikey");
-        });
-        currentPage.setText("Home");
     }
 
     public void ClickMenu(View view) {
@@ -104,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void ClickPopularBuilds(View view) {
         //Redirect to Popular Builds activity
-        redirectActivity(this, PopularBuilds2.class);
+        redirectActivity(this, PopularBuildList.class);
     }
 
     public void ClickCommunityBuilds(View view) {

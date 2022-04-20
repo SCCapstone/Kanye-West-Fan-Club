@@ -14,14 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class CommunityBuildList extends AppCompatActivity {
     DrawerLayout drawerLayout;
@@ -35,16 +34,12 @@ public class CommunityBuildList extends AppCompatActivity {
     FloatingActionButton mAddBtn;
     CommunityBuildAdapter adapter;
     ProgressDialog pd;
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.community_build_feed);
-
-        //Initialize Firebase elements
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
-        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
 
         //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -61,31 +56,34 @@ public class CommunityBuildList extends AppCompatActivity {
         //Initialize progress dialog
         pd = new ProgressDialog(this);
 
-        //Get delete data from build info
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            int pPosition = bundle.getInt("pPosition");
+        //Initialize Firebase elements
+        fAuth = FirebaseAuth.getInstance();
+        currentUser = fAuth.getCurrentUser();
+        fStore = FirebaseFirestore.getInstance();
+
+        if (currentUser != null) {
+            userId = currentUser.getUid(); //Do what you need to do with the id
+            //Show data in recyclerView
+            displayData();
+
+            //Display current user's tft name in navigation drawer
+            DocumentReference documentReference = fStore.collection("user").document(userId);
+            documentReference.addSnapshotListener(this, (value, error) -> {
+                //Retrieve tft name and puuid from Firebase
+                if (value != null) {
+                    String TFTName = value.getString("tftName");
+                    tftName.setVisibility(View.VISIBLE);
+                    tftName.setText(TFTName);
+                }
+            });
+            currentPage.setText("Community Builds");
+
+            //Click add button
+            mAddBtn.setOnClickListener(view -> {
+                startActivity(new Intent(CommunityBuildList.this, CommunityBuilds.class));
+                finish();
+            });
         }
-
-        //Show data in recyclerView
-        displayData();
-
-        //Click add button
-        mAddBtn.setOnClickListener(view -> {
-            startActivity(new Intent(CommunityBuildList.this, CommunityBuilds.class));
-            finish();
-        });
-
-        //Display current user's tft name in navigation drawer
-        DocumentReference documentReference = fStore.collection("user").document(userId);
-        documentReference.addSnapshotListener(this, (value, error) -> {
-            //Retrieve tft name and puuid from Firebase
-            assert value != null;
-            String TFTName = value.getString("tftName");
-            tftName.setVisibility(View.VISIBLE);
-            tftName.setText(TFTName);
-        });
-        currentPage.setText("Community Builds");
     }
 
     private void displayData() {

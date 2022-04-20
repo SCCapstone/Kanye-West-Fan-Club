@@ -20,6 +20,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -35,6 +36,7 @@ public class MatchFeed extends AppCompatActivity {
     String userId;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +53,25 @@ public class MatchFeed extends AppCompatActivity {
 
         //Initialize Firebase elements
         fAuth = FirebaseAuth.getInstance();
+        currentUser = fAuth.getCurrentUser();
         fStore = FirebaseFirestore.getInstance();
-        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
 
-        renderMatchHistory(matchContainer);
+        if (currentUser != null) {
+            userId = currentUser.getUid(); //Do what you need to do with the id
+            renderMatchHistory(matchContainer);
 
-        //Display current user's tft name in navigation drawer
-        DocumentReference documentReference = fStore.collection("user").document(userId);
-        documentReference.addSnapshotListener(this, (value, error) -> {
-            //Retrieve tft name from Firebase
-            assert value != null;
-            tftName.setText(value.getString("tftName"));
-            tftName.setVisibility(View.VISIBLE);
-        });
-        currentPage.setText("Home");
+            //Display current user's tft name in navigation drawer
+            DocumentReference documentReference = fStore.collection("user").document(userId);
+            documentReference.addSnapshotListener(this, (value, error) -> {
+                //Retrieve tft name from Firebase
+                if (value != null) {
+                    String TFTName = value.getString("tftName");
+                    tftName.setVisibility(View.VISIBLE);
+                    tftName.setText(TFTName);
+                }
+            });
+            currentPage.setText("Home");
+        }
     }
 
     public void ClickSearch(View view) {
@@ -215,26 +222,27 @@ public class MatchFeed extends AppCompatActivity {
         DocumentReference documentReference = fStore.collection("apikey").document("key");
         documentReference.addSnapshotListener(this, (value, error) -> {
             //Retrieve api key from Firebase
-            assert value != null;
-            String currentAPIKey = value.getString("apikey");
-            // spawn thread and collect data from riot api
-            new Thread(() -> {
-                // get recent played match's IDs
-                String[] matchIds = RiotAPIHelper.getMatchesFromPuuid(puuid, numMatchesToReturn, currentAPIKey);
+            if (value != null) {
+                String currentAPIKey = value.getString("apikey");
+                // spawn thread and collect data from riot api
+                new Thread(() -> {
+                    // get recent played match's IDs
+                    String[] matchIds = RiotAPIHelper.getMatchesFromPuuid(puuid, numMatchesToReturn, currentAPIKey);
 
-                if (matchIds == null) {
-                    System.out.println("Unable to retrieve match ids!");
-                    return;
-                }
+                    if (matchIds == null) {
+                        System.out.println("Unable to retrieve match ids!");
+                        return;
+                    }
 
-                // populate match feed
-                for (int i = 0; i < matchIds.length; i++) {
-                    String matchId = matchIds[i];
-                    JsonObject matchData = RiotAPIHelper.getMatchData(matchId, currentAPIKey);
-                    assert matchData != null;
-                    createMatchCard(i, matchId, matchData, puuid);
-                }
-            }).start();
+                    // populate match feed
+                    for (int i = 0; i < matchIds.length; i++) {
+                        String matchId = matchIds[i];
+                        JsonObject matchData = RiotAPIHelper.getMatchData(matchId, currentAPIKey);
+                        assert matchData != null;
+                        createMatchCard(i, matchId, matchData, puuid);
+                    }
+                }).start();
+            }
         });
     }
 
@@ -244,16 +252,20 @@ public class MatchFeed extends AppCompatActivity {
         LinearLayout linearLayout = matchContainer.findViewById(R.id.match_container_linear_layout);
         linearLayout.removeAllViews();
 
-        //Get a user's puuid
-        DocumentReference documentReference = fStore.collection("user").document(userId);
-        documentReference.addSnapshotListener(this, (value, error) -> {
-            //Retrieve tft name and puuid from Firebase
-            assert value != null;
-            //RETRIEVE PUUID FROM FIREBASE
-            String PUUID = value.getString("puiid");
-            Toast.makeText(MatchFeed.this, "Pulling from your puuid through firebase", Toast.LENGTH_LONG).show();
-            renderMatchHistoryWithPuuid(matchContainer, PUUID, 10);
-        });
+        if (currentUser != null) {
+            userId = currentUser.getUid(); //Do what you need to do with the id
+            //Get a user's puuid
+            DocumentReference documentReference = fStore.collection("user").document(userId);
+            documentReference.addSnapshotListener(this, (value, error) -> {
+                //Retrieve tft name and puuid from Firebase
+                if (value != null) {
+                    //RETRIEVE PUUID FROM FIREBASE
+                    String PUUID = value.getString("puiid");
+                    Toast.makeText(MatchFeed.this, "Pulling from your puuid through firebase", Toast.LENGTH_LONG).show();
+                    renderMatchHistoryWithPuuid(matchContainer, PUUID, 10);
+                }
+            });
+        }
     }
 
     public void ClickMenu(View view) {

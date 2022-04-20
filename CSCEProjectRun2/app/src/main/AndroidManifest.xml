@@ -30,12 +30,6 @@
             android:name=".Login"
             android:exported="true" />
         <activity
-            android:name=".PopularBuilds2"
-            android:exported="true" />
-        <activity
-            android:name=".PopularBuild2Info"
-            android:exported="true" />
-        <activity
             android:name=".CommunityBuilds"
             android:exported="true" />
         <activity

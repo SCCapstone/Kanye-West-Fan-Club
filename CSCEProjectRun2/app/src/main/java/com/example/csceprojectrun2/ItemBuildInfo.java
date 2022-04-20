@@ -46,7 +46,7 @@ public class ItemBuildInfo extends AppCompatActivity {
         //Initialize Firebase elements
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+        userId = fAuth.getCurrentUser().getUid();
 
 
         //Display current user's tft name in navigation drawer

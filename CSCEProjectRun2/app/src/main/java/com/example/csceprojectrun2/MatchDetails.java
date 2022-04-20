@@ -60,11 +60,8 @@ public class MatchDetails extends AppCompatActivity {
     }
 
     public static String[] viewMatchData(String MATCH, String puuid, String APIKEY) {
-
-
         URL call1;
         String call1resp;
-
 
         StringBuilder sb = new StringBuilder();
         try {
