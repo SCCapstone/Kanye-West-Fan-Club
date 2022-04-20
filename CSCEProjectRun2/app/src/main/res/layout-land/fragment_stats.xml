@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/characterinfoStatArmorTitle"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/turquoise"
+                android:text="Armor:"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/characterinfoStatArmorValue"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/grey"
+                android:text="0"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorTitle"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/characterinfoStatAttackSpeedTitle"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/turquoise"
+                android:text="Attack Speed:"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorValue"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/characterinfoStatAttackSpeedValue"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/grey"
+                android:text="0"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/characterinfoStatAttackSpeedTitle"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/characterinfoStatCritChanceValue"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/grey"
+                android:text="0"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/characterinfoStatAttackSpeedTitle"
+                app:layout_constraintTop_toBottomOf="@id/characterinfoStatAttackSpeedValue" />
+
+            <TextView
+                android:id="@+id/characterinfoStatCritMultiplierValue"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/grey"
+                android:text="0"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/characterinfoStatAttackSpeedTitle"
+                app:layout_constraintTop_toBottomOf="@id/characterinfoStatCritChanceValue" />
+
+            <TextView
+                android:id="@+id/characterinfoStatInitialManaValue"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/grey"
+                android:text="0"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/characterinfoStatAttackSpeedTitle"
+                app:layout_constraintTop_toBottomOf="@id/characterinfoStatCritMultiplierValue" />
+
+            <TextView
+                android:id="@+id/characterinfoStatMagicResistValue"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/grey"
+                android:text="0"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/characterinfoStatAttackSpeedTitle"
+                app:layout_constraintTop_toBottomOf="@id/characterinfoStatInitialManaValue" />
+
+            <TextView
+                android:id="@+id/characterinfoStatCritChanceTitle"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/turquoise"
+                android:text="Crit Chance:"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorValue"
+                app:layout_constraintTop_toBottomOf="@id/characterinfoStatAttackSpeedTitle" />
+
+            <TextView
+                android:id="@+id/characterinfoStatCritMultiplierTitle"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/turquoise"
+                android:text="Crit Multiplier:"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorValue"
+                app:layout_constraintTop_toBottomOf="@id/characterinfoStatCritChanceTitle" />
+
+            <TextView
+                android:id="@+id/characterinfoStatInitialManaTitle"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/turquoise"
+                android:text="Initial Mana:"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorValue"
+                app:layout_constraintTop_toBottomOf="@id/characterinfoStatCritMultiplierTitle" />
+
+            <TextView
+                android:id="@+id/characterinfoStatMagicResistTitle"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/turquoise"
+                android:text="Magic Resist:"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorValue"
+                app:layout_constraintTop_toBottomOf="@id/characterinfoStatInitialManaTitle" />
+
+            <TextView
+                android:id="@+id/characterinfoStatDamageValue"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/grey"
+                android:text="0"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorTitle"
+                app:layout_constraintTop_toBottomOf="@+id/characterinfoStatArmorValue" />
+
+            <TextView
+                android:id="@+id/characterinfoStatHPValue"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/grey"
+                android:text="0"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorTitle"
+                app:layout_constraintTop_toBottomOf="@id/characterinfoStatDamageValue" />
+
+            <TextView
+                android:id="@+id/characterinfoStatManaValue"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/grey"
+                android:text="0"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorTitle"
+                app:layout_constraintTop_toBottomOf="@id/characterinfoStatHPValue" />
+
+            <TextView
+                android:id="@+id/characterinfoStatRangeValue"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/grey"
+                android:text="0"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/characterinfoStatArmorTitle"
+                app:layout_constraintTop_toBottomOf="@id/characterinfoStatManaValue" />
+
+            <TextView
+                android:id="@+id/characterinfoStatDamageTitle"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/turquoise"
+                android:text="Damage:"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/characterinfoStatArmorTitle"
+                app:layout_constraintTop_toBottomOf="@+id/characterinfoStatArmorTitle" />
+
+            <TextView
+                android:id="@+id/characterinfoStatHPTitle"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/turquoise"
+                android:text="HP:"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/characterinfoStatArmorTitle"
+                app:layout_constraintTop_toBottomOf="@id/characterinfoStatDamageTitle" />
+
+            <TextView
+                android:id="@+id/characterinfoStatManaTitle"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/turquoise"
+                android:text="Mana:"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/characterinfoStatArmorTitle"
+                app:layout_constraintTop_toBottomOf="@id/characterinfoStatHPTitle" />
+
+            <TextView
+                android:id="@+id/characterinfoStatRangeTitle"
+                android:layout_width="171dp"
+                android:layout_height="26dp"
+                android:background="@color/turquoise"
+                android:text="Range:"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/characterinfoStatArmorTitle"
+                app:layout_constraintTop_toBottomOf="@id/characterinfoStatManaTitle" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+</RelativeLayout>

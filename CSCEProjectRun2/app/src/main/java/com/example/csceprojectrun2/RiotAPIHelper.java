@@ -8,14 +8,17 @@ import java.io.InputStream;
 import javax.json.*;
 
 public class RiotAPIHelper {
-<<<<<<< Updated upstream
+
     static String DEV_KEY_NOT_SECURE = "RGAPI-90a13922-9f2e-445d-9bd5-e9987e708114";
     static String samplePuuid = "lDQ-bP2nWGatqLp1xBbGLoOYXUouZ8X4u6oyatUitMNIXlvWdZ4FXoQepcne5NpIymRjmbKGyoO0Rw";
-=======
+
     static String DEV_KEY_NOT_SECURE = "RGAPI-d6efc463-d5e1-4428-b4c9-629ca3e253c2";
     //static String samplePuuid = "9IkIogPfGJh-bx_f1KRGZj8AtMWHV_AIO7UFGxlptJ2q7TtlkV90a49FYfYt5HWhKenPapiF6wE-LA";
     static String samplePuuid = "bWxLgFEOjkoSZh8rQ4hGNAvIDd_gWRGlybnlqQzVaQJdMKvHACDu0fzrMJGRYNra_C61q8z2vkXKng";
->>>>>>> Stashed changes
+
+
+    static String samplePuuid = "bWxLgFEOjkoSZh8rQ4hGNAvIDd_gWRGlybnlqQzVaQJdMKvHACDu0fzrMJGRYNra_C61q8z2vkXKng";
+
     /* SAMPLE ACCOUNT
     {
         "puuid": "9IkIogPfGJh-bx_f1KRGZj8AtMWHV_AIO7UFGxlptJ2q7TtlkV90a49FYfYt5HWhKenPapiF6wE-LA",
@@ -27,7 +30,8 @@ public class RiotAPIHelper {
     // https://developer.riotgames.com/apis#tft-match-v1/GET_getMatchIdsByPUUID
     // Returns previous X matches a given player participated in
     // TODO: refactor to use Json?
-    public static final String[] getMatchesFromPuuid(String puuid, int numMatchesToReturn) {
+    public static final String[] getMatchesFromPuuid(String puuid, int numMatchesToReturn, String validDevKey) {
+        System.out.println("SUPPLIED PUUID: " + puuid);
         try {
             URL url;
             String callResp;
@@ -35,9 +39,9 @@ public class RiotAPIHelper {
 
             String urlOrigin = "https://americas.api.riotgames.com/tft/match/v1/matches/by-puuid/";
 
-            url = new URL(urlOrigin + samplePuuid + "/ids"
+            url = new URL(urlOrigin + puuid + "/ids"
                     + "?count=" + numMatchesToReturn
-                    + "&api_key=" + DEV_KEY_NOT_SECURE
+                    + "&api_key=" + validDevKey
             );
 
             try {
@@ -76,7 +80,7 @@ public class RiotAPIHelper {
 
     // https://developer.riotgames.com/apis#tft-match-v1/GET_getMatch
     // Returns match data JSON for a given match id
-    public static final JsonObject getMatchData(String matchId) {
+    public static final JsonObject getMatchData(String matchId, String validDevKey) {
         try {
             URL url;
             String callResp;
@@ -86,7 +90,7 @@ public class RiotAPIHelper {
 
             url = new URL(urlOrigin
                     + matchId
-                    + "?api_key=" + DEV_KEY_NOT_SECURE
+                    + "?api_key=" + validDevKey
             );
 
             // convert string HTTP get results into a Json object
@@ -123,5 +127,47 @@ public class RiotAPIHelper {
                 return participant;
         }
         return null;
+    }
+
+    public static final String getPuuidFromRiotID(String gameName, String tagline, String validDevKey) {
+        try  {
+            URL url;
+            String callResp;
+            StringBuilder sb = new StringBuilder();
+
+            String urlOrigin = "https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/";
+
+            url = new URL(urlOrigin
+                    + gameName + "/" + tagline
+                    + "?api_key=" + validDevKey
+            );
+
+            try {
+                BufferedReader read = new BufferedReader( new InputStreamReader(url.openStream()));
+
+                while((callResp = read.readLine()) != null)
+                    sb.append(callResp + "\n");
+
+                read.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+            // get output string
+            String fullReturnString = sb.toString();
+
+            // cull starting & ending brackets
+            String culledReturnStr = fullReturnString.substring(2, fullReturnString.length()-3);
+
+            // split into a string array
+            String[] finalStrings = culledReturnStr.split("\",\"");
+
+            String puuid = finalStrings[0].substring(8); // cut off the first 7 letters
+            return puuid;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "";
     }
 }

@@ -1,32 +1,40 @@
 package com.example.csceprojectrun2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.JsonToken;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import org.json.*;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.json.JsonObject;
+import java.util.Objects;
 
 public class CurrentCharacters extends AppCompatActivity {
     //Initialize variable
     DrawerLayout drawerLayout;
     ScrollView characterContainer;
     List<Champion> championList = null;
+    TextView tftName, currentPage;
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +47,36 @@ public class CurrentCharacters extends AppCompatActivity {
 
 
         drawerLayout = findViewById(R.id.drawer_layout);
+        tftName = findViewById(R.id.TFTName);
+        currentPage = findViewById(R.id.currentPage);
         characterContainer = findViewById(R.id.character_container);
         renderMatchHistory(characterContainer);
 
+        //Initialize Firebase elements
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+
+
+        //Display current user's tft name in navigation drawer
+        DocumentReference documentReference = fStore.collection("user").document(userId);
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve tft name and puuid from Firebase
+            assert value != null;
+            String TFTName = value.getString("tftName");
+            tftName.setVisibility(View.VISIBLE);
+            tftName.setText(TFTName);
+        });
+        currentPage.setText("Current Characters");
     }
 
     private void createCharacterCard(int cardPosition, Champion champion) {
+        Champion storedValue = champion;
         LinearLayout linearLayout = characterContainer.findViewById(R.id.character_container_linear_layout);
 
         String championName = champion.getName();
+        String championImage = championName.toLowerCase().replace(".", "").replace(" ", "").replace("'", "") + "_square";
+        int championID = this.getResources().getIdentifier(championImage, "drawable", this.getPackageName());
 
         runOnUiThread(new Runnable() {
             @Override
@@ -61,11 +90,17 @@ public class CurrentCharacters extends AppCompatActivity {
                 // get and update new card
                 View newCharacterCard = linearLayout.getChildAt(cardPosition);
 
+                //newCharacterCard.setTag(R.id.tag, storedValue);
+
                 TextView characterNameUI = newCharacterCard.findViewById(R.id.characterName);
+
+                ImageView characterImageUI = newCharacterCard.findViewById(R.id.characterImage);
 
                 characterNameUI.setText(championName);
 
-                //applyChampionImages(newMatchCard, participantData);
+                characterImageUI.setImageResource(championID);
+
+                System.out.println(newCharacterCard.getId());
             }
         });
     }
@@ -195,15 +230,33 @@ public class CurrentCharacters extends AppCompatActivity {
         return new Stats(armor, attackSpeed, critChance, critMultiplier, damage, hp, initialMana, magicResist, mana, range);
     }
 
+    public void ClickCard(View view) {
+        Champion champion = null;
+        TextView characterNameUI = view.findViewById(R.id.characterName);
+        for(int i = 0; i < championList.size(); i++) {
+            if(championList.get(i).getName() == characterNameUI.getText()) {
+                champion = championList.get(i);
+            }
+        }
+        //Redirect to Character Info
+        //MainActivity.redirectActivity(this,CharacterInfo.class);
+        //Initialize intent
+        Intent intent = new Intent(this,CharacterInfo.class);
+        //Set flag
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //Champion champion = (Champion)view.getTag(R.id.tag);
+        intent.putExtra("champion", champion);
+        //System.out.println(view.getId());
+        //System.out.println("-----------@-@-------------" + champion.getName());
+        //Start activity
+        this.startActivity(intent);
+    }
+
     public void ClickMenu(View view) {
         //Open drawer
         MainActivity.openDrawer(drawerLayout);
     }
 
-    public void ClickLogo(View view) {
-        //Close drawer
-        MainActivity.closeDrawer(drawerLayout);
-    }
 
     public void ClickHome(View view) {
         //Redirect to home activity
@@ -212,12 +265,12 @@ public class CurrentCharacters extends AppCompatActivity {
 
     public void ClickPopularBuilds(View view){
         //Redirect to Popular Builds activity
-        MainActivity.redirectActivity(this,PopularBuilds.class);
+        MainActivity.redirectActivity(this, PopularBuildList.class);
     }
 
     public void ClickCommunityBuilds(View view) {
         //Redirect to Community Builds activity
-        MainActivity.redirectActivity(this,CommunityBuilds.class);
+        MainActivity.redirectActivity(this,CommunityBuildList.class);
     }
 
     public void ClickCurrentCharacters(View view) {
@@ -230,9 +283,13 @@ public class CurrentCharacters extends AppCompatActivity {
         MainActivity.redirectActivity(this,ItemBuilder.class);
     }
 
-    public void ClickLogout(View view){
-        //Logout and close app
-        MainActivity.logout(this);
+    public void ClickLogout(View view) {
+        //Signs the user out of account
+        FirebaseAuth.getInstance().signOut();
+        //Returns to Login screen
+        Toast.makeText(CurrentCharacters.this, "Logout Successful.", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getApplicationContext(), Login.class));
+        finish();
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.example.csceprojectrun2;
 
-public class Champion {
+import java.io.Serializable;
+
+public class Champion implements Serializable {
     String name;
     Ability ability;
     int cost;
@@ -16,4 +18,7 @@ public class Champion {
     public String getName() {
         return name;
     }
+    public int getCost() { return cost; }
+    public Ability getAbility() {return ability; }
+    public Stats getStats() {return stats; }
 }

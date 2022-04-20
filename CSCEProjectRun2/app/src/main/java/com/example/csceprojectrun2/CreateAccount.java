@@ -2,68 +2,124 @@ package com.example.csceprojectrun2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class CreateAccount extends AppCompatActivity {
-
-    FirebaseFirestore db;
-    EditText username;
-    EditText password;
-    EditText tftname;
-    Button create;
+    public static final String TAG = "TAG";
+    EditText mEmail, mPassword, mTFTName, mPUIID;
+    Button mRegisterBtn;
+    TextView mLoginBtn;
+    FirebaseAuth fAuth;
+    ProgressBar progressBar;
+    FirebaseFirestore fStore;
+    String userID;
+    public Map<String, Object> userCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
-        username = findViewById(R.id.user);
-        password = findViewById(R.id.pass);
-        tftname = findViewById(R.id.tft);
-        create = findViewById(R.id.CreateAccount);
-        db = FirebaseFirestore.getInstance();
-    }
 
-    public void accountMaker(View v) {
-        checks();
-        switchToMain();
-    }
+        mEmail = findViewById(R.id.create_account_email);
+        mPassword = findViewById(R.id.create_account_password);
+        mTFTName = findViewById(R.id.create_account_tft);
+        mPUIID = findViewById(R.id.create_account_puiid);
+        mRegisterBtn = findViewById(R.id.createAccountBtn);
+        mLoginBtn = findViewById(R.id.create_account_login);
 
-    public void blankFields() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Some Fields are not Filled Out")
-                .setPositiveButton("Retry", (dialog, id) -> dialog.dismiss());
-    }
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        progressBar = findViewById(R.id.create_account_progressBar);
 
-    public void switchToMain() {
-        Intent mainSwitch = new Intent(getApplicationContext(), MatchFeed.class);
-        startActivity(mainSwitch);
-    }
-
-    public void checks() {
-        if (username.getText().toString().equals("Username") || username.getText().toString().equals("") ||
-                password.getText().toString().equals("Password") || password.getText().toString().equals("") ||
-                tftname.getText().toString().equals("TFT Name") || password.getText().toString().equals("")) {
-            blankFields();
-        } else {
-            Map<String, Object> user = new HashMap<>();
-            user.put("username", username.getText().toString());
-            user.put("password", password.getText().toString());
-            user.put("tftname", tftname.getText().toString());
-
-            db.collection("login").document(username.getText().toString()).set(user)
-                    .addOnSuccessListener(unused -> Log.d("Success", "DocumentSnapshot written successfully"))
-                    .addOnFailureListener(e -> Log.w("Failure", "Error writing document", e));
+        //Check if user is already logged in
+        if (fAuth.getCurrentUser() != null) {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
         }
+
+        mRegisterBtn.setOnClickListener(view -> {
+            String email = mEmail.getText().toString().trim();
+            String password = mPassword.getText().toString().trim();
+            String tftName = mTFTName.getText().toString().trim();
+            String puiid = mPUIID.getText().toString().trim();
+
+            //Display errors when email, password, tftname, or puuid are empty, or password is too short
+            if (TextUtils.isEmpty(email)) {
+                mEmail.setError("Email is Required.");
+                return;
+            }
+            if (TextUtils.isEmpty(password)) {
+                mPassword.setError("Password is Required.");
+                return;
+            }
+            if (password.length() < 6) {
+                mPassword.setError("Password Must Be At Least 6 Characters.");
+                return;
+            }
+            if (TextUtils.isEmpty(tftName)) {
+                mTFTName.setError("TFT Name is Required.");
+                return;
+            }
+            if (TextUtils.isEmpty(puiid)) {
+                mPUIID.setError("PUIID is Required.");
+                return;
+            }
+
+            progressBar.setVisibility(View.VISIBLE);
+
+            //Register the user in firebase
+            fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                //Check if registration is successful or not
+                if (task.isSuccessful()) {
+                    Toast.makeText(CreateAccount.this, "User Created and Registered.", Toast.LENGTH_SHORT).show();
+
+                    //Store user profile data to Firestore
+                    userID = fAuth.getCurrentUser().getUid();
+                    DocumentReference documentReference = fStore.collection("user").document(userID);
+
+                    Map<String, Object> user = new HashMap<>();
+                    user.put("tftName", tftName);
+                    user.put("puiid", puiid);
+
+                    documentReference.set(user).addOnSuccessListener((OnSuccessListener) (aVoid) -> Log.d(TAG, "onSuccess: " + " User Profile is created for " + userID)).addOnFailureListener(e -> Log.d(TAG, "onFailure: " + e));
+                    startActivity(new Intent(getApplicationContext(), AppInfo.class));
+                } else {
+                    Toast.makeText(CreateAccount.this, "Error! " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
+        });
+        mLoginBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Login.class)));
+    }
+
+    public boolean doesUserExist(String tftName, String puiid) {
+        if (!userCheck.isEmpty() && userCheck.get("tftName").equals(tftName)) {
+            if (userCheck.get("puiid").equals(puiid)) {
+                //Both tftName and puiid exist already
+                return true;
+            } else {
+                //tftName exist but puiid does not exist.
+            }
+        }
+        return false;
+
     }
 }

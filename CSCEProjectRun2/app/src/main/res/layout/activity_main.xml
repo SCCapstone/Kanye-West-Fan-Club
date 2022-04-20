@@ -12,13 +12,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/main_top_bar" />
+        <include layout="@layout/main_top_bar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
 
         <Button
             android:id="@+id/tempOpenMatchFeed"
             android:layout_width="match_parent"
             android:layout_height="149dp"
-            android:text='OPEN MATCH FEED ("main menu") after signing in' />
+            android:text='Click this button to OPEN MATCH FEED ("main menu")' />
 
     </LinearLayout>
 

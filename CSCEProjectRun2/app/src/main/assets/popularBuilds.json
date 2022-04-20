@@ -1,0 +1,78 @@
+[
+  {
+    "type": "Academy",
+    "popularBuilds": [
+      {
+        "buildName": "Arcanist Lux",
+        "unit1": "Lux",
+        "unit2": "Vex",
+        "unit3": "Viktor",
+        "unit4": "Yuumi",
+        "unit5": "Taric",
+        "unit6": "Janna",
+        "unit7": "Malzahar",
+        "unit8": "Swain"
+      },
+      {
+        "buildName": "Challenger Yone",
+        "unit1": "Yone",
+        "unit2": "Fiora",
+        "unit3": "Kai'Sa",
+        "unit4": "Braum",
+        "unit5": "Leona",
+        "unit6": "Samira",
+        "unit7": "Quinn",
+        "unit8": "Warwick"
+      },
+      {
+        "buildName": "",
+        "unit1": "",
+        "unit2": "",
+        "unit3": "",
+        "unit4": "",
+        "unit5": "",
+        "unit6": "",
+        "unit7": "",
+        "unit8": ""
+      }
+    ]
+  },
+  {
+    "type": "Arcanist",
+    "popularBuilds": [
+      {
+        "buildName": "Arcanist Lux",
+        "unit1": "Lux",
+        "unit2": "Vex",
+        "unit3": "Viktor",
+        "unit4": "Yuumi",
+        "unit5": "Taric",
+        "unit6": "Janna",
+        "unit7": "Malzahar",
+        "unit8": "Swain"
+      },
+      {
+        "buildName": "X-Men",
+        "unit1": "Sion",
+        "unit2": "Samira",
+        "unit3": "Fiora",
+        "unit4": "Taric",
+        "unit5": "Blitzcrank",
+        "unit6": "Talon",
+        "unit7": "",
+        "unit8": ""
+      },
+      {
+        "buildName": "",
+        "unit1": "",
+        "unit2": "",
+        "unit3": "",
+        "unit4": "",
+        "unit5": "",
+        "unit6": "",
+        "unit7": "",
+        "unit8": ""
+      }
+    ]
+  }
+]

@@ -1,6 +1,8 @@
 package com.example.csceprojectrun2;
 
-public class Ability {
+import java.io.Serializable;
+
+public class Ability implements Serializable {
     String abilityName;
     String abilityDesc;
 
@@ -8,4 +10,7 @@ public class Ability {
         this.abilityName = abilityname;
         this.abilityDesc = abilitydesc;
     }
+
+    public String getAbilityName() {return abilityName;}
+    public String getAbilityDesc() {return abilityDesc;}
 }

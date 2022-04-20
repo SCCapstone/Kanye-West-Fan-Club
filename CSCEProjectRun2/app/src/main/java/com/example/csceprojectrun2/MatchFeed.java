@@ -1,34 +1,125 @@
 package com.example.csceprojectrun2;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.view.LayoutInflater;
-import android.widget.ScrollView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
+import java.util.Objects;
 
-import java.lang.Runnable;
-import java.lang.Thread;
-import javax.json.*;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
 
 public class MatchFeed extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ScrollView matchContainer;
+    TextView tftName, currentPage;
+    String userId;
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
 
-    String matid;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.match_feed);
+
+        System.out.println("onCreate!!!!!!!!!");
+
+        //Initialize views
+        drawerLayout = findViewById(R.id.drawer_layout);
+        tftName = findViewById(R.id.TFTName);
+        currentPage = findViewById(R.id.currentPage);
+        matchContainer = findViewById(R.id.match_container);
+
+        //Initialize Firebase elements
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+
+        renderMatchHistory(matchContainer);
+
+        //Display current user's tft name in navigation drawer
+        DocumentReference documentReference = fStore.collection("user").document(userId);
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve tft name from Firebase
+            assert value != null;
+            tftName.setText(value.getString("tftName"));
+            tftName.setVisibility(View.VISIBLE);
+        });
+        currentPage.setText("Home");
+    }
+
+    public void ClickSearch(View view) {
+        System.out.println("Clicked search from MatchFeed");
+
+        LinearLayout topBarLinearLayout = findViewById(R.id.MainTopBar);
+        CardView searchCard = topBarLinearLayout.findViewById(R.id.SearchCard);
+        CardView backgroundCard = searchCard.findViewById(R.id.SearchCard);
+        LinearLayout searchLinearLayout = backgroundCard.findViewById(R.id.SearchLinearLayout);
+
+        // Riot ID input
+        TextInputLayout riotIDTextInputLayout = searchLinearLayout.findViewById(R.id.RiotIDTextInputLayout);
+        TextInputEditText searchRiotIDInput = riotIDTextInputLayout.findViewById(R.id.SearchRiotIDInput);
+
+        // Tagline Input
+        LinearLayout searchTaglineLinearLayout = searchLinearLayout.findViewById(R.id.SearchTaglineLinearLayout);
+        TextInputLayout taglineTextInputLayout = searchTaglineLinearLayout.findViewById(R.id.TaglineTextInputLayout);
+        TextInputEditText taglineInput = taglineTextInputLayout.findViewById(R.id.TaglineInput);
+
+        // Button
+        Button riotIDSearchActivate = searchLinearLayout.findViewById(R.id.RiotIDSearchActivate);
+
+        searchCard.setVisibility(View.VISIBLE);
 
 
+        //CALL API KEY FROM FIREBASE
+        //Display the current api key
+        DocumentReference documentReference = fStore.collection("apikey").document("key");
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve api key from Firebase
+            assert value != null;
+            String currentAPIKey = value.getString("apikey");
+            ////////////////////////////////////////////////////////
+            riotIDSearchActivate.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    searchCard.setVisibility(View.GONE);
+
+                    String gameName = searchRiotIDInput.getText().toString();
+                    String tagLine = taglineInput.getText().toString();
+                    String fullRiotID = gameName + "#" + tagLine;
+
+                    System.out.println("Full Riot ID being searched: " + fullRiotID);
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String puuid = RiotAPIHelper.getPuuidFromRiotID(gameName, tagLine, currentAPIKey);
+
+                            renderMatchHistoryWithPuuid(matchContainer, puuid, 6);
+                        }
+                    }).start();
+                }
+            });
+        });
+    }
 
     private String convertToTimestamp(int seconds) {
         int minutes = seconds / 60;
@@ -56,7 +147,7 @@ public class MatchFeed extends AppCompatActivity {
     private void applyChampionImages(View matchCard, JsonObject participant) {
         JsonArray units = participant.getJsonArray("units");
 
-        ImageView[] imageViews = new ImageView[] {
+        ImageView[] imageViews = new ImageView[]{
                 matchCard.findViewById(R.id.imageView1),
                 matchCard.findViewById(R.id.imageView2),
                 matchCard.findViewById(R.id.imageView3),
@@ -65,7 +156,7 @@ public class MatchFeed extends AppCompatActivity {
                 matchCard.findViewById(R.id.imageView6),
         };
 
-        for (int i=0; i<units.size() && i<imageViews.length; i++) {
+        for (int i = 0; i < units.size() && i < imageViews.length; i++) {
             JsonObject unitData = (JsonObject) units.get(i);
             String nameId = unitData.getString("character_id");
             String name = nameId.split("_")[1];
@@ -80,46 +171,56 @@ public class MatchFeed extends AppCompatActivity {
 
         String gameLength = convertToTimestamp(info.getInt("game_length"));
         String queueType = getQueueType(info.getInt("queue_id"));
+        assert participantData != null;
         String placementNum = Integer.toString(participantData.getInt("placement"));
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                // build new match tiles
-                LayoutInflater inflater = getLayoutInflater();
+        runOnUiThread(() -> {
+            // build new match tiles
+            LayoutInflater inflater = getLayoutInflater();
 
-                // create the card UI element
-                inflater.inflate(R.layout.match_card, linearLayout, true);
+            // create the card UI element
+            inflater.inflate(R.layout.match_card, linearLayout, true);
 
-                // get and update new card
-                View newMatchCard = linearLayout.getChildAt(cardPosition);
+            // get and update new card
+            View newMatchCard = linearLayout.getChildAt(cardPosition);
 
-                TextView gameTypeUI = newMatchCard.findViewById(R.id.gameType);
-                TextView gameLengthUI = newMatchCard.findViewById((R.id.gameLength));
-                TextView matchIdUI = newMatchCard.findViewById(R.id.matchID);
-                TextView placementUI = newMatchCard.findViewById(R.id.placement);
+            TextView gameTypeUI = newMatchCard.findViewById(R.id.gameType);
+            TextView gameLengthUI = newMatchCard.findViewById((R.id.gameLength));
+            TextView matchIdUI = newMatchCard.findViewById(R.id.matchID);
+            TextView placementUI = newMatchCard.findViewById(R.id.placement);
 
-                matchIdUI.setText(matchId);
-                gameLengthUI.setText(gameLength);
-                gameTypeUI.setText(queueType);
-                placementUI.setText("Placed: " + placementNum);
+            matchIdUI.setText(matchId);
+            gameLengthUI.setText(gameLength);
+            gameTypeUI.setText(queueType);
+            placementUI.setText("Placed: " + placementNum);
 
-                applyChampionImages(newMatchCard, participantData);
-            }
+            applyChampionImages(newMatchCard, participantData);
+
+            newMatchCard.setOnClickListener(view -> {
+                Intent intent = new Intent(MatchFeed.this, MatchDetails.class);
+                intent.putExtra("matchID", matchId);
+                intent.putExtra("puuid", ownerPuuid);
+                startActivity(intent);
+            });
         });
     }
 
-    public void renderMatchHistory(ScrollView matchContainer) {
+    public void renderMatchHistoryWithPuuid(ScrollView matchContainer, String puuid, int numMatchesToReturn) {
         // clear any existing match tiles
         LinearLayout linearLayout = matchContainer.findViewById(R.id.match_container_linear_layout);
         linearLayout.removeAllViews();
 
-        // spawn thread and collect data from riot api
-        new Thread(new Runnable(){
-            @Override
-            public void run() {
+        //CALL API KEY FROM FIREBASE
+        //Display the current api key
+        DocumentReference documentReference = fStore.collection("apikey").document("key");
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve api key from Firebase
+            assert value != null;
+            String currentAPIKey = value.getString("apikey");
+            // spawn thread and collect data from riot api
+            new Thread(() -> {
                 // get recent played match's IDs
-                String[] matchIds = RiotAPIHelper.getMatchesFromPuuid(RiotAPIHelper.samplePuuid, 6);
+                String[] matchIds = RiotAPIHelper.getMatchesFromPuuid(puuid, numMatchesToReturn, currentAPIKey);
 
                 if (matchIds == null) {
                     System.out.println("Unable to retrieve match ids!");
@@ -127,133 +228,91 @@ public class MatchFeed extends AppCompatActivity {
                 }
 
                 // populate match feed
-                for(int i=0; i<matchIds.length; i++) {
+                for (int i = 0; i < matchIds.length; i++) {
                     String matchId = matchIds[i];
-                    JsonObject matchData = RiotAPIHelper.getMatchData(matchId);
-                    createMatchCard(i, matchId, matchData, RiotAPIHelper.samplePuuid);
+                    JsonObject matchData = RiotAPIHelper.getMatchData(matchId, currentAPIKey);
+                    assert matchData != null;
+                    createMatchCard(i, matchId, matchData, puuid);
                 }
-            }
-        }).start();
+            }).start();
+        });
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.match_feed);
+    // default call, uses the logged-in user's data
+    public void renderMatchHistory(ScrollView matchContainer) {
+        // clear any existing match tiles
+        LinearLayout linearLayout = matchContainer.findViewById(R.id.match_container_linear_layout);
+        linearLayout.removeAllViews();
 
-        System.out.println("onCreate!!!!!!!!!");
-
-        //Assign variable
-        drawerLayout = findViewById(R.id.drawer_layout);
-        matchContainer = findViewById(R.id.match_container);
-
-        renderMatchHistory(matchContainer);
+        //Get a user's puuid
+        DocumentReference documentReference = fStore.collection("user").document(userId);
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve tft name and puuid from Firebase
+            assert value != null;
+            //RETRIEVE PUUID FROM FIREBASE
+            String PUUID = value.getString("puiid");
+            Toast.makeText(MatchFeed.this, "Pulling from your puuid through firebase", Toast.LENGTH_LONG).show();
+            renderMatchHistoryWithPuuid(matchContainer, PUUID, 10);
+        });
     }
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-    public String getMyString(){
-        return matid; }
-
-    public void ClickMatch(View view) {
-        //Toast.makeText(getApplicationContext(),"test",Toast.LENGTH_SHORT).show();
-        matid = "";
-
-
-//MatchData MatchID -> passed
-
-        redirectActivity(this,MatchDetails.class);
-
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
 
     public void ClickMenu(View view) {
         //Open drawer
         openDrawer(drawerLayout);
     }
 
-    public static void openDrawer(DrawerLayout drawerLayout){
+    public static void openDrawer(DrawerLayout drawerLayout) {
         //Open drawer layout
         drawerLayout.openDrawer(GravityCompat.START);
     }
 
-    public void ClickLogo(View view){
-        //Close drawer
-        closeDrawer(drawerLayout);
-    }
-
-    public static void closeDrawer(DrawerLayout drawerLayout){
+    public static void closeDrawer(DrawerLayout drawerLayout) {
         //Close drawer layout
         //Check condition
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             //When drawer is open
             //Close drawer
             drawerLayout.closeDrawer(GravityCompat.START);
         }
     }
 
-    public void ClickHome(View view){
+    public void ClickHome(View view) {
         //Recreate the Home activity
         recreate();
     }
 
-    public void ClickPopularBuilds(View view){
+    public void ClickPopularBuilds(View view) {
         //Redirect to Popular Builds activity
-        redirectActivity(this,PopularBuilds.class);
+        redirectActivity(this, PopularBuildList.class);
     }
 
-    public void ClickCommunityBuilds(View view){
+    public void ClickCommunityBuilds(View view) {
         //Redirect to Community Builds activity
-        redirectActivity(this,CommunityBuilds.class);
+        redirectActivity(this, CommunityBuildList.class);
     }
 
-    public void ClickCurrentCharacters(View view){
+    public void ClickCurrentCharacters(View view) {
         //Redirect to Current Characters activity
-        redirectActivity(this,CurrentCharacters.class);
+        redirectActivity(this, CurrentCharacters.class);
     }
 
-    public void ClickItemBuilder(View view){
+    public void ClickItemBuilder(View view) {
         //Redirect to Item Builder activity
-        redirectActivity(this,ItemBuilder.class);
+        redirectActivity(this, ItemBuilder.class);
     }
 
-    public void ClickLogout(View view){
-        //Logout and close the app
-        logout(this);
-    }
-
-    public static void logout(Activity activity) {
-        //Initialize alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        //Set title
-        builder.setTitle("Logout");
-        //Set message
-        builder.setMessage("Are you sure you want to logout ?");
-        //Click Yes Button
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //Complete activity
-                activity.finishAffinity();
-                //Exit app
-                System.exit(0);
-            }
-        });
-        //Click No Button
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //Dismiss dialog
-                dialog.dismiss();
-            }
-        });
-        //Show dialog
-        builder.show();
+    public void ClickLogout(View view) {
+        //Signs the user out of account
+        FirebaseAuth.getInstance().signOut();
+        //Returns to Login screen
+        Toast.makeText(MatchFeed.this, "Logout Successful.", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getApplicationContext(), Login.class));
+        finish();
     }
 
     public static void redirectActivity(Activity activity, Class aClass) {
         //Initialize intent
-        Intent intent = new Intent(activity,aClass);
+        Intent intent = new Intent(activity, aClass);
         //Set flag
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //Start activity

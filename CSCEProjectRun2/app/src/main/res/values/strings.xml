@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CSCEProjectRun2</string>
+    <string name="app_name">Legend Stats</string>
     <string name="action_settings">Settings</string>
     <string name="account_name">Account Name</string>
 
@@ -17,92 +17,16 @@
     <string name="attack_damage_10">Attack Damage: +10</string>
     <string name="magic_resist_20">Magic Resist: +20</string>
     <string name="passive_physical_damage_heals_for_33_of_the_damage_dealt_gains_a_30_maximum_health_shield_for_5_seconds_if_the_wearer_falls_below_40_maximum_health">Passive: Physical damage heals for 33% of the damage dealt.Gains a 30% maximum health shield for 5 seconds if the wearer falls below 40% maximum health.</string>
-
-    <!--Your comment-->
-    <string-array name="basic_item_name">
-        <item>B.F. Sword</item>
-        <item>Chain Vest</item>
-        <item>Giant\'s Belt</item>
-        <item>Needlessly Large Rod</item>
-        <item>Negatron Cloak</item>
-        <item>Recurve Bow</item>
-        <item>Sparring Gloves</item>
-        <item>Spatula</item>
-        <item>Tear of the Goddess</item>
-    </string-array>
-
-    <!--B.F. Sword item details-->
-    <string-array name="b.f.sword_item1">
-        <item>Bloodthirster</item>
-        <item>Deathblade</item>
-        <item>Edge of Night</item>
-        <item>Giant Slayer</item>
-        <item>Hextech Gunblade</item>
-        <item>Infinity Edge</item>
-        <item>Spear of Shojin</item>
-        <item>Zeke\'s Herald</item>
-    </string-array>
-
-    <string-array name="b.f.sword_item2">
-        <item>B.F. Sword</item>
-        <item>B.F. Sword</item>
-        <item>B.F. Sword</item>
-        <item>B.F. Sword</item>
-        <item>B.F. Sword</item>
-        <item>B.F. Sword</item>
-        <item>B.F. Sword</item>
-        <item>B.F. Sword</item>
-    </string-array>
-
-    <string-array name="b.f.sword_item3">
-        <item>Negatron Cloak</item>
-        <item>B.F. Sword</item>
-        <item>Chain Vest</item>
-        <item>Recurve Bow</item>
-        <item>Needlessly Large Rod</item>
-        <item>Sparring Gloves</item>
-        <item>Tear of the Goddess</item>
-        <item>Giant\'s Belt</item>
-    </string-array>
-
-    <string-array name="b.f.sword_attribute1">
-        <item>Attack damage: +10</item>
-        <item>Attack damage: +50/75/100(based on Star level)</item>
-        <item>Armor: +20</item>
-        <item>Attack damage: +10</item>
-        <item>Ability Power: +80</item>
-        <item>Attack Damage: +70</item>
-        <item>Attack Damage: +10</item>
-        <item>Attack Damage: +10</item>
-    </string-array>
-
-    <string-array name="b.f.sword_attribute2">
-        <item>Magic resist: +20 </item>
-        <item> </item>
-        <item>Attack Damage: +10</item>
-        <item>Attack Speed +10%</item>
-        <item>Attack Damage: +40</item>
-        <item>Critical Strike Chance: +20</item>
-        <item>Starting Mana: +15</item>
-        <item>Health: +150</item>
-    </string-array>
-
-    <string-array name="b.f.sword_description">
-        <item>Passive: Physical damage heals for 33% of the damage dealt.Gains a 30% maximum health shield for 5 seconds if the wearer falls below 40% maximum health.</item>
-        <item>Whenever the wearer kills or participates in killing an enemy, gain Attack Damage for the remainder of combat. This effect can stack any number of times.</item>
-        <item>Passive: When the holder first drops below 50% health, they briefly enter stealth, becoming untargetable and shedding negative effects. After coming out of stealth, the holder gains 40% bonus attack speed.</item>
-        <item>Passive: Basic attacks and spells gain 20% increased damage (pre-mitigation), increased to 60% if the enemy has over 1800 maximum health.</item>
-        <item>Passive: Heals for 15% of all damage dealt. Area damage and pet damage only heals 5% for every unit affected.</item>
-        <item>Passive: Gain 35% bonus critical strike damage if you have at least 60% critical strike chance.</item>
-        <item>Passive: Basic attacks restore an additional 8 mana on-attack.</item>
-        <item>At the start of combat, the wearer and all allies within 1 hex in the same row to the left and right gain 30% bonus attack speed for the rest of combat.</item>
-    </string-array>
-
-
-    <string-array name="popular_build_name">
-        <item>Academy</item>
-        <item>Scholars</item>
-        <item>Mercenaries</item>
-    </string-array>
+    <string name="community_build">Community Build</string>
+    <string name="buildName">Bloodthirster</string>
+    <string name="attr1">Attack Damage: +10</string>
+    <string name="attr3">Magic Resist: +20 fff</string>
+    <string name="attr2">Magic Resist: +20</string>
+    <string name="desc">Passive: Physical damage heals for 33% of the damage dealt.Gains a 30% maximum health shield for 5 seconds if the wearer falls below 40% maximum health.</string>
+    <string name="firstItemName">B.F. Sword</string>
+    <string name="secondItemName">Negatron Cloak</string>
+    <string name="expandSymbol"><![CDATA[>>]]></string>
+    <string name="item_image_description">Image of the Item</string>
+    <item name="tag" type="id" />
 
 </resources>

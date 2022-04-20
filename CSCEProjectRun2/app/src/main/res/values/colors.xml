@@ -7,9 +7,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gold">#FFCDA360</color>
-    <color name="turquoise">#FF168EA2</color>
+    <color name="turquoise">#168EA2</color>
+    <color name="turquoise2">#FF168EA2</color>
     <color name="darkBlue">#FF0A2A3D</color>
+    <color name="darkBlue1">#FF0F2F42</color>
+    <color name="darkBlue2">#133346</color>
     <color name="lightWhite">#FFDBD4D4</color>
-    <color name="tan">#d6cfc7</color>
+    <color name="grey">#d6cfc7</color>
+    <color name="lightBrown">#C0815D</color>
+    <color name="blue1">#0169A1</color>
+    <color name="pink">#A12BBC</color>
+    <color name="blue2">#01469A</color>
 
 </resources>
