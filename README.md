@@ -1,9 +1,6 @@
-# LEGEND Stats
+# Legend Stats
 
-LEGEND Stats is an Android app designed to help TFT players improve their performance. The 
-app quickly summarizes match history for quick reference, supplies builds by top level players
-as well as builds from the community regardless of rank. You will also be able to see the 
-current playable characters for the set, as well as figure out what items build into what.
+Legend Stats is an Android app designed to help Teamfight Tactic players improve their gaming performance. The app quickly summarizes an individual's match history for quick reference and allows for searching others' match history. Users can create builds (groups of units during gameplay) and add them to a community list comprised of builds from fellow users. Additionally, there are resources to view current playable characters and what items to build from others.
 
 Detailed description: https://github.com/SCCapstone/Kanye-West-Fan-Club/wiki/Project-Description
 
