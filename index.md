@@ -5,4 +5,4 @@ PLACEHOLDER
 - [Embedded Video]
 ## Features and Screenshots
 ## About Us
-[See our about page](https://github.com/SCCapstone/Kanye-West-Fan-Club/blob/main/about.md)
+Click [here](https://sccapstone.github.io/Kanye-West-Fan-Club/about.html) to see our about page.
