@@ -1,13 +1,8 @@
 package com.example.csceprojectrun2;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Intent;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.widget.ArrayAdapter;
 import android.widget.ScrollView;
 
@@ -15,14 +10,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.*;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MatchDetails extends AppCompatActivity {
     DrawerLayout drawerLayout;
@@ -30,6 +28,9 @@ public class MatchDetails extends AppCompatActivity {
     String MATCHID;
     String PUUID;
     TextView currentPage;
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,10 @@ public class MatchDetails extends AppCompatActivity {
         if (bundle != null) {
             MATCHID = bundle.getString("matchID");
             PUUID = bundle.getString("puuid");
+
+
         }
+
 
 
     public static String[] viewMatchData() {
@@ -55,7 +59,53 @@ public class MatchDetails extends AppCompatActivity {
 
         currentPage.setText("Match Details");
 
+        AtomicReference<String> kiki = null;
 
+        //Initialize Firebase elements
+        fAuth = FirebaseAuth.getInstance();
+        currentUser = fAuth.getCurrentUser();
+        fStore = FirebaseFirestore.getInstance();
+
+
+        DocumentReference documentReference = fStore.collection("apikey").document("key");
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve api key from Firebase
+            if (value != null) {
+                String currentAPIKey = value.getString("apikey");
+                // spawn thread and collect data from riot api
+                System.out.println("HEY API KEY HERE" + currentAPIKey);
+
+
+
+
+
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String matchID[] = viewMatchData(MATCHID, PUUID, currentAPIKey);
+
+                        //renderMatchHistoryWithPuuid(matchContainer, puuid, 6);
+                    }
+                }).start();
+                //String matchID[] = {};
+                //matchID = viewMatchData("NA1_4107774217", PUUID, currentAPIKey);
+
+
+
+            }
+        });
+
+
+        //System.out.println(kiki);
+
+
+        //String matchID[] = {MATCHID,PUUID,kiki};
+        String matchID[] = {MATCHID,PUUID,MATCHID,PUUID,MATCHID,PUUID,MATCHID,PUUID,MATCHID,PUUID,MATCHID,PUUID,MATCHID,PUUID,MATCHID,PUUID};
+        //String matchID[] =C
+
+        System.out.println(MATCHID+"\n"+PUUID+"\n");
+        currentPage.setText("Match Details");
 
         Ulist = findViewById(R.id.list);
         ArrayAdapter<String> arr;
@@ -64,6 +114,10 @@ public class MatchDetails extends AppCompatActivity {
                 this,
                 R.layout.support_simple_spinner_dropdown_item, matchID);
         Ulist.setAdapter(arr);
+
+
+
+
     }
 
     public static String[] viewMatchData(String MATCH, String puuid, String APIKEY) {
@@ -158,8 +212,17 @@ public class MatchDetails extends AppCompatActivity {
     String puuid = "bWxLgFEOjkoSZh8rQ4hGNAvIDd_gWRGlybnlqQzVaQJdMKvHACDu0fzrMJGRYNra_C61q8z2vkXKng";
     //String matchID[] = viewMatchData(MATCH, puuid, APIKEY);
 
-    //String matID[] = viewMatchData2();
-    String matchID[] = {"Vi", "Zac", "Urgot", "Yuumi", "Jinx", "Tahmkench", "Jayce"};
+    //String matchID[] = viewMatchData2();
+    //String matchID[] = {"Vi", "Zac", "Urgot", "Yuumi", "Jinx", "Tahmkench", "Jayce"};
+
+
+
+    //String matchID[] = {MATCHID};
+
+
+
+
+
 
 
     ListView Ulist;
