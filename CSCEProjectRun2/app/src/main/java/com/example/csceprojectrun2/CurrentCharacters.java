@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.JsonToken;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -35,6 +37,7 @@ public class CurrentCharacters extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,30 +46,35 @@ public class CurrentCharacters extends AppCompatActivity {
         try {
             InputStream input = getApplicationContext().getAssets().open("set6.json");
             championList = readJsonStream(input);
-        }catch(IOException e) {}
-
+        } catch (IOException e) {
+        }
 
         drawerLayout = findViewById(R.id.drawer_layout);
         tftName = findViewById(R.id.TFTName);
         currentPage = findViewById(R.id.currentPage);
         characterContainer = findViewById(R.id.character_container);
+
         renderMatchHistory(characterContainer);
 
         //Initialize Firebase elements
         fAuth = FirebaseAuth.getInstance();
+        currentUser = fAuth.getCurrentUser();
         fStore = FirebaseFirestore.getInstance();
-        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
 
+        if (currentUser != null) {
+            userId = currentUser.getUid(); //Do what you need to do with the id
 
-        //Display current user's tft name in navigation drawer
-        DocumentReference documentReference = fStore.collection("user").document(userId);
-        documentReference.addSnapshotListener(this, (value, error) -> {
-            //Retrieve tft name and puuid from Firebase
-            assert value != null;
-            String TFTName = value.getString("tftName");
-            tftName.setVisibility(View.VISIBLE);
-            tftName.setText(TFTName);
-        });
+            //Display current user's tft name in navigation drawer
+            DocumentReference documentReference = fStore.collection("user").document(userId);
+            documentReference.addSnapshotListener(this, (value, error) -> {
+                //Retrieve tft name and puuid from Firebase
+                if (value != null) {
+                    String TFTName = value.getString("tftName");
+                    tftName.setVisibility(View.VISIBLE);
+                    tftName.setText(TFTName);
+                }
+            });
+        }
         currentPage.setText("Current Characters");
     }
 
@@ -111,12 +119,12 @@ public class CurrentCharacters extends AppCompatActivity {
         linearLayout.removeAllViews();
 
         // spawn thread to create instances of character card
-        new Thread(new Runnable(){
+        new Thread(new Runnable() {
             @Override
             public void run() {
 
                 // populate match feed
-                for(int i=0; i<championList.size(); i++) {
+                for (int i = 0; i < championList.size(); i++) {
                     createCharacterCard(i, championList.get(i));
                 }
             }
@@ -207,7 +215,7 @@ public class CurrentCharacters extends AppCompatActivity {
             } else if (name.equals("attackSpeed") && reader.peek() != JsonToken.NULL) {
                 attackSpeed = reader.nextDouble();
             } else if (name.equals("critChance") && reader.peek() != JsonToken.NULL) {
-                critChance = (float)reader.nextDouble();
+                critChance = (float) reader.nextDouble();
             } else if (name.equals("critMultiplier") && reader.peek() != JsonToken.NULL) {
                 critMultiplier = reader.nextDouble();
             } else if (name.equals("damage") && reader.peek() != JsonToken.NULL) {
@@ -233,21 +241,18 @@ public class CurrentCharacters extends AppCompatActivity {
     public void ClickCard(View view) {
         Champion champion = null;
         TextView characterNameUI = view.findViewById(R.id.characterName);
-        for(int i = 0; i < championList.size(); i++) {
-            if(championList.get(i).getName() == characterNameUI.getText()) {
+        for (int i = 0; i < championList.size(); i++) {
+            if (championList.get(i).getName() == characterNameUI.getText()) {
                 champion = championList.get(i);
             }
         }
         //Redirect to Character Info
-        //MainActivity.redirectActivity(this,CharacterInfo.class);
         //Initialize intent
-        Intent intent = new Intent(this,CharacterInfo.class);
+        Intent intent = new Intent(this, CharacterInfo.class);
         //Set flag
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //Champion champion = (Champion)view.getTag(R.id.tag);
         intent.putExtra("champion", champion);
-        //System.out.println(view.getId());
-        //System.out.println("-----------@-@-------------" + champion.getName());
         //Start activity
         this.startActivity(intent);
     }
@@ -257,20 +262,19 @@ public class CurrentCharacters extends AppCompatActivity {
         MainActivity.openDrawer(drawerLayout);
     }
 
-
     public void ClickHome(View view) {
         //Redirect to home activity
-        MainActivity.redirectActivity(this,MatchFeed.class);
+        MainActivity.redirectActivity(this, MatchFeed.class);
     }
 
-    public void ClickPopularBuilds(View view){
+    public void ClickPopularBuilds(View view) {
         //Redirect to Popular Builds activity
         MainActivity.redirectActivity(this, PopularBuildList.class);
     }
 
     public void ClickCommunityBuilds(View view) {
         //Redirect to Community Builds activity
-        MainActivity.redirectActivity(this,CommunityBuildList.class);
+        MainActivity.redirectActivity(this, CommunityBuildList.class);
     }
 
     public void ClickCurrentCharacters(View view) {
@@ -280,7 +284,7 @@ public class CurrentCharacters extends AppCompatActivity {
 
     public void ClickItemBuilder(View view) {
         //Redirect to Item Builder activity
-        MainActivity.redirectActivity(this,ItemBuilder.class);
+        MainActivity.redirectActivity(this, ItemBuilder.class);
     }
 
     public void ClickLogout(View view) {
@@ -293,7 +297,7 @@ public class CurrentCharacters extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
         //Close drawer
         MainActivity.closeDrawer(drawerLayout);

@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:text="- TFT Username"
+                android:text="- Display Name"
                 android:textAlignment="textStart"
                 android:textColor="@color/gold" />
 
@@ -101,7 +101,7 @@
                 android:paddingRight="15dp"
                 android:paddingBottom="10dp"
                 android:paddingTop="20dp"
-                android:text="These help us connect your Teamfight Tactic statistics to your account and will help you become a more elite player. "
+                android:text="Your PUUID allows us to connect your Teamfight Tactic statistics to your account and will help you become a more elite player. "
                 android:textColor="@color/white" />
         </LinearLayout>
 

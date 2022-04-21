@@ -14,13 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class PopularBuildList extends AppCompatActivity {
     DrawerLayout drawerLayout;
@@ -34,6 +34,7 @@ public class PopularBuildList extends AppCompatActivity {
     FloatingActionButton mAddBtn;
     PopularBuildAdapter adapter;
     ProgressDialog pd;
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +48,6 @@ public class PopularBuildList extends AppCompatActivity {
         mAddBtn = findViewById(R.id.addBtn);
         currentPage = findViewById(R.id.currentPage);
 
-        //Initialize Firebase elements
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
-        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
-
         //Set recycler view properties
         mRecyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -60,31 +56,34 @@ public class PopularBuildList extends AppCompatActivity {
         //Initialize progress dialog
         pd = new ProgressDialog(this);
 
-        //Get delete data from build info
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            int pPosition = bundle.getInt("pPosition");
-        }
+        //Initialize Firebase elements
+        fAuth = FirebaseAuth.getInstance();
+        currentUser = fAuth.getCurrentUser();
+        fStore = FirebaseFirestore.getInstance();
 
-        //Show data in recyclerView
-        displayData();
+        if (currentUser != null) {
+            userId = currentUser.getUid(); //Do what you need to do with the id
+            //Show data in recyclerView
+            displayData();
+
+            //Display current user's tft name in navigation drawer
+            DocumentReference documentReference = fStore.collection("user").document(userId);
+            documentReference.addSnapshotListener(this, (value, error) -> {
+                //Retrieve tft name and puuid from Firebase
+                if (value != null) {
+                    String TFTName = value.getString("tftName");
+                    tftName.setVisibility(View.VISIBLE);
+                    tftName.setText(TFTName);
+                }
+            });
+        }
+        currentPage.setText("Popular Builds");
 
         //Click add button to return to community build list to pick more builds
         mAddBtn.setOnClickListener(view -> {
             startActivity(new Intent(PopularBuildList.this, CommunityBuildList.class));
             finish();
         });
-
-        //Display current user's tft name in navigation drawer
-        DocumentReference documentReference = fStore.collection("user").document(userId);
-        documentReference.addSnapshotListener(this, (value, error) -> {
-            //Retrieve tft name and puuid from Firebase
-            assert value != null;
-            String TFTName = value.getString("tftName");
-            tftName.setVisibility(View.VISIBLE);
-            tftName.setText(TFTName);
-        });
-        currentPage.setText("Popular Builds");
     }
 
     private void displayData() {
@@ -92,29 +91,34 @@ public class PopularBuildList extends AppCompatActivity {
         pd.setTitle("Loading Data...");
         //show progress dialog
         pd.show();
-        fStore.collection("user").document(userId).collection("popularBuilds").get().addOnCompleteListener(task -> {
-            modelList.clear();
-            //called when data is retrieved
-            pd.dismiss();
-            //show data
-            for (DocumentSnapshot doc : task.getResult()) {
-                Model model = new Model(
-                        doc.getString("id"),
-                        doc.getString("title"),
-                        doc.getString("description"),
-                        doc.getString("postedBy"),
-                        doc.getString("userID"));
-                modelList.add(model);
-            }
-            //adapter
-            adapter = new PopularBuildAdapter(PopularBuildList.this, modelList);
-            //set adapter to recyclerview
-            mRecyclerView.setAdapter(adapter);
-        }).addOnFailureListener(e -> {
-            //called when there is any error while retrieving
-            pd.dismiss();
-            Toast.makeText(PopularBuildList.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        });
+
+        if (currentUser != null) {
+            userId = currentUser.getUid(); //Do what you need to do with the id
+
+            fStore.collection("user").document(userId).collection("popularBuilds").get().addOnCompleteListener(task -> {
+                modelList.clear();
+                //called when data is retrieved
+                pd.dismiss();
+                //show data
+                for (DocumentSnapshot doc : task.getResult()) {
+                    Model model = new Model(
+                            doc.getString("id"),
+                            doc.getString("title"),
+                            doc.getString("description"),
+                            doc.getString("postedBy"),
+                            doc.getString("userID"));
+                    modelList.add(model);
+                }
+                //adapter
+                adapter = new PopularBuildAdapter(PopularBuildList.this, modelList);
+                //set adapter to recyclerview
+                mRecyclerView.setAdapter(adapter);
+            }).addOnFailureListener(e -> {
+                //called when there is any error while retrieving
+                pd.dismiss();
+                Toast.makeText(PopularBuildList.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            });
+        }
     }
 
     public void removeData(int index) {

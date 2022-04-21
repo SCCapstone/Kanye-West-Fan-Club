@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -36,6 +37,7 @@ public class ItemBuilder extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,18 +61,22 @@ public class ItemBuilder extends AppCompatActivity {
 
         //Initialize Firebase elements
         fAuth = FirebaseAuth.getInstance();
+        currentUser = fAuth.getCurrentUser();
         fStore = FirebaseFirestore.getInstance();
-        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
 
-        //Display current user's tft name in navigation drawer
-        DocumentReference documentReference = fStore.collection("user").document(userId);
-        documentReference.addSnapshotListener(this, (value, error) -> {
-            //Retrieve tft name and puuid from Firebase
-            assert value != null;
-            String TFTName = value.getString("tftName");
-            tftName.setVisibility(View.VISIBLE);
-            tftName.setText(TFTName);
-        });
+        if (currentUser != null) {
+            userId = currentUser.getUid();
+            //Display current user's tft name in navigation drawer
+            DocumentReference documentReference = fStore.collection("user").document(userId);
+            documentReference.addSnapshotListener(this, (value, error) -> {
+                //Retrieve tft name and puuid from Firebase
+                if (value != null) {
+                    String TFTName = value.getString("tftName");
+                    tftName.setVisibility(View.VISIBLE);
+                    tftName.setText(TFTName);
+                }
+            });
+        }
         currentPage.setText("Item Builder");
     }
 

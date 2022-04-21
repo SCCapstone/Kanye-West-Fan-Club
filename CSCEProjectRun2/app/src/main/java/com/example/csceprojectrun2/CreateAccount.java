@@ -40,8 +40,8 @@ public class CreateAccount extends AppCompatActivity {
 
         mEmail = findViewById(R.id.create_account_email);
         mPassword = findViewById(R.id.create_account_password);
-        mTFTName = findViewById(R.id.create_account_tft);
-        mPUIID = findViewById(R.id.create_account_puiid);
+        mTFTName = findViewById(R.id.create_account_display_name);
+        mPUIID = findViewById(R.id.create_account_puuid);
         mRegisterBtn = findViewById(R.id.createAccountBtn);
         mLoginBtn = findViewById(R.id.create_account_login);
 
