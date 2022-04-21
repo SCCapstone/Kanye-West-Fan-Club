@@ -4,3 +4,5 @@ Legend Stats is an Android app designed to help Teamfight Tactic players improve
 PLACEHOLDER
 - [Embedded Video]
 ## Features and Screenshots
+## About Us
+[See our about page](https://github.com/SCCapstone/Kanye-West-Fan-Club/blob/main/about.md)
