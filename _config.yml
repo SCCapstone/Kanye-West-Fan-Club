@@ -6,5 +6,5 @@ relative_links:
   collections: true
 markdown: GFM
 include:
-  - info.md
+  - index.md
   
