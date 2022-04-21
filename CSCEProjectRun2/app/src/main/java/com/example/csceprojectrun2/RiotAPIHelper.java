@@ -12,12 +12,6 @@ public class RiotAPIHelper {
     static String DEV_KEY_NOT_SECURE = "RGAPI-90a13922-9f2e-445d-9bd5-e9987e708114";
     static String samplePuuid = "lDQ-bP2nWGatqLp1xBbGLoOYXUouZ8X4u6oyatUitMNIXlvWdZ4FXoQepcne5NpIymRjmbKGyoO0Rw";
 
-    static String DEV_KEY_NOT_SECURE = "RGAPI-d6efc463-d5e1-4428-b4c9-629ca3e253c2";
-    //static String samplePuuid = "9IkIogPfGJh-bx_f1KRGZj8AtMWHV_AIO7UFGxlptJ2q7TtlkV90a49FYfYt5HWhKenPapiF6wE-LA";
-    static String samplePuuid = "bWxLgFEOjkoSZh8rQ4hGNAvIDd_gWRGlybnlqQzVaQJdMKvHACDu0fzrMJGRYNra_C61q8z2vkXKng";
-
-
-    static String samplePuuid = "bWxLgFEOjkoSZh8rQ4hGNAvIDd_gWRGlybnlqQzVaQJdMKvHACDu0fzrMJGRYNra_C61q8z2vkXKng";
 
     /* SAMPLE ACCOUNT
     {
