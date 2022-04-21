@@ -7,4 +7,5 @@ relative_links:
 markdown: GFM
 include:
   - index.md
+  - about.md
   
