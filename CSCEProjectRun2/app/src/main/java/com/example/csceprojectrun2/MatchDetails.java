@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,15 +23,25 @@ import java.net.*;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
 
+import javax.json.JsonObject;
+
 public class MatchDetails extends AppCompatActivity {
     DrawerLayout drawerLayout;
-    ScrollView matchDetailsContainer;
     String MATCHID;
     String PUUID;
     TextView currentPage;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     FirebaseUser currentUser;
+    String queueType;
+    String gameLength;
+    String placementNum;
+
+
+
+
+
+    String matchID[] ={};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +59,17 @@ public class MatchDetails extends AppCompatActivity {
             PUUID = bundle.getString("puuid");
 
 
+            queueType = bundle.getString("queueType");
+            gameLength = bundle.getString("gameLength");
+            placementNum = bundle.getString("placementNum");
+
         }
 
 
-
-        String APIKEY = "RGAPI-d6efc463-d5e1-4428-b4c9-629ca3e253c2";
+        /*
         String puuid = "bWxLgFEOjkoSZh8rQ4hGNAvIDd_gWRGlybnlqQzVaQJdMKvHACDu0fzrMJGRYNra_C61q8z2vkXKng";
-        String MATCH;
-
+        */
+        //Top of screen
         currentPage.setText("Match Details");
 
         AtomicReference<String> kiki = null;
@@ -67,40 +81,99 @@ public class MatchDetails extends AppCompatActivity {
 
 
         DocumentReference documentReference = fStore.collection("apikey").document("key");
+        //DELETE THIS
         documentReference.addSnapshotListener(this, (value, error) -> {
             //Retrieve api key from Firebase
             if (value != null) {
                 String currentAPIKey = value.getString("apikey");
                 // spawn thread and collect data from riot api
-                System.out.println("HEY API KEY HERE" + currentAPIKey);
-
-
-
-
-
 
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        String matchID[] = viewMatchData(MATCHID, PUUID, currentAPIKey);
+                        //String matchID[] = viewMatchData(MATCHID, PUUID, currentAPIKey);
 
                         //renderMatchHistoryWithPuuid(matchContainer, puuid, 6);
                     }
                 }).start();
                 //String matchID[] = {};
                 //matchID = viewMatchData("NA1_4107774217", PUUID, currentAPIKey);
-
-
-
             }
         });
 
 
+
+
+
+
+
+        //DocumentReference documentReference = fStore.collection("apikey").document("key");
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve api key from Firebase
+            if (value != null) {
+                String currentAPIKey = value.getString("apikey");
+
+                System.out.println("HEY API KEY HERE" + currentAPIKey);
+                // spawn thread and collect data from riot api
+                new Thread(() -> {
+                    // get recent played match's IDs
+                    String[] matchIds = RiotAPIHelper.viewMatchData(MATCHID, PUUID, currentAPIKey);
+
+                    if (matchIds == null) {
+                        System.out.println("Unable to retrieve match characters!");
+                        return;
+                    }
+                    else {
+                        // populate match feed
+                        for (int i = 0; i < matchIds.length; i++) {
+                            String matchId = matchIds[i];
+
+
+                            //addToArray(matchIds[i]);
+
+
+                            System.out.println(matchId);
+
+
+
+                            //JsonObject matchData = RiotAPIHelper.getMatchData(matchId, currentAPIKey);
+                            //assert matchData != null;
+                            //createMatchCard(i, matchId, matchData, puuid);
+                        }
+
+
+
+
+
+
+
+                        //matchId needs to be added to list
+                    }
+
+
+
+
+
+
+                }).start();
+            }
+        });
+
+
+
+
+
+
+
+
+
         //System.out.println(kiki);
 
+        String matchID[] = {"Match: "+MATCHID,"PUUID: "+PUUID,"Game Type: "+queueType,"Time Elapsed: "+gameLength,"Placed: "+ placementNum,PUUID,MATCHID,PUUID,MATCHID,PUUID,MATCHID,PUUID,MATCHID,PUUID,MATCHID,PUUID};
 
-        //String matchID[] = {MATCHID,PUUID,kiki};
-        String matchID[] = {MATCHID,PUUID,MATCHID,PUUID,MATCHID,PUUID,MATCHID,PUUID,MATCHID,PUUID,MATCHID,PUUID,MATCHID,PUUID,MATCHID,PUUID};
+
+
+        //String boink[] = viewMatchData(MATCHID, PUUID, "RGAPI-24d5854b-224c-4306-ad24-814c654a54e4");
         //String matchID[] =C
 
         System.out.println(MATCHID+"\n"+PUUID+"\n");
@@ -116,9 +189,25 @@ public class MatchDetails extends AppCompatActivity {
 
 
 
-
     }
 
+
+/*
+    private void addToArray(String character){
+
+        matchID.add(character);
+
+    }
+*/
+
+
+
+
+
+
+
+
+    //public static String[] viewMatchData(String MATCH, String puuid, String APIKEY) {
     public static String[] viewMatchData(String MATCH, String puuid, String APIKEY) {
         URL call1;
         String call1resp;
@@ -158,7 +247,7 @@ public class MatchDetails extends AppCompatActivity {
             }
         }
 
-        ;
+
         String playersData = tester.substring(x, y);
 
         int[] units = new int[700];
@@ -216,7 +305,22 @@ public class MatchDetails extends AppCompatActivity {
 
 
 
-    //String matchID[] = {MATCHID};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

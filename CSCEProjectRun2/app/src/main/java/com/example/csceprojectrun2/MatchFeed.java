@@ -207,6 +207,15 @@ public class MatchFeed extends AppCompatActivity {
                 Intent intent = new Intent(MatchFeed.this, MatchDetails.class);
                 intent.putExtra("matchID", matchId);
                 intent.putExtra("puuid", ownerPuuid);
+
+
+                intent.putExtra("queueType", queueType);
+                intent.putExtra("gameLength", gameLength);
+                intent.putExtra("placementNum", placementNum);
+
+
+
+
                 startActivity(intent);
             });
         });
