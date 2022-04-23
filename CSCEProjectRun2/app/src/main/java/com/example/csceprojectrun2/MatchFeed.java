@@ -224,7 +224,7 @@ public class MatchFeed extends AppCompatActivity {
     public void renderMatchHistoryWithPuuid(ScrollView matchContainer, String puuid, int numMatchesToReturn) {
         // clear any existing match tiles
         LinearLayout linearLayout = matchContainer.findViewById(R.id.match_container_linear_layout);
-        linearLayout.removeAllViews();
+        //linearLayout.removeAllViews();
 
         //CALL API KEY FROM FIREBASE
         //Display the current api key

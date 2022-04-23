@@ -38,9 +38,6 @@ public class MatchDetails extends AppCompatActivity {
     String placementNum;
 
 
-
-
-
     String matchID[] ={};
 
     @Override
@@ -51,6 +48,11 @@ public class MatchDetails extends AppCompatActivity {
         //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
         currentPage = findViewById(R.id.currentPage);
+
+        final TextView textViewMatch = findViewById(R.id.match);
+        final TextView textViewType = findViewById(R.id.type);
+        final TextView textViewTime = findViewById(R.id.time);
+        final TextView textViewPlace = findViewById(R.id.place);
 
         //Receives match id and puuid from a match card clicked on Match feed
         Bundle bundle = getIntent().getExtras();
@@ -64,6 +66,11 @@ public class MatchDetails extends AppCompatActivity {
             placementNum = bundle.getString("placementNum");
 
         }
+
+        textViewMatch.setText ("Match:                "+MATCHID);
+        textViewType.setText("Game Type:       "+queueType);
+        textViewTime.setText("Time Elapsed:   "+gameLength);
+        textViewPlace.setText("Placed:                "+ placementNum);
 
 
         /*
@@ -81,29 +88,6 @@ public class MatchDetails extends AppCompatActivity {
 
 
         DocumentReference documentReference = fStore.collection("apikey").document("key");
-        //DELETE THIS
-        documentReference.addSnapshotListener(this, (value, error) -> {
-            //Retrieve api key from Firebase
-            if (value != null) {
-                String currentAPIKey = value.getString("apikey");
-                // spawn thread and collect data from riot api
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //String matchID[] = viewMatchData(MATCHID, PUUID, currentAPIKey);
-
-                        //renderMatchHistoryWithPuuid(matchContainer, puuid, 6);
-                    }
-                }).start();
-                //String matchID[] = {};
-                //matchID = viewMatchData("NA1_4107774217", PUUID, currentAPIKey);
-            }
-        });
-
-
-
-
 
 
 
@@ -132,29 +116,19 @@ public class MatchDetails extends AppCompatActivity {
                             //addToArray(matchIds[i]);
 
 
+
                             System.out.println(matchId);
 
-
-
+                            //test[i]= matchIds[i];
                             //JsonObject matchData = RiotAPIHelper.getMatchData(matchId, currentAPIKey);
                             //assert matchData != null;
                             //createMatchCard(i, matchId, matchData, puuid);
                         }
-
-
-
-
-
+                        createCharacterFeed(matchIds);
 
 
                         //matchId needs to be added to list
                     }
-
-
-
-
-
-
                 }).start();
             }
         });
@@ -166,18 +140,17 @@ public class MatchDetails extends AppCompatActivity {
 
 
 
-
-        //System.out.println(kiki);
-
-        String matchID[] = {"Match: "+MATCHID,"PUUID: "+PUUID,"Game Type: "+queueType,"Time Elapsed: "+gameLength,"Placed: "+ placementNum,PUUID,MATCHID,PUUID,MATCHID,PUUID,MATCHID,PUUID,MATCHID,PUUID,MATCHID,PUUID};
-
-
+        //Testing Scroll, match characters are being printed currently
+        String matchID[] = {"1","2","3","4","5","6","7","8","9","10"};
 
         //String boink[] = viewMatchData(MATCHID, PUUID, "RGAPI-24d5854b-224c-4306-ad24-814c654a54e4");
         //String matchID[] =C
 
         System.out.println(MATCHID+"\n"+PUUID+"\n");
         currentPage.setText("Match Details");
+
+
+
 
         Ulist = findViewById(R.id.list);
         ArrayAdapter<String> arr;
@@ -207,71 +180,12 @@ public class MatchDetails extends AppCompatActivity {
 
 
 
-    //public static String[] viewMatchData(String MATCH, String puuid, String APIKEY) {
-    public static String[] viewMatchData(String MATCH, String puuid, String APIKEY) {
-        URL call1;
-        String call1resp;
+    private void createCharacterFeed(String[] boink) {
+        for (int i = 0; i < boink.length; i++) {
 
-        StringBuilder sb = new StringBuilder();
-        try {
-            call1 = new URL("https://americas.api.riotgames.com/tft/match/v1/matches/" + MATCH + "?api_key=" + APIKEY);
-            BufferedReader read = new BufferedReader(new InputStreamReader(call1.openStream()));
-            while ((call1resp = read.readLine()) != null)
-                sb.append(call1resp + "\n");
-            read.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-
-        String tester = sb.toString();
-        //TOTAL SUBSTRING
-        String total = tester.substring(tester.indexOf(""));
-        //finding puuid in match data
-        int x = 0;
-        for (int index = total.indexOf(puuid); index >= 0; index = total.indexOf(puuid, index + 1)) {
-            x = index;
+            System.out.println("Yo here?"+boink[i]);
 
         }
-        x = total.lastIndexOf(puuid);
-
-
-        //finding the end of players match data
-        int y = 0;
-        int first = 0;
-        int index2;
-        for (index2 = total.indexOf("companion"); index2 >= 0; index2 = total.indexOf("companion", index2 + 1)) {
-            if (index2 > x && first == 0) {
-                ++first;
-                y = index2;
-            }
-        }
-
-
-        String playersData = tester.substring(x, y);
-
-        int[] units = new int[700];
-        int i = 0;
-
-        for (int unitIndex = playersData.indexOf("\"character_id\":\"TFT"); unitIndex >= 0; unitIndex = playersData.indexOf("\"character_id\":\"TFT", unitIndex + 1)) {
-            units[i] = unitIndex;
-
-            i++;
-        }
-
-        int j = 0;
-        int[] unitE = new int[700];
-        for (int unitEnd = playersData.indexOf("\",\"item"); unitEnd >= 0; unitEnd = playersData.indexOf("\",\"item", unitEnd + 1)) {
-            unitE[j] = unitEnd;
-            j++;
-        }
-        //adding units to list
-        String[] unitlist = new String[i];
-        for (int z = 0; i > z; z++) {
-            //Creates a list of units
-            unitlist[z] = playersData.substring(units[z] + 16, unitE[z]);
-        }
-        return (unitlist);
     }
 
 
@@ -295,36 +209,7 @@ public class MatchDetails extends AppCompatActivity {
     }
 
 
-    String MATCH = "NA1_4265735286";
-    String APIKEY = "RGAPI-f1315bcb-8c6e-41fa-9559-d9a069b1fb9c";
-    String puuid = "bWxLgFEOjkoSZh8rQ4hGNAvIDd_gWRGlybnlqQzVaQJdMKvHACDu0fzrMJGRYNra_C61q8z2vkXKng";
-    //String matchID[] = viewMatchData(MATCH, puuid, APIKEY);
-
-    //String matchID[] = viewMatchData2();
     //String matchID[] = {"Vi", "Zac", "Urgot", "Yuumi", "Jinx", "Tahmkench", "Jayce"};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -338,4 +223,6 @@ public class MatchDetails extends AppCompatActivity {
         System.out.println("Clicked search from MainActivity");
         MainActivity.searchHandler.ClickSearch(view);
     }
+
+
 }

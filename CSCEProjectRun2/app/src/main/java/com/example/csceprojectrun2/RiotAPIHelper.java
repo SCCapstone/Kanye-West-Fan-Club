@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.io.InputStream;
+import java.util.Random;
 
 import javax.json.*;
 
@@ -168,18 +169,7 @@ public class RiotAPIHelper {
 
 
 
-
-
-
-
-
-
-
-
-
-/////////////////////////////////////////////////////////////
-
-
+    //Takes match id, puuid, and the api key and returns the characters
     public static final String[] viewMatchData(String MATCH, String puuid, String APIKEY) {
 
 
@@ -261,11 +251,53 @@ public class RiotAPIHelper {
             return(boink);
         }
 
+    }
+
+    public static final String[] viewMatchData2() {
 
 
+        Random rand = new Random();
+
+        String boink1[] = {"TFT6_Zyra", "TFT6_Zac", "TFT6_Lissandra", "TFT6_Heimerdinger", "TFT6_Taric", "TFT6_Orianna", "TFT6_Janna", "TFT6_Janna"};
+        String boink2[] = {"TFT6_Ezreal", "TFT6_Zilean", " TFT6_Heimerdinger", "TFT6_Braum", "TFT6_Taric", "TFT6_Seraphine", "TFT6_Jayce", "TFT6_Janna"};
+        String boink3[] = {"TFT6_Twitch", "TFT6_Katarina", "TFT6_Blitzcrank", "TFT6_Talon", "TFT6_Leona", "TFT6_Shaco", "TFT6_Ekko"};
+        int mat = rand.nextInt(3);
+        if (mat == 1) {
+            return (boink1);
+        }
+        if (mat == 2) {
+            return (boink2);
+        } else {
+            return (boink3);
+        }
+    }
 
 
+    //This takes in api kay and tft name to result in puuid
+    public static String playerName(String tftname, String APIKEY) {
 
+        try {
+            URL call1;
+            String call1resp;
+            StringBuilder sb = new StringBuilder();
+            try {
+                call1 = new URL("https://br1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + tftname + "?api_key=" + APIKEY);
+                BufferedReader read = new BufferedReader(new InputStreamReader(call1.openStream()));
+                while ((call1resp = read.readLine()) != null)
+                    sb.append(call1resp + "\n");
+                read.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            String tester = sb.toString();
+            //System.out.println(tester);
+            String id = tester.substring(tester.indexOf("puuid")+8,tester.indexOf("\",\"name"));
+            return(id);
+        } catch (Exception e) {
+            System.out.println(e);
+            String err = "";
+            return(err);
+        }
     }
 
 /////////////////////////////////////////////////////////////////////////

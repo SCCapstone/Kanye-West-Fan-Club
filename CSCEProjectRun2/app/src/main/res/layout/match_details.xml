@@ -5,7 +5,9 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:outlineProvider="none"
+    tools:context=".MainActivity"
+    android:background="@color/darkBlue">
 
 
     <LinearLayout
@@ -20,13 +22,77 @@
             android:layout_height="wrap_content" />
 
 
+        <TextView
+            android:id="@+id/match"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gold"
+            android:textSize="25dp"/>
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gold"
+            android:textSize="25dp"/>
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gold"
+            android:textSize="25dp"/>
+
+        <TextView
+            android:id="@+id/place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gold"
+            android:textSize="25dp"
+            android:paddingBottom="1dp"
+            />
+
+        <TextView
+            android:id="@+id/Characters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:outlineProvider="bounds"
+            android:text="Characters:"
+            android:textAlignment="textStart"
+            android:textColor="@color/darkBlue"
+            android:background="@color/gold"
+
+            android:outlineAmbientShadowColor="@color/blue1"
+            android:textSize="25dp"
+
+            />
+
+        <TextView
+            android:id="@+id/bark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text=""
+            android:textAlignment="textStart"
+            android:background="@color/darkBlue"
+
+            android:outlineAmbientShadowColor="@color/blue1"
+            android:textSize=".5dp"
+
+            />
+
+
         <ListView
             android:id="@+id/list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    </LinearLayout>
 
+            android:layout_height="wrap_content"
+
+            android:background="@color/gold"
+            />
+
+
+    </LinearLayout>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
