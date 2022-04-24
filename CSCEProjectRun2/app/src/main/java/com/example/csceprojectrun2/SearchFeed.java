@@ -65,9 +65,23 @@ public class SearchFeed extends AppCompatActivity {
 
         //Coming from popular builds, community builds, current characters, or item builder
         if (gameName == null & puuid == null) {
-            currentPage.setText("Search");
-            ClickSearch(matchContainer);
-            matchContainer.setVisibility(View.INVISIBLE);
+            if (currentUser != null) {
+                userId = currentUser.getUid(); //Do what you need to do with the id
+                ClickSearch(matchContainer);
+                matchContainer.setVisibility(View.INVISIBLE);
+
+                //Display current user's tft name in navigation drawer
+                DocumentReference documentReference = fStore.collection("user").document(userId);
+                documentReference.addSnapshotListener(this, (value, error) -> {
+                    //Retrieve tft name from Firebase
+                    if (value != null) {
+                        String TFTName = value.getString("tftName");
+                        tftName.setVisibility(View.VISIBLE);
+                        tftName.setText(TFTName);
+                    }
+                });
+                currentPage.setText("Search");
+            }
         }
         //Coming from search feed or home feed
         else {
