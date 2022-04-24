@@ -57,6 +57,7 @@
         <activity android:name=".CreateAccountInfo" />
         <activity android:name=".PopularBuildList" />
         <activity android:name=".PopularBuildInfo" />
+        <activity android:name=".SearchFeed"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

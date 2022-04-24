@@ -15,7 +15,7 @@ import java.util.Objects;
 public class PopularBuildInfo extends AppCompatActivity {
     DrawerLayout drawerLayout;
     String userId, pId, pTitle, pDescription, pAccountName, pAccountID;
-    TextView mTitle, mDescription, mAccountName, mAccountID;
+    TextView mTitle, mDescription, mAccountName, mAccountID, currentPage;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
 
@@ -31,6 +31,7 @@ public class PopularBuildInfo extends AppCompatActivity {
 
         //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
+        currentPage = findViewById(R.id.currentPage);
         mTitle = findViewById(R.id.detailTitle);
         mDescription = findViewById(R.id.detailDescription);
         mAccountName = findViewById(R.id.detailAccountName);
@@ -50,6 +51,8 @@ public class PopularBuildInfo extends AppCompatActivity {
             mAccountName.setText(pAccountName);
             mAccountID.setText(pAccountID);
         }
+
+        currentPage.setText("Popular Builds");
     }
 
     public void ClickBack(View view) {

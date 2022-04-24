@@ -27,6 +27,7 @@
     <string name="secondItemName">Negatron Cloak</string>
     <string name="expandSymbol"><![CDATA[>>]]></string>
     <string name="item_image_description">Image of the Item</string>
+    <string name="search_icon">Search Icon</string>
     <item name="tag" type="id" />
 
 </resources>

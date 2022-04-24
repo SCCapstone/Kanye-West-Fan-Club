@@ -26,7 +26,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class ItemBuilder extends AppCompatActivity {
     //Initialize variable
@@ -57,7 +56,6 @@ public class ItemBuilder extends AppCompatActivity {
         tftName = findViewById(R.id.TFTName);
         currentPage = findViewById(R.id.currentPage);
         itemContainer = findViewById(R.id.item_container);
-        renderItems(itemContainer);
 
         //Initialize Firebase elements
         fAuth = FirebaseAuth.getInstance();
@@ -66,6 +64,8 @@ public class ItemBuilder extends AppCompatActivity {
 
         if (currentUser != null) {
             userId = currentUser.getUid();
+            renderItems(itemContainer);
+
             //Display current user's tft name in navigation drawer
             DocumentReference documentReference = fStore.collection("user").document(userId);
             documentReference.addSnapshotListener(this, (value, error) -> {
@@ -76,8 +76,8 @@ public class ItemBuilder extends AppCompatActivity {
                     tftName.setText(TFTName);
                 }
             });
+            currentPage.setText("Item Builder");
         }
-        currentPage.setText("Item Builder");
     }
 
     private void createItemCard(int cardPosition, Item item) {
@@ -214,6 +214,21 @@ public class ItemBuilder extends AppCompatActivity {
         this.startActivity(intent);
     }
 
+    public void ClickSearch(View view) {
+        System.out.println("Clicked search from Item Builder");
+            //CALL API KEY FROM FIREBASE
+            DocumentReference documentReference = fStore.collection("apikey").document("key");
+            documentReference.addSnapshotListener(this, (value, error) -> {
+                //Retrieve api key from Firebase
+                if (value != null) {
+                    String currentAPIKey = value.getString("apikey");
+                    //pass currentAPIKey to search feed
+                    Intent intent = new Intent(ItemBuilder.this, SearchFeed.class);
+                    intent.putExtra("currentAPIKey", currentAPIKey);
+                    startActivity(intent);
+                }
+            });
+        }
 
     public void ClickMenu(View view) {
         //Open drawer

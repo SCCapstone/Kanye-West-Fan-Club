@@ -2,11 +2,12 @@ package com.example.csceprojectrun2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.JsonReader;
 import android.util.JsonToken;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -14,8 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -24,9 +28,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class CurrentCharacters extends AppCompatActivity {
     //Initialize variable
@@ -47,6 +51,7 @@ public class CurrentCharacters extends AppCompatActivity {
             InputStream input = getApplicationContext().getAssets().open("set6.json");
             championList = readJsonStream(input);
         } catch (IOException e) {
+            e.printStackTrace();
         }
 
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -86,30 +91,27 @@ public class CurrentCharacters extends AppCompatActivity {
         String championImage = championName.toLowerCase().replace(".", "").replace(" ", "").replace("'", "") + "_square";
         int championID = this.getResources().getIdentifier(championImage, "drawable", this.getPackageName());
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                // build new character tiles
-                LayoutInflater inflater = getLayoutInflater();
+        runOnUiThread(() -> {
+            // build new character tiles
+            LayoutInflater inflater = getLayoutInflater();
 
-                // create the card UI element
-                inflater.inflate(R.layout.character_card, linearLayout, true);
+            // create the card UI element
+            inflater.inflate(R.layout.character_card, linearLayout, true);
 
-                // get and update new card
-                View newCharacterCard = linearLayout.getChildAt(cardPosition);
+            // get and update new card
+            View newCharacterCard = linearLayout.getChildAt(cardPosition);
 
-                //newCharacterCard.setTag(R.id.tag, storedValue);
+            //newCharacterCard.setTag(R.id.tag, storedValue);
 
-                TextView characterNameUI = newCharacterCard.findViewById(R.id.characterName);
+            TextView characterNameUI = newCharacterCard.findViewById(R.id.characterName);
 
-                ImageView characterImageUI = newCharacterCard.findViewById(R.id.characterImage);
+            ImageView characterImageUI = newCharacterCard.findViewById(R.id.characterImage);
 
-                characterNameUI.setText(championName);
+            characterNameUI.setText(championName);
 
-                characterImageUI.setImageResource(championID);
+            characterImageUI.setImageResource(championID);
 
-                System.out.println(newCharacterCard.getId());
-            }
+            System.out.println(newCharacterCard.getId());
         });
     }
 
@@ -119,20 +121,17 @@ public class CurrentCharacters extends AppCompatActivity {
         linearLayout.removeAllViews();
 
         // spawn thread to create instances of character card
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+        new Thread(() -> {
 
-                // populate match feed
-                for (int i = 0; i < championList.size(); i++) {
-                    createCharacterCard(i, championList.get(i));
-                }
+            // populate match feed
+            for (int i = 0; i < championList.size(); i++) {
+                createCharacterCard(i, championList.get(i));
             }
         }).start();
     }
 
     public List<Champion> readJsonStream(InputStream in) throws IOException {
-        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        JsonReader reader = new JsonReader(new InputStreamReader(in, StandardCharsets.UTF_8));
         try {
             return readChampionsArray(reader);
         } finally {
@@ -255,6 +254,22 @@ public class CurrentCharacters extends AppCompatActivity {
         intent.putExtra("champion", champion);
         //Start activity
         this.startActivity(intent);
+    }
+
+    public void ClickSearch(View view) {
+        System.out.println("Clicked search from Current Characters");
+        //CALL API KEY FROM FIREBASE
+        DocumentReference documentReference = fStore.collection("apikey").document("key");
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve api key from Firebase
+            if (value != null) {
+                String currentAPIKey = value.getString("apikey");
+                //pass currentAPIKey to search feed
+                Intent intent = new Intent(CurrentCharacters.this, SearchFeed.class);
+                intent.putExtra("currentAPIKey", currentAPIKey);
+                startActivity(intent);
+            }
+        });
     }
 
     public void ClickMenu(View view) {

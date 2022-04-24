@@ -24,7 +24,7 @@ public class CommunityBuildInfo extends AppCompatActivity {
     DrawerLayout drawerLayout;
     String userId, pId, pTitle, pDescription, pAccountName, pAccountID;
     Button mSaveBtn;
-    TextView mTitle, mDescription, mAccountName, mAccountID;
+    TextView mTitle, mDescription, mAccountName, mAccountID,currentPage;
     ProgressDialog progressDialog;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -41,6 +41,7 @@ public class CommunityBuildInfo extends AppCompatActivity {
 
         //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
+        currentPage = findViewById(R.id.currentPage);
         mSaveBtn = findViewById(R.id.saveBtn);
         mTitle = findViewById(R.id.detailTitle);
         mDescription = findViewById(R.id.detailDescription);
@@ -76,6 +77,8 @@ public class CommunityBuildInfo extends AppCompatActivity {
                 finish();
             }
         });
+
+        currentPage.setText("Community Builds");
     }
 
     //Upload data to Firebase for storage

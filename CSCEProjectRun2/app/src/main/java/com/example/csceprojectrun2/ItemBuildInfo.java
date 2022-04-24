@@ -132,7 +132,7 @@ public class ItemBuildInfo extends AppCompatActivity {
     }
 
     public void ClickBack(View view) {
-        MainActivity.redirectActivity(this, ItemBuilder.class);
+        finish();
     }
 
 }

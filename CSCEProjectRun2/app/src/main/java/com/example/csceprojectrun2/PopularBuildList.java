@@ -3,16 +3,22 @@ package com.example.csceprojectrun2;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -142,6 +148,22 @@ public class PopularBuildList extends AppCompatActivity {
                     pd.dismiss();
                     Toast.makeText(PopularBuildList.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
+    }
+
+    public void ClickSearch(View view) {
+        System.out.println("Clicked search from Popular Builds");
+        //CALL API KEY FROM FIREBASE
+        DocumentReference documentReference = fStore.collection("apikey").document("key");
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve api key from Firebase
+            if (value != null) {
+                String currentAPIKey = value.getString("apikey");
+                //pass currentAPIKey to search feed
+                Intent intent = new Intent(PopularBuildList.this, SearchFeed.class);
+                intent.putExtra("currentAPIKey", currentAPIKey);
+                startActivity(intent);
+            }
+        });
     }
 
     public void ClickMenu(View view) {

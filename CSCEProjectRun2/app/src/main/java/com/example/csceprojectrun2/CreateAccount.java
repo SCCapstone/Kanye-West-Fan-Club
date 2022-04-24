@@ -24,7 +24,7 @@ import java.util.Objects;
 
 public class CreateAccount extends AppCompatActivity {
     public static final String TAG = "TAG";
-    EditText mEmail, mPassword, mTFTName, mPUIID;
+    EditText mEmail, mPassword, mDisplayName, mPUIID;
     Button mRegisterBtn;
     TextView mLoginBtn;
     FirebaseAuth fAuth;
@@ -40,7 +40,7 @@ public class CreateAccount extends AppCompatActivity {
 
         mEmail = findViewById(R.id.create_account_email);
         mPassword = findViewById(R.id.create_account_password);
-        mTFTName = findViewById(R.id.create_account_display_name);
+        mDisplayName = findViewById(R.id.create_account_display_name);
         mPUIID = findViewById(R.id.create_account_puuid);
         mRegisterBtn = findViewById(R.id.createAccountBtn);
         mLoginBtn = findViewById(R.id.create_account_login);
@@ -58,10 +58,10 @@ public class CreateAccount extends AppCompatActivity {
         mRegisterBtn.setOnClickListener(view -> {
             String email = mEmail.getText().toString().trim();
             String password = mPassword.getText().toString().trim();
-            String tftName = mTFTName.getText().toString().trim();
-            String puiid = mPUIID.getText().toString().trim();
+            String displayName = mDisplayName.getText().toString().trim();
+            String puuid = mPUIID.getText().toString().trim();
 
-            //Display errors when email, password, tftname, or puuid are empty, or password is too short
+            //Display errors when email, password, display name, or puuid are empty, or password is too short
             if (TextUtils.isEmpty(email)) {
                 mEmail.setError("Email is Required.");
                 return;
@@ -74,12 +74,12 @@ public class CreateAccount extends AppCompatActivity {
                 mPassword.setError("Password Must Be At Least 6 Characters.");
                 return;
             }
-            if (TextUtils.isEmpty(tftName)) {
-                mTFTName.setError("TFT Name is Required.");
+            if (TextUtils.isEmpty(displayName)) {
+                mDisplayName.setError("Display Name is Required.");
                 return;
             }
-            if (TextUtils.isEmpty(puiid)) {
-                mPUIID.setError("PUIID is Required.");
+            if (TextUtils.isEmpty(puuid)) {
+                mPUIID.setError("PUUID is Required.");
                 return;
             }
 
@@ -96,8 +96,8 @@ public class CreateAccount extends AppCompatActivity {
                     DocumentReference documentReference = fStore.collection("user").document(userID);
 
                     Map<String, Object> user = new HashMap<>();
-                    user.put("tftName", tftName);
-                    user.put("puiid", puiid);
+                    user.put("tftName", displayName);
+                    user.put("puiid", puuid);
 
                     documentReference.set(user).addOnSuccessListener((OnSuccessListener) (aVoid) -> Log.d(TAG, "onSuccess: " + " User Profile is created for " + userID)).addOnFailureListener(e -> Log.d(TAG, "onFailure: " + e));
                     startActivity(new Intent(getApplicationContext(), AppInfo.class));
@@ -120,6 +120,5 @@ public class CreateAccount extends AppCompatActivity {
             }
         }
         return false;
-
     }
 }

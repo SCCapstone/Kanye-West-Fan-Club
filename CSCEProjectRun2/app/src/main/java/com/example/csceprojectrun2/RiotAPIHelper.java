@@ -125,7 +125,7 @@ public class RiotAPIHelper {
     }
 
     public static final String getPuuidFromRiotID(String gameName, String tagline, String validDevKey) {
-        try  {
+        try {
             URL url;
             String callResp;
             StringBuilder sb = new StringBuilder();
@@ -138,9 +138,9 @@ public class RiotAPIHelper {
             );
 
             try {
-                BufferedReader read = new BufferedReader( new InputStreamReader(url.openStream()));
+                BufferedReader read = new BufferedReader(new InputStreamReader(url.openStream()));
 
-                while((callResp = read.readLine()) != null)
+                while ((callResp = read.readLine()) != null)
                     sb.append(callResp + "\n");
 
                 read.close();
@@ -152,7 +152,7 @@ public class RiotAPIHelper {
             String fullReturnString = sb.toString();
 
             // cull starting & ending brackets
-            String culledReturnStr = fullReturnString.substring(2, fullReturnString.length()-3);
+            String culledReturnStr = fullReturnString.substring(2, fullReturnString.length() - 3);
 
             // split into a string array
             String[] finalStrings = culledReturnStr.split("\",\"");
@@ -165,8 +165,6 @@ public class RiotAPIHelper {
 
         return "";
     }
-
-
 
 
     //Takes match id, puuid, and the api key and returns the characters
@@ -240,15 +238,12 @@ public class RiotAPIHelper {
             return (unitlist);
 
 
-        }
-
-
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Something went wrong.");
             System.out.println(e);
             String boink[] = {};
 
-            return(boink);
+            return (boink);
         }
 
     }
@@ -291,12 +286,12 @@ public class RiotAPIHelper {
             }
             String tester = sb.toString();
             //System.out.println(tester);
-            String id = tester.substring(tester.indexOf("puuid")+8,tester.indexOf("\",\"name"));
-            return(id);
+            String id = tester.substring(tester.indexOf("puuid") + 8, tester.indexOf("\",\"name"));
+            return (id);
         } catch (Exception e) {
             System.out.println(e);
             String err = "";
-            return(err);
+            return (err);
         }
     }
 

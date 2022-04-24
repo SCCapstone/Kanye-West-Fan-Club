@@ -38,7 +38,7 @@ public class MatchDetails extends AppCompatActivity {
     String placementNum;
 
 
-    String matchID[] ={};
+    String matchID[] = {};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,18 +59,15 @@ public class MatchDetails extends AppCompatActivity {
         if (bundle != null) {
             MATCHID = bundle.getString("matchID");
             PUUID = bundle.getString("puuid");
-
-
             queueType = bundle.getString("queueType");
             gameLength = bundle.getString("gameLength");
             placementNum = bundle.getString("placementNum");
-
         }
 
-        textViewMatch.setText ("Match:                "+MATCHID);
-        textViewType.setText("Game Type:       "+queueType);
-        textViewTime.setText("Time Elapsed:   "+gameLength);
-        textViewPlace.setText("Placed:                "+ placementNum);
+        textViewMatch.setText("Match:                " + MATCHID);
+        textViewType.setText("Game Type:       " + queueType);
+        textViewTime.setText("Time Elapsed:   " + gameLength);
+        textViewPlace.setText("Placed:                " + placementNum);
 
 
         /*
@@ -88,9 +85,6 @@ public class MatchDetails extends AppCompatActivity {
 
 
         DocumentReference documentReference = fStore.collection("apikey").document("key");
-
-
-
         //DocumentReference documentReference = fStore.collection("apikey").document("key");
         documentReference.addSnapshotListener(this, (value, error) -> {
             //Retrieve api key from Firebase
@@ -106,15 +100,13 @@ public class MatchDetails extends AppCompatActivity {
                     if (matchIds == null) {
                         System.out.println("Unable to retrieve match characters!");
                         return;
-                    }
-                    else {
+                    } else {
                         // populate match feed
                         for (int i = 0; i < matchIds.length; i++) {
                             String matchId = matchIds[i];
 
 
                             //addToArray(matchIds[i]);
-
 
 
                             System.out.println(matchId);
@@ -134,22 +126,14 @@ public class MatchDetails extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
         //Testing Scroll, match characters are being printed currently
-        String matchID[] = {"1","2","3","4","5","6","7","8","9","10"};
+        String matchID[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
         //String boink[] = viewMatchData(MATCHID, PUUID, "RGAPI-24d5854b-224c-4306-ad24-814c654a54e4");
         //String matchID[] =C
 
-        System.out.println(MATCHID+"\n"+PUUID+"\n");
+        System.out.println(MATCHID + "\n" + PUUID + "\n");
         currentPage.setText("Match Details");
-
-
 
 
         Ulist = findViewById(R.id.list);
@@ -159,7 +143,6 @@ public class MatchDetails extends AppCompatActivity {
                 this,
                 R.layout.support_simple_spinner_dropdown_item, matchID);
         Ulist.setAdapter(arr);
-
 
 
     }
@@ -174,16 +157,10 @@ public class MatchDetails extends AppCompatActivity {
 */
 
 
-
-
-
-
-
-
     private void createCharacterFeed(String[] boink) {
         for (int i = 0; i < boink.length; i++) {
 
-            System.out.println("Yo here?"+boink[i]);
+            System.out.println("Yo here?" + boink[i]);
 
         }
     }
@@ -212,11 +189,10 @@ public class MatchDetails extends AppCompatActivity {
     //String matchID[] = {"Vi", "Zac", "Urgot", "Yuumi", "Jinx", "Tahmkench", "Jayce"};
 
 
-
     ListView Ulist;
 
     public void ClickBack(View view) {
-        MainActivity.redirectActivity(this, MatchFeed.class);
+        finish();
     }
 
     public void ClickSearch(View view) {
