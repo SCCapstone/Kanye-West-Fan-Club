@@ -54,7 +54,7 @@ public class PopularBuildInfo extends AppCompatActivity {
     }
 
     public void ClickBack(View view) {
-        MainActivity.redirectActivity(this, PopularBuildList.class);
+        finish();
     }
 }
 
