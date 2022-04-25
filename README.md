@@ -34,15 +34,15 @@ For testing search feature you can use "Liquid Goose" "NA1".
 
 For the testing milestone: 
 We made unit tests in:
-Kanye-West-Fan-Club/CSCEProjectRun2/app/src/test/java/com/example/csceprojectrun2/ 
+#### Kanye-West-Fan-Club/CSCEProjectRun2/app/src/test/java/com/example/csceprojectrun2/ 
 And we used behavorial tests in:
-Kanye-West-Fan-Club/CSCEProjectRun2/app/src/androidTest/java/com/example/csceprojectrun2/
+#### Kanye-West-Fan-Club/CSCEProjectRun2/app/src/androidTest/java/com/example/csceprojectrun2/
 
 ## Testing Technology
 
 ## Running Tests
 
-When running the tests you first need to open Android studio. Next locate which type of test you intend on running based on the folder locations listed in the [Testing](https://github.com/SCCapstone/Kanye-West-Fan-Club/tree/Stephen-Thompson#testing) section. Then if you would like to run all the tests in the folder you can right click on the folder and click "Run 'Tests in '(name of folder location)'.. If you wish to run individual tests, you may identify which test you wish to run then right click on the file and select "Run '(file name of tests)'.
+When running the tests you first need to open Android studio. Next locate which type of test you intend on running based on the folder locations listed in the [Testing](https://github.com/SCCapstone/Kanye-West-Fan-Club/tree/Stephen-Thompson#testing) section. Then if you would like to run all the tests in the folder you can right click on the folder and click "Run 'Tests in '(name of folder location)'. If you wish to run individual tests, you may identify which test you wish to run then right click on the file and select "Run '(file name of tests)'.
 
 ## Style Guide
 JAVA: https://google.github.io/styleguide/javaguide.html
