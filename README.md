@@ -42,7 +42,7 @@ Kanye-West-Fan-Club/CSCEProjectRun2/app/src/androidTest/java/com/example/cscepro
 
 ## Running Tests
 
-When running the tests you first meed to open Android studio and then locate wgich test you intend on running based on the folder locations located in the [testing](https://github.com/SCCapstone/Kanye-West-Fan-Club/tree/Stephen-Thompson#testing).
+When running the tests you first need to open Android studio. Next locate which type of test you intend on running based on the folder locations listed in the [Testing](https://github.com/SCCapstone/Kanye-West-Fan-Club/tree/Stephen-Thompson#testing) section. Then if you would like to run all the tests in the folder you can right click on the folder and click "Run 'Tests in '(name of folder location)'.. If you wish to run individual tests, you may identify which test you wish to run then right click on the file and select "Run '(file name of tests)'.
 
 ## Style Guide
 JAVA: https://google.github.io/styleguide/javaguide.html
