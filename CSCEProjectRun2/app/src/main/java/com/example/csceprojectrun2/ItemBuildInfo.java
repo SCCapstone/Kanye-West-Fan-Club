@@ -21,7 +21,7 @@ import java.util.Objects;
 public class ItemBuildInfo extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ScrollView buildItemContainer;
-    TextView tftName, currentPage;
+    TextView currentPage;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
@@ -38,7 +38,6 @@ public class ItemBuildInfo extends AppCompatActivity {
 
         ////Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
-        tftName = findViewById(R.id.TFTName);
         currentPage = findViewById(R.id.currentPage);
         buildItemContainer = findViewById(R.id.item_build_container);
         renderBuildItems(buildItemContainer, details);
@@ -48,16 +47,6 @@ public class ItemBuildInfo extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
         userId = fAuth.getCurrentUser().getUid();
 
-
-        //Display current user's tft name in navigation drawer
-        DocumentReference documentReference = fStore.collection("user").document(userId);
-        documentReference.addSnapshotListener(this, (value, error) -> {
-            //Retrieve tft name and puuid from Firebase
-            assert value != null;
-            String TFTName = value.getString("tftName");
-            tftName.setVisibility(View.VISIBLE);
-            tftName.setText(TFTName);
-        });
         currentPage.setText("Item Builder");
     }
 
