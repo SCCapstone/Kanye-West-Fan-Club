@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -25,7 +24,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class CommunityBuilds extends AppCompatActivity {
-    DrawerLayout drawerLayout;
     TextView currentPage;
     EditText mTitleEt, mDescriptionEt;
     Button mSaveBtn, mShowAllBtn;
@@ -50,7 +48,6 @@ public class CommunityBuilds extends AppCompatActivity {
         userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
 
         //Initialize views
-        drawerLayout = findViewById(R.id.drawer_layout);
         currentPage = findViewById(R.id.currentPage);
         mTitleEt = findViewById(R.id.titleEt);
         mDescriptionEt = findViewById(R.id.descriptionEt);

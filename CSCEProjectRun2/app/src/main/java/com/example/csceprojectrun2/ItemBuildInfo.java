@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class ItemBuildInfo extends AppCompatActivity {
-    DrawerLayout drawerLayout;
     ScrollView buildItemContainer;
     TextView currentPage;
     FirebaseAuth fAuth;
@@ -30,14 +29,12 @@ public class ItemBuildInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_build_feed);
-        drawerLayout = findViewById(R.id.drawer_layout);
 
         Bundle bundle = getIntent().getExtras();
         Item item = (Item) bundle.getSerializable("item");
         List<ItemBuild> details = item.getDetails();
 
-        ////Initialize views
-        drawerLayout = findViewById(R.id.drawer_layout);
+        //Initialize views
         currentPage = findViewById(R.id.currentPage);
         buildItemContainer = findViewById(R.id.item_build_container);
         renderBuildItems(buildItemContainer, details);
@@ -123,5 +120,4 @@ public class ItemBuildInfo extends AppCompatActivity {
     public void ClickBack(View view) {
         finish();
     }
-
 }

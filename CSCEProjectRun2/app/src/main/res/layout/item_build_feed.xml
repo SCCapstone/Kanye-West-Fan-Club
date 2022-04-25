@@ -22,17 +22,8 @@
             layout="@layout/item_build_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/turquoise">
 
-        <include layout="@layout/main_nav_drawer" />
-
-    </RelativeLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

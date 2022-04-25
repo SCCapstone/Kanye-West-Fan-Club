@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.Objects;
 
 public class CommunityBuildInfo extends AppCompatActivity {
-    DrawerLayout drawerLayout;
     String userId, pId, pTitle, pDescription, pAccountName, pAccountID;
     Button mSaveBtn;
     TextView mTitle, mDescription, mAccountName, mAccountID,currentPage;
@@ -40,7 +39,6 @@ public class CommunityBuildInfo extends AppCompatActivity {
         userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
 
         //Initialize views
-        drawerLayout = findViewById(R.id.drawer_layout);
         currentPage = findViewById(R.id.currentPage);
         mSaveBtn = findViewById(R.id.saveBtn);
         mTitle = findViewById(R.id.detailTitle);

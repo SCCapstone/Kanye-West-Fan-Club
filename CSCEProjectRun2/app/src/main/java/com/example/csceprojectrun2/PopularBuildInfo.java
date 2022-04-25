@@ -13,7 +13,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Objects;
 
 public class PopularBuildInfo extends AppCompatActivity {
-    DrawerLayout drawerLayout;
     String userId, pId, pTitle, pDescription, pAccountName, pAccountID;
     TextView mTitle, mDescription, mAccountName, mAccountID, currentPage;
     FirebaseAuth fAuth;
@@ -30,7 +29,6 @@ public class PopularBuildInfo extends AppCompatActivity {
         userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
 
         //Initialize views
-        drawerLayout = findViewById(R.id.drawer_layout);
         currentPage = findViewById(R.id.currentPage);
         mTitle = findViewById(R.id.detailTitle);
         mDescription = findViewById(R.id.detailDescription);

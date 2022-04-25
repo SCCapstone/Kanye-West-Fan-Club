@@ -18,8 +18,6 @@ import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class CharacterInfo extends AppCompatActivity {
-    DrawerLayout drawerLayout;
-
     TabLayout tabLayout;
     ViewPager2 viewPager2;
     TextView tftName, currentPage;
@@ -30,26 +28,21 @@ public class CharacterInfo extends AppCompatActivity {
         setContentView(R.layout.activity_character_info_1);
 
         //Initialize views
-        drawerLayout = findViewById(R.id.drawer_layout);
         tabLayout = findViewById(R.id.characterinfoTabLayout);
         viewPager2 = findViewById(R.id.characterinfoViewPager);
         tftName = findViewById(R.id.TFTName);
         currentPage = findViewById(R.id.currentPage);
-
 
         Bundle bundle = getIntent().getExtras();
         Champion champion = (Champion) bundle.getSerializable("champion");
 
         final CharacterInfoAdapter cia = new CharacterInfoAdapter(this, tabLayout.getTabCount(), getSupportFragmentManager(), getLifecycle(), champion, this);
         viewPager2.setAdapter(cia);
-
         currentPage.setText("Current Characters");
-
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             public void onTabSelected(TabLayout.Tab t) {
                 viewPager2.setCurrentItem(t.getPosition());
-
             }
 
             public void onTabUnselected(TabLayout.Tab t) {
@@ -107,6 +100,6 @@ public class CharacterInfo extends AppCompatActivity {
     }
 
     public void ClickBack(View view) {
-        MainActivity.redirectActivity(this, CurrentCharacters.class);
+        finish();
     }
 }
