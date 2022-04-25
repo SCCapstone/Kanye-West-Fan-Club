@@ -22,26 +22,34 @@
             android:layout_height="wrap_content" />
 
 
+
+
         <TextView
             android:id="@+id/match"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gold"
-            android:textSize="25dp"/>
+            android:textSize="25dp"
+            android:textStyle="bold"
+            />
 
         <TextView
             android:id="@+id/type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gold"
-            android:textSize="25dp"/>
+            android:textSize="25dp"
+            android:textStyle="bold"
+            />
 
         <TextView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gold"
-            android:textSize="25dp"/>
+            android:textSize="25dp"
+            android:textStyle="bold"
+            />
 
         <TextView
             android:id="@+id/place"
@@ -50,6 +58,7 @@
             android:textColor="@color/gold"
             android:textSize="25dp"
             android:paddingBottom="1dp"
+            android:textStyle="bold"
             />
 
         <TextView
@@ -64,6 +73,7 @@
 
             android:outlineAmbientShadowColor="@color/blue1"
             android:textSize="25dp"
+            android:textStyle="bold"
 
             />
 
@@ -82,15 +92,11 @@
             />
 
 
-        <ListView
-            android:id="@+id/list"
+        <include
+            android:id="@+id/detail_container"
+            layout="@layout/detail_container"
             android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"
-
-            android:background="@color/gold"
-            />
-
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

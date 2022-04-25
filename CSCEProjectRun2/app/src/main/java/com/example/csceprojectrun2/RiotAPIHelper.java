@@ -1,9 +1,17 @@
 package com.example.csceprojectrun2;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import javax.json.*;
@@ -233,7 +241,15 @@ public class RiotAPIHelper {
             String[] unitlist = new String[i];
             for (int z = 0; i > z; z++) {
                 //Creates a list of units
-                unitlist[z] = playersData.substring(units[z] + 16, unitE[z]);
+                //unitlist[z] = playersData.substring(units[z] + 16 + 5, unitE[z]);
+
+                String underscore = playersData.substring(units[z] + 16 + 5, units[z] + 22);
+                if (underscore.contains("_")) {
+                    unitlist[z] = playersData.substring(units[z] + 16 + 6, unitE[z]);
+                }
+                else {
+                    unitlist[z] = playersData.substring(units[z] + 16+5, unitE[z]);
+                }
             }
             return (unitlist);
 
@@ -248,6 +264,8 @@ public class RiotAPIHelper {
 
     }
 
+
+    //just to test
     public static final String[] viewMatchData2() {
 
 
@@ -297,4 +315,29 @@ public class RiotAPIHelper {
 
 /////////////////////////////////////////////////////////////////////////
 
+
+    /*
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+    FirebaseUser currentUser;
+
+    public void key() {
+        //Initialize Firebase elements
+        fAuth = FirebaseAuth.getInstance();
+        currentUser = fAuth.getCurrentUser();
+        fStore = FirebaseFirestore.getInstance();
+
+
+        DocumentReference documentReference = fStore.collection("apikey").document("key");
+        //DocumentReference documentReference = fStore.collection("apikey").document("key");
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve api key from Firebase
+            if (value != null) {
+                String currentAPIKey = value.getString("apikey");
+                System.out.println("HEY API KEY HERE" + currentAPIKey);
+                // spawn thread and collect data from riot api
+            }
+        });
+        return;
+    }*/
 }
