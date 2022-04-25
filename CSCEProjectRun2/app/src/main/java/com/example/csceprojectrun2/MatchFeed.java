@@ -57,6 +57,8 @@ public class MatchFeed extends AppCompatActivity {
 
         if (currentUser != null) {
             userId = currentUser.getUid(); //Do what you need to do with the id
+
+            //starts to get the match data
             renderMatchHistory(matchContainer);
 
             //Display current user's tft name in navigation drawer
@@ -64,15 +66,18 @@ public class MatchFeed extends AppCompatActivity {
             documentReference.addSnapshotListener(this, (value, error) -> {
                 //Retrieve tft name from Firebase
                 if (value != null) {
+                    //sets the name of player
                     String TFTName = value.getString("tftName");
                     tftName.setVisibility(View.VISIBLE);
                     tftName.setText(TFTName);
                 }
             });
+            //Sets the text at the top of the page
             currentPage.setText("Home");
         }
     }
-
+    //uses the time played from the response body as an integer
+    // and converts it to minutes and secons
     private String convertToTimestamp(int seconds) {
         int minutes = seconds / 60;
         seconds = seconds - (minutes * 60);
@@ -88,7 +93,8 @@ public class MatchFeed extends AppCompatActivity {
 
         return strMinutes + ":" + strSeconds;
     }
-
+    //uses the queueID from the response body as an integer to determine
+    // if the game type is ranked or normal
     private String getQueueType(int queueId) {
         if (queueId == 1100)
             return "Ranked";
@@ -216,6 +222,7 @@ public class MatchFeed extends AppCompatActivity {
         }
     }
 
+    //Search implementation
     public void ClickSearch(View view) {
         System.out.println("Clicked search from Home");
         //CALL API KEY FROM FIREBASE
