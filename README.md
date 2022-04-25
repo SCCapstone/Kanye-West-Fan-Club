@@ -32,9 +32,17 @@ For testing purposes create a email and password with one of the following (tft 
       
 For testing search feature you can use "Liquid Goose" "NA1".
 
+For the testing milestone: 
+We made unit tests in:
+Kanye-West-Fan-Club/CSCEProjectRun2/app/src/test/java/com/example/csceprojectrun2/ 
+And we used behavorial tests in:
+Kanye-West-Fan-Club/CSCEProjectRun2/app/src/androidTest/java/com/example/csceprojectrun2/
+
 ## Testing Technology
 
 ## Running Tests
+
+When running the tests you first meed to open Android studio and then locate wgich test you intend on running based on the folder locations located in the [testing] (https://github.com/SCCapstone/Kanye-West-Fan-Club/tree/Stephen-Thompson#testing).
 
 ## Style Guide
 JAVA: https://google.github.io/styleguide/javaguide.html
