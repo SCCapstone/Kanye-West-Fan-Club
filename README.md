@@ -1,4 +1,5 @@
 # Legend Stats
+<img src="https://user-images.githubusercontent.com/46630936/165160007-e19fae42-ba31-46f4-8f18-881f2476a868.png" width="75">
 
 Legend Stats is an Android app designed to help Teamfight Tactic players improve their gaming performance. The app quickly summarizes an individual's match history for quick reference and allows for searching others' match history. Users can create builds (groups of units during gameplay) and add them to a community list comprised of builds from fellow users. Additionally, there are resources to view current playable characters and what items to build from others.
 
@@ -32,9 +33,17 @@ For testing purposes create a email and password with one of the following (tft 
       
 For testing search feature you can use "Liquid Goose" "NA1".
 
+For the testing milestone: 
+We made unit tests in:
+#### Kanye-West-Fan-Club/CSCEProjectRun2/app/src/test/java/com/example/csceprojectrun2/ 
+And we used behavorial tests in:
+#### Kanye-West-Fan-Club/CSCEProjectRun2/app/src/androidTest/java/com/example/csceprojectrun2/
+
 ## Testing Technology
 
 ## Running Tests
+
+When running the tests you first need to open Android studio. Next locate which type of test you intend on running based on the folder locations listed in the [Testing](https://github.com/SCCapstone/Kanye-West-Fan-Club/tree/Stephen-Thompson#testing) section. Then if you would like to run all the tests in the folder you can right click on the folder and click "Run 'Tests in '(name of folder location)'. If you wish to run individual tests, you may identify which test you wish to run then right click on the file and select "Run '(file name of tests)'.
 
 ## Style Guide
 JAVA: https://google.github.io/styleguide/javaguide.html
