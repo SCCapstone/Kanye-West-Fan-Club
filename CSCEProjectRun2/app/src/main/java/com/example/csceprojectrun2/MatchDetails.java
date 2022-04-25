@@ -61,6 +61,7 @@ public class MatchDetails extends AppCompatActivity {
         //Top of screen
         currentPage.setText("Match Details");
 
+        //Set the text views
         final TextView textViewMatch = findViewById(R.id.match);
         final TextView textViewType = findViewById(R.id.type);
         final TextView textViewTime = findViewById(R.id.time);
@@ -69,24 +70,25 @@ public class MatchDetails extends AppCompatActivity {
         //Receives match id and puuid from a match card clicked on Match feed
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
+            //grabs the items from the previous screen
             MATCHID = bundle.getString("matchID");
             PUUID = bundle.getString("puuid");
             queueType = bundle.getString("queueType");
             gameLength = bundle.getString("gameLength");
             placementNum = bundle.getString("placementNum");
         }
-
+        //Displays the misc match details
         textViewMatch.setText("Match:                " + MATCHID);
         textViewType.setText("Game Type:       " + queueType);
         textViewTime.setText("Time Elapsed:   " + gameLength);
         textViewPlace.setText("Placed:                " + placementNum);
-
 
         //Initialize Firebase elements
         fAuth = FirebaseAuth.getInstance();
         currentUser = fAuth.getCurrentUser();
         fStore = FirebaseFirestore.getInstance();
 
+        //populates championList
         try {
             InputStream input = getApplicationContext().getAssets().open("set6.json");
             championList = readJsonStream(input);
@@ -94,45 +96,42 @@ public class MatchDetails extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-        //start to create detailed cards
+        //start to try and create detailed cards or characters played by user
         renderMatchHistory(detailContainer);
-
+        //Checks for api key and
         DocumentReference documentReference = fStore.collection("apikey").document("key");
         documentReference.addSnapshotListener(this, (value, error) -> {
             //Retrieve api key from Firebase
             if (value != null) {
                 String currentAPIKey = value.getString("apikey");
-
                 // spawn thread and collect data from riot api
                 new Thread(() -> {
                     // get recent played match's IDs
                     String[] matchIds = RiotAPIHelper.viewMatchData(MATCHID, PUUID, currentAPIKey);
-
                     if (matchIds == null) {
                         System.out.println("Unable to retrieve match characters!");
                         return;
                     } else {
                         // populate match feed
                         for (int i = 0; i < matchIds.length; i++) {
+                            //displays the characters played in console
+                            //debugging
                             String matchId = matchIds[i];
-
                             System.out.println(matchId);
                         }
                     }
                 }).start();
             }
         });
-
-
-        System.out.println(MATCHID + "\n" + PUUID + "\n");
+        //debugging
+        //shows match id and puuid on the console to test the data
+        System.out.println(MATCHID +"\n"+ PUUID +"\n");
 
     }
 
-
+    //Creates the character card based on the match details
     private void createCharacterCard(int cardPosition, String matchId) {
         LinearLayout linearLayout = detailContainer.findViewById(R.id.detail_container_linear_layout);
-
         runOnUiThread(() -> {
             // build new detailed character tiles
             LayoutInflater inflater = getLayoutInflater();
@@ -140,23 +139,22 @@ public class MatchDetails extends AppCompatActivity {
             inflater.inflate(R.layout.detail_card, linearLayout, true);
             // get and update new card
             View newDetailedCharacterCard = linearLayout.getChildAt(cardPosition);
-            //newCharacterCard.setTag(R.id.tag, storedValue);
+            //newDetailCharacterCard.setTag(R.id.tag, storedValue);
             TextView detailedCharacterNameUI = newDetailedCharacterCard.findViewById(R.id.detailName);
             //ImageView detailedCharacterImageUI = newDetailedCharacterCard.findViewById(R.id.characterImage);
             detailedCharacterNameUI.setText(matchId);
             //detailedCharacterImageUI.setImageResource(championID);
             System.out.println(newDetailedCharacterCard.getId());
         });
-
     }
 
-
+    //Gets match history
     public void renderMatchHistory(ScrollView detailContainer) {
         // clear any existing character tiles
         LinearLayout linearLayout = detailContainer.findViewById(R.id.detail_container_linear_layout);
         linearLayout.removeAllViews();
 
-
+        //interacts with the firebase account to get the api key
         fAuth = FirebaseAuth.getInstance();
         currentUser = fAuth.getCurrentUser();
         fStore = FirebaseFirestore.getInstance();
@@ -171,7 +169,7 @@ public class MatchDetails extends AppCompatActivity {
                 new Thread(() -> {
                     // get recent played characters played
                     String[] matchIds = RiotAPIHelper.viewMatchData(MATCHID, PUUID, currentAPIKey);
-
+                    //error handling
                     if (matchIds == null) {
                         System.out.println("Unable to retrieve match characters!");
                         return;
@@ -180,7 +178,7 @@ public class MatchDetails extends AppCompatActivity {
                         for (int i = 0; i < matchIds.length; i++) {
                             String matchId = matchIds[i];
                             System.out.println(matchId);
-
+                            //calls to create the physical match card
                             createCharacterCard(i, matchId);
                         }
                         //matchId needs to be added to list
@@ -188,12 +186,12 @@ public class MatchDetails extends AppCompatActivity {
                 }).start();
             }
         });
-
     }
 
 
-    //Below holds for adding to clickCard
-    public List<Champion> readJsonStream(InputStream in) throws IOException {
+    //Below used for adding to clickCard to redirect to character
+    public List<Champion> readJsonStream (InputStream in) throws IOException {
+        //creates an array of champions to compare to the characters being used
         JsonReader reader = new JsonReader(new InputStreamReader(in, StandardCharsets.UTF_8));
         try {
             return readChampionsArray(reader);
@@ -204,7 +202,7 @@ public class MatchDetails extends AppCompatActivity {
 
     public List<Champion> readChampionsArray(JsonReader reader) throws IOException {
         List<Champion> champions = new ArrayList<Champion>();
-
+        //creates an array of the characters in champion array
         reader.beginArray();
         while (reader.hasNext()) {
             champions.add(readChampion(reader));
@@ -257,6 +255,7 @@ public class MatchDetails extends AppCompatActivity {
         return new Ability(a, adesc);
     }
 
+    //Reads stats of champion
     public Stats readStats(JsonReader reader) throws IOException {
         int armor = -1;
         double attackSpeed = -1;
@@ -302,30 +301,10 @@ public class MatchDetails extends AppCompatActivity {
 
 
     public void ClickCard(View view) {
-
-        /*
-        Champion champion = null;
-        TextView detailedCharacterNameUI = view.findViewById(R.id.detailName);
-
-
-        for (int i = 0; i < championList.size(); i++) {
-            if (championList.get(i).getName() == detailedCharacterNameUI.getText()) {
-                champion = championList.get(i);
-                System.out.println(champion);
-            }
-        }
-        //Redirect to Character Info
-        //Initialize intent
-        Intent intent = new Intent(this, CharacterInfo.class);
-        //Set flag
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //Champion champion = (Champion)view.getTag(R.id.tag);
-        intent.putExtra("champion", champion);
-        //Start activity
-        this.startActivity(intent);*/
     }
 
     public void ClickBack(View view) {
+        //brings you back to the match feed
         finish();
     }
 
