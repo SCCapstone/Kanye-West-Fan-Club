@@ -10,7 +10,6 @@
         android:id="@+id/imageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +19,7 @@
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="100dp"
-        android:layout_height="25dp"
+        android:layout_height="5dp"
         android:layout_marginTop="4dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,7 +33,7 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="150dp"
         android:background="@color/darkBlue2"
         app:layout_constraintTop_toBottomOf="@+id/imageView7"
         tools:layout_editor_absoluteX="-31dp">

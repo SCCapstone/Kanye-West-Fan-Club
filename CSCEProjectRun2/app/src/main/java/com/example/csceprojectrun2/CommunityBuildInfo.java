@@ -23,7 +23,7 @@ import java.util.Objects;
 public class CommunityBuildInfo extends AppCompatActivity {
     String userId, pId, pTitle, pDescription, pAccountName, pAccountID;
     Button mSaveBtn;
-    TextView mTitle, mDescription, mAccountName, mAccountID,currentPage;
+    TextView mTitle, mDescription, mAccountName, mAccountID, currentPage;
     ProgressDialog progressDialog;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -107,6 +107,6 @@ public class CommunityBuildInfo extends AppCompatActivity {
     }
 
     public void ClickBack(View view) {
-        MainActivity.redirectActivity(this, CommunityBuildList.class);
+        finish();
     }
 }
