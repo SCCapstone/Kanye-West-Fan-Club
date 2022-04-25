@@ -33,7 +33,7 @@ import java.util.UUID;
 
 public class CommunityBuilds extends AppCompatActivity {
     DrawerLayout drawerLayout;
-    TextView tftName, currentPage;
+    TextView currentPage;
     EditText mTitleEt, mDescriptionEt;
     Button mSaveBtn, mShowAllBtn;
     String pId, pTitle, pDescription, userId;
@@ -58,7 +58,6 @@ public class CommunityBuilds extends AppCompatActivity {
 
         //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
-        tftName = findViewById(R.id.TFTName);
         currentPage = findViewById(R.id.currentPage);
         mTitleEt = findViewById(R.id.titleEt);
         mDescriptionEt = findViewById(R.id.descriptionEt);
@@ -92,7 +91,6 @@ public class CommunityBuilds extends AppCompatActivity {
             //Retrieve tft name from Firebase
             assert value != null;
             String loggedInUser = value.getString("tftName");
-            tftName.setText(loggedInUser);
 
             //click button to upload data
             mSaveBtn.setOnClickListener(view -> {
