@@ -3,7 +3,11 @@ package com.example.csceprojectrun2;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
+import android.view.LayoutInflater;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import android.os.Bundle;
@@ -37,17 +41,25 @@ public class MatchDetails extends AppCompatActivity {
     String gameLength;
     String placementNum;
 
+    ScrollView characterContainer;
 
     String matchID[] = {};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.match_details);
 
+
         //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
         currentPage = findViewById(R.id.currentPage);
+
+        //Top of screen
+        currentPage.setText("Match Details");
+        characterContainer = findViewById(R.id.character_container);
+
 
         final TextView textViewMatch = findViewById(R.id.match);
         final TextView textViewType = findViewById(R.id.type);
@@ -70,19 +82,15 @@ public class MatchDetails extends AppCompatActivity {
         textViewPlace.setText("Placed:                " + placementNum);
 
 
-        /*
-        String puuid = "bWxLgFEOjkoSZh8rQ4hGNAvIDd_gWRGlybnlqQzVaQJdMKvHACDu0fzrMJGRYNra_C61q8z2vkXKng";
-        */
-        //Top of screen
-        currentPage.setText("Match Details");
 
-        AtomicReference<String> kiki = null;
 
         //Initialize Firebase elements
         fAuth = FirebaseAuth.getInstance();
         currentUser = fAuth.getCurrentUser();
         fStore = FirebaseFirestore.getInstance();
 
+
+        renderMatchHistory(characterContainer);
 
         DocumentReference documentReference = fStore.collection("apikey").document("key");
         //DocumentReference documentReference = fStore.collection("apikey").document("key");
@@ -116,8 +124,6 @@ public class MatchDetails extends AppCompatActivity {
                             //assert matchData != null;
                             //createMatchCard(i, matchId, matchData, puuid);
                         }
-                        createCharacterFeed(matchIds);
-
 
                         //matchId needs to be added to list
                     }
@@ -126,14 +132,21 @@ public class MatchDetails extends AppCompatActivity {
         });
 
 
-        //Testing Scroll, match characters are being printed currently
-        String matchID[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+        //Testing Scroll, match characters are being printed
+
+
+
+        //String matchID[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
         //String boink[] = viewMatchData(MATCHID, PUUID, "RGAPI-24d5854b-224c-4306-ad24-814c654a54e4");
         //String matchID[] =C
 
         System.out.println(MATCHID + "\n" + PUUID + "\n");
         currentPage.setText("Match Details");
+
+
+        //Test
+        //String matchID[] = RiotAPIHelper.viewMatchData2();
 
 
         Ulist = findViewById(R.id.list);
@@ -147,6 +160,152 @@ public class MatchDetails extends AppCompatActivity {
 
     }
 
+    ListView Ulist;
+
+
+
+
+
+
+
+    private void createCharacterCard(int cardPosition, String matchId) {
+        LinearLayout linearLayout = characterContainer.findViewById(R.id.character_container_linear_layout);
+
+        runOnUiThread(() -> {
+
+            // build new character tiles
+            LayoutInflater inflater = getLayoutInflater();
+
+            // create the card UI element
+            inflater.inflate(R.layout.character_card, linearLayout, true);
+
+            // get and update new card
+            View newCharacterCard = linearLayout.getChildAt(cardPosition);
+
+            //newCharacterCard.setTag(R.id.tag, storedValue);
+
+            TextView characterNameUI = newCharacterCard.findViewById(R.id.characterName);
+
+            ImageView characterImageUI = newCharacterCard.findViewById(R.id.characterImage);
+
+            characterNameUI.setText(matchId);
+
+            //characterImageUI.setImageResource(championID);
+
+            System.out.println(newCharacterCard.getId());
+
+
+
+
+        });
+
+        //picture too
+        /*
+        String championImage = championName.toLowerCase().replace(".", "").replace(" ", "").replace("'", "") + "_square";
+        int championID = this.getResources().getIdentifier(championImage, "drawable", this.getPackageName());
+
+        runOnUiThread(() -> {
+            // build new character tiles
+            LayoutInflater inflater = getLayoutInflater();
+
+            // create the card UI element
+            inflater.inflate(R.layout.character_card, linearLayout, true);
+
+            // get and update new card
+            View newCharacterCard = linearLayout.getChildAt(cardPosition);
+
+            //newCharacterCard.setTag(R.id.tag, storedValue);
+
+            TextView characterNameUI = newCharacterCard.findViewById(R.id.characterName);
+
+            ImageView characterImageUI = newCharacterCard.findViewById(R.id.characterImage);
+
+            characterNameUI.setText(championName);
+
+            characterImageUI.setImageResource(championID);
+
+            System.out.println(newCharacterCard.getId());
+        });*/
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void renderMatchHistory(ScrollView characterContainer) {
+        // clear any existing character tiles
+        LinearLayout linearLayout = characterContainer.findViewById(R.id.character_container_linear_layout);
+        linearLayout.removeAllViews();
+
+
+/*
+        // spawn thread to create instances of character card
+        new Thread(() -> {
+
+            // populate match feed
+            for (int i = 0; i < characterContainer.size(); i++) {
+                createCharacterCard(i, characterContainer.get(i));
+            }
+        }).start();
+*/
+
+        fAuth = FirebaseAuth.getInstance();
+        currentUser = fAuth.getCurrentUser();
+        fStore = FirebaseFirestore.getInstance();
+
+        DocumentReference documentReference = fStore.collection("apikey").document("key");
+        documentReference.addSnapshotListener(this, (value, error) -> {
+                    //Retrieve api key from Firebase
+                    if (value != null) {
+                        String currentAPIKey = value.getString("apikey");
+
+                        System.out.println("HEY API KEY HERE" + currentAPIKey);
+                        // spawn thread and collect data from riot api
+                        new Thread(() -> {
+                            // get recent played match's IDs
+                            String[] matchIds = RiotAPIHelper.viewMatchData(MATCHID, PUUID, currentAPIKey);
+
+                            if (matchIds == null) {
+                                System.out.println("Unable to retrieve match characters!");
+                                return;
+                            } else {
+                                // populate match feed
+                                for (int i = 0; i < matchIds.length; i++) {
+                                    String matchId = matchIds[i];
+                                    System.out.println(matchId);
+
+                                    createCharacterCard(i, matchId);
+                                }
+
+                                //matchId needs to be added to list
+                            }
+                        }).start();
+                    }
+                });
+
+    }
+
+
+
+
+
+    public void ClickCard(View view) {
+
+    }
+
+
+
+
+
+
 
 /*
     private void addToArray(String character){
@@ -157,13 +316,10 @@ public class MatchDetails extends AppCompatActivity {
 */
 
 
-    private void createCharacterFeed(String[] boink) {
-        for (int i = 0; i < boink.length; i++) {
 
-            System.out.println("Yo here?" + boink[i]);
 
-        }
-    }
+
+
 
 
     public static String[] viewMatchData2() {
@@ -189,7 +345,7 @@ public class MatchDetails extends AppCompatActivity {
     //String matchID[] = {"Vi", "Zac", "Urgot", "Yuumi", "Jinx", "Tahmkench", "Jayce"};
 
 
-    ListView Ulist;
+
 
     public void ClickBack(View view) {
         finish();
