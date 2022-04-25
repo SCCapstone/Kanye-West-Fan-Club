@@ -241,7 +241,15 @@ public class RiotAPIHelper {
             String[] unitlist = new String[i];
             for (int z = 0; i > z; z++) {
                 //Creates a list of units
-                unitlist[z] = playersData.substring(units[z] + 16 + 5, unitE[z]);
+                //unitlist[z] = playersData.substring(units[z] + 16 + 5, unitE[z]);
+
+                String underscore = playersData.substring(units[z] + 16 + 5, units[z] + 22);
+                if (underscore.contains("_")) {
+                    unitlist[z] = playersData.substring(units[z] + 16 + 6, unitE[z]);
+                }
+                else {
+                    unitlist[z] = playersData.substring(units[z] + 16+5, unitE[z]);
+                }
             }
             return (unitlist);
 

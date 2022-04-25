@@ -41,10 +41,7 @@ public class MatchDetails extends AppCompatActivity {
     String gameLength;
     String placementNum;
 
-    ScrollView characterContainer;
-
-    String matchID[] = {};
-
+    ScrollView detailContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +55,7 @@ public class MatchDetails extends AppCompatActivity {
 
         //Top of screen
         currentPage.setText("Match Details");
-        characterContainer = findViewById(R.id.character_container);
+        detailContainer = findViewById(R.id.detail_container);
 
 
         final TextView textViewMatch = findViewById(R.id.match);
@@ -90,7 +87,7 @@ public class MatchDetails extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
 
 
-        renderMatchHistory(characterContainer);
+        renderMatchHistory(detailContainer);
 
         DocumentReference documentReference = fStore.collection("apikey").document("key");
         //DocumentReference documentReference = fStore.collection("apikey").document("key");
@@ -144,23 +141,8 @@ public class MatchDetails extends AppCompatActivity {
         System.out.println(MATCHID + "\n" + PUUID + "\n");
         currentPage.setText("Match Details");
 
-
-        //Test
-        //String matchID[] = RiotAPIHelper.viewMatchData2();
-
-
-        Ulist = findViewById(R.id.list);
-        ArrayAdapter<String> arr;
-        arr
-                = new ArrayAdapter<String>(
-                this,
-                R.layout.support_simple_spinner_dropdown_item, matchID);
-        Ulist.setAdapter(arr);
-
-
     }
 
-    ListView Ulist;
 
 
 
@@ -169,7 +151,7 @@ public class MatchDetails extends AppCompatActivity {
 
 
     private void createCharacterCard(int cardPosition, String matchId) {
-        LinearLayout linearLayout = characterContainer.findViewById(R.id.character_container_linear_layout);
+        LinearLayout linearLayout = detailContainer.findViewById(R.id.detail_container_linear_layout);
 
         runOnUiThread(() -> {
 
@@ -177,16 +159,16 @@ public class MatchDetails extends AppCompatActivity {
             LayoutInflater inflater = getLayoutInflater();
 
             // create the card UI element
-            inflater.inflate(R.layout.character_card, linearLayout, true);
+            inflater.inflate(R.layout.detail_card, linearLayout, true);
 
             // get and update new card
             View newCharacterCard = linearLayout.getChildAt(cardPosition);
 
             //newCharacterCard.setTag(R.id.tag, storedValue);
 
-            TextView characterNameUI = newCharacterCard.findViewById(R.id.characterName);
+            TextView characterNameUI = newCharacterCard.findViewById(R.id.detailName);
 
-            ImageView characterImageUI = newCharacterCard.findViewById(R.id.characterImage);
+            //ImageView characterImageUI = newCharacterCard.findViewById(R.id.characterImage);
 
             characterNameUI.setText(matchId);
 
@@ -209,7 +191,7 @@ public class MatchDetails extends AppCompatActivity {
             LayoutInflater inflater = getLayoutInflater();
 
             // create the card UI element
-            inflater.inflate(R.layout.character_card, linearLayout, true);
+            inflater.inflate(R.layout.detail_card, linearLayout, true);
 
             // get and update new card
             View newCharacterCard = linearLayout.getChildAt(cardPosition);
@@ -229,20 +211,9 @@ public class MatchDetails extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-    public void renderMatchHistory(ScrollView characterContainer) {
+    public void renderMatchHistory(ScrollView detailContainer) {
         // clear any existing character tiles
-        LinearLayout linearLayout = characterContainer.findViewById(R.id.character_container_linear_layout);
+        LinearLayout linearLayout = detailContainer.findViewById(R.id.detail_container_linear_layout);
         linearLayout.removeAllViews();
 
 
@@ -251,8 +222,8 @@ public class MatchDetails extends AppCompatActivity {
         new Thread(() -> {
 
             // populate match feed
-            for (int i = 0; i < characterContainer.size(); i++) {
-                createCharacterCard(i, characterContainer.get(i));
+            for (int i = 0; i < detailContainer.size(); i++) {
+                createCharacterCard(i, detailContainer.get(i));
             }
         }).start();
 */
