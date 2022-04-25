@@ -52,11 +52,10 @@ public class MatchDetails extends AppCompatActivity {
         //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
         currentPage = findViewById(R.id.currentPage);
+        detailContainer = findViewById(R.id.detail_container);
 
         //Top of screen
         currentPage.setText("Match Details");
-        detailContainer = findViewById(R.id.detail_container);
-
 
         final TextView textViewMatch = findViewById(R.id.match);
         final TextView textViewType = findViewById(R.id.type);
@@ -79,24 +78,20 @@ public class MatchDetails extends AppCompatActivity {
         textViewPlace.setText("Placed:                " + placementNum);
 
 
-
-
         //Initialize Firebase elements
         fAuth = FirebaseAuth.getInstance();
         currentUser = fAuth.getCurrentUser();
         fStore = FirebaseFirestore.getInstance();
 
-
+        //start to create detailed cards
         renderMatchHistory(detailContainer);
 
         DocumentReference documentReference = fStore.collection("apikey").document("key");
-        //DocumentReference documentReference = fStore.collection("apikey").document("key");
         documentReference.addSnapshotListener(this, (value, error) -> {
             //Retrieve api key from Firebase
             if (value != null) {
                 String currentAPIKey = value.getString("apikey");
 
-                System.out.println("HEY API KEY HERE" + currentAPIKey);
                 // spawn thread and collect data from riot api
                 new Thread(() -> {
                     // get recent played match's IDs
@@ -110,43 +105,19 @@ public class MatchDetails extends AppCompatActivity {
                         for (int i = 0; i < matchIds.length; i++) {
                             String matchId = matchIds[i];
 
-
-                            //addToArray(matchIds[i]);
-
-
                             System.out.println(matchId);
 
-                            //test[i]= matchIds[i];
-                            //JsonObject matchData = RiotAPIHelper.getMatchData(matchId, currentAPIKey);
-                            //assert matchData != null;
-                            //createMatchCard(i, matchId, matchData, puuid);
                         }
 
-                        //matchId needs to be added to list
                     }
                 }).start();
             }
         });
 
 
-        //Testing Scroll, match characters are being printed
-
-
-
-        //String matchID[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-
-        //String boink[] = viewMatchData(MATCHID, PUUID, "RGAPI-24d5854b-224c-4306-ad24-814c654a54e4");
-        //String matchID[] =C
-
         System.out.println(MATCHID + "\n" + PUUID + "\n");
-        currentPage.setText("Match Details");
 
     }
-
-
-
-
-
 
 
 
@@ -155,59 +126,32 @@ public class MatchDetails extends AppCompatActivity {
 
         runOnUiThread(() -> {
 
-            // build new character tiles
+            // build new detailed character tiles
             LayoutInflater inflater = getLayoutInflater();
 
             // create the card UI element
-            inflater.inflate(R.layout.detail_card, linearLayout, true);
+            inflater.inflate( R.layout.detail_card, linearLayout, true);
 
             // get and update new card
-            View newCharacterCard = linearLayout.getChildAt(cardPosition);
+            View newDetailedCharacterCard = linearLayout.getChildAt(cardPosition);
 
             //newCharacterCard.setTag(R.id.tag, storedValue);
 
-            TextView characterNameUI = newCharacterCard.findViewById(R.id.detailName);
+            TextView detailedCharacterNameUI = newDetailedCharacterCard.findViewById(R.id.detailName);
 
-            //ImageView characterImageUI = newCharacterCard.findViewById(R.id.characterImage);
+            //ImageView detailedCharacterImageUI = newDetailedCharacterCard.findViewById(R.id.characterImage);
 
-            characterNameUI.setText(matchId);
+            detailedCharacterNameUI.setText(matchId);
 
-            //characterImageUI.setImageResource(championID);
+            //detailedCharacterImageUI.setImageResource(championID);
 
-            System.out.println(newCharacterCard.getId());
+            System.out.println(newDetailedCharacterCard.getId());
 
 
 
 
         });
 
-        //picture too
-        /*
-        String championImage = championName.toLowerCase().replace(".", "").replace(" ", "").replace("'", "") + "_square";
-        int championID = this.getResources().getIdentifier(championImage, "drawable", this.getPackageName());
-
-        runOnUiThread(() -> {
-            // build new character tiles
-            LayoutInflater inflater = getLayoutInflater();
-
-            // create the card UI element
-            inflater.inflate(R.layout.detail_card, linearLayout, true);
-
-            // get and update new card
-            View newCharacterCard = linearLayout.getChildAt(cardPosition);
-
-            //newCharacterCard.setTag(R.id.tag, storedValue);
-
-            TextView characterNameUI = newCharacterCard.findViewById(R.id.characterName);
-
-            ImageView characterImageUI = newCharacterCard.findViewById(R.id.characterImage);
-
-            characterNameUI.setText(championName);
-
-            characterImageUI.setImageResource(championID);
-
-            System.out.println(newCharacterCard.getId());
-        });*/
     }
 
 
@@ -216,17 +160,6 @@ public class MatchDetails extends AppCompatActivity {
         LinearLayout linearLayout = detailContainer.findViewById(R.id.detail_container_linear_layout);
         linearLayout.removeAllViews();
 
-
-/*
-        // spawn thread to create instances of character card
-        new Thread(() -> {
-
-            // populate match feed
-            for (int i = 0; i < detailContainer.size(); i++) {
-                createCharacterCard(i, detailContainer.get(i));
-            }
-        }).start();
-*/
 
         fAuth = FirebaseAuth.getInstance();
         currentUser = fAuth.getCurrentUser();
@@ -238,10 +171,9 @@ public class MatchDetails extends AppCompatActivity {
                     if (value != null) {
                         String currentAPIKey = value.getString("apikey");
 
-                        System.out.println("HEY API KEY HERE" + currentAPIKey);
                         // spawn thread and collect data from riot api
                         new Thread(() -> {
-                            // get recent played match's IDs
+                            // get recent played characters played
                             String[] matchIds = RiotAPIHelper.viewMatchData(MATCHID, PUUID, currentAPIKey);
 
                             if (matchIds == null) {
@@ -255,7 +187,6 @@ public class MatchDetails extends AppCompatActivity {
 
                                     createCharacterCard(i, matchId);
                                 }
-
                                 //matchId needs to be added to list
                             }
                         }).start();
@@ -273,47 +204,6 @@ public class MatchDetails extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-/*
-    private void addToArray(String character){
-
-        matchID.add(character);
-
-    }
-*/
-
-
-
-
-
-
-
-
-    public static String[] viewMatchData2() {
-
-
-        Random rand = new Random();
-
-        String boink1[] = {"TFT6_Zyra", "TFT6_Zac", "TFT6_Lissandra", "TFT6_Heimerdinger", "TFT6_Taric", "TFT6_Orianna", "TFT6_Janna", "TFT6_Janna"};
-        String boink2[] = {"TFT6_Ezreal", "TFT6_Zilean", " TFT6_Heimerdinger", "TFT6_Braum", "TFT6_Taric", "TFT6_Seraphine", "TFT6_Jayce", "TFT6_Janna"};
-        String boink3[] = {"TFT6_Twitch", "TFT6_Katarina", "TFT6_Blitzcrank", "TFT6_Talon", "TFT6_Leona", "TFT6_Shaco", "TFT6_Ekko"};
-        int mat = rand.nextInt(3);
-        if (mat == 1) {
-            return (boink1);
-        }
-        if (mat == 2) {
-            return (boink2);
-        } else {
-            return (boink3);
-        }
-    }
-
-
-    //String matchID[] = {"Vi", "Zac", "Urgot", "Yuumi", "Jinx", "Tahmkench", "Jayce"};
 
 
 
