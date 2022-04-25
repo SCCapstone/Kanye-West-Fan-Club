@@ -213,11 +213,22 @@ public class RiotAPIHelper {
             int y = 0;
             int first = 0;
             int index2;
+            /*
             for (index2 = total.indexOf("companion"); index2 >= 0; index2 = total.indexOf("companion", index2 + 1)) {
                 if (index2 > x && first == 0) {
                     ++first;
                     y = index2;
                 }
+            }
+            */
+            for (index2 = total.indexOf("companion"); index2 >= 0; index2 = total.indexOf("companion", index2 + 1)) {
+                if (index2 > x && first == 0) {
+                    ++first;
+                    y = index2;
+                }
+            }
+            if(y == 0) {
+                y = total.lastIndexOf("queue_id");
             }
 
             String playersData = tester.substring(x, y);
