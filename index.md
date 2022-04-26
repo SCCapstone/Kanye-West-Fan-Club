@@ -6,9 +6,12 @@ For additonal information, click [here](https://github.com/SCCapstone/Kanye-West
 See our Github Page [here](https://github.com/SCCapstone/Kanye-West-Fan-Club).
 
 ## Demo
+
+[![Alt text](https://i9.ytimg.com/vi/AC8fD0UA8j8/mq1.jpg?sqp=CKzunJMG&rs=AOn4CLCg7QGw3o5B751pzDVl2Hj5fRXWwg)](https://www.youtube.com/watch?v=AC8fD0UA8j8)
+
 [YouTube Link](https://www.youtube.com/watch?v=AC8fD0UA8j8)
 
-https://user-images.githubusercontent.com/70166640/165195543-c9eff54a-5b2e-4fcc-90be-27e11078fcaa.mp4
+[Video Download](https://user-images.githubusercontent.com/70166640/165195543-c9eff54a-5b2e-4fcc-90be-27e11078fcaa.mp4)
 
 ## Features
 ![image](https://user-images.githubusercontent.com/70166640/164564727-49c08f8c-13bb-404d-b20e-720e9d980279.png)
