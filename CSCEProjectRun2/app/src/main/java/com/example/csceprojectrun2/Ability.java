@@ -6,7 +6,9 @@ public class Ability implements Serializable {
     String abilityName;
     String abilityDesc;
 
-    Ability(String abilityname, String abilitydesc) {
+
+    //Initializes an Ability descriptor for use in Champion
+    public Ability(String abilityname, String abilitydesc) {
         this.abilityName = abilityname;
         this.abilityDesc = abilitydesc;
     }

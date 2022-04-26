@@ -14,7 +14,8 @@ public class Stats implements Serializable {
     int mana;
     int range;
 
-    Stats(int armor,double attackSpeed,float critChance,double critMultiplier,int damage,int hp,int initialMana,int magicResist,int mana,int range) {
+    //Initializes statistical data for use in Champion
+    public Stats(int armor,double attackSpeed,float critChance,double critMultiplier,int damage,int hp,int initialMana,int magicResist,int mana,int range) {
         this.armor = armor;
         this.attackSpeed = attackSpeed;
         this.critChance = critChance;

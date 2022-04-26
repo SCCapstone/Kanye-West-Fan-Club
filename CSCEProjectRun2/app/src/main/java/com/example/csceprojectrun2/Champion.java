@@ -8,7 +8,9 @@ public class Champion implements Serializable {
     int cost;
     Stats stats;
 
-    Champion(String name, int cost, Ability ability, Stats stats) {
+
+    //Initializes the attributes of a champion
+    public Champion(String name, int cost, Ability ability, Stats stats) {
         this.name = name;
         this.ability = ability;
         this.cost = cost;

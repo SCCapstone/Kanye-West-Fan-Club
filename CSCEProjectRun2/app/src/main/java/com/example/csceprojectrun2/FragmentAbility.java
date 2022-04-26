@@ -19,6 +19,7 @@ public class FragmentAbility extends Fragment {
     }
 
     @Override
+    //When a view is created, populate it with the ability data from Champion
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TextView characterAbilityNameUI = view.findViewById(R.id.characterinfoAbilityName);

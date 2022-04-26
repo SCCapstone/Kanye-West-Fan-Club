@@ -15,7 +15,7 @@ public class CharacterInfoAdapter extends FragmentStateAdapter {
     int totaltabs;
     Champion champion;
     CharacterInfo characterInfo;
-
+    //Initializing an Adapter with a Lifecycle
     CharacterInfoAdapter(Context context, int totaltabs, FragmentManager fm, Lifecycle l, Champion champion, CharacterInfo characterInfo){
         super(fm, l);
         this.context = context;
@@ -23,7 +23,7 @@ public class CharacterInfoAdapter extends FragmentStateAdapter {
         this.champion = champion;
         this.characterInfo = characterInfo;
     }
-
+    //Creating Fragments for Ability and Stats
     public Fragment createFragment(int p){
         switch(p){
             case 0:

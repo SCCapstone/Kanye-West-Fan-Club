@@ -82,7 +82,7 @@ public class CurrentCharacters extends AppCompatActivity {
         }
         currentPage.setText("Current Characters");
     }
-
+    //Creates a Character Card for a valid character
     private void createCharacterCard(int cardPosition, Champion champion) {
         Champion storedValue = champion;
         LinearLayout linearLayout = characterContainer.findViewById(R.id.character_container_linear_layout);
@@ -100,8 +100,6 @@ public class CurrentCharacters extends AppCompatActivity {
 
             // get and update new card
             View newCharacterCard = linearLayout.getChildAt(cardPosition);
-
-            //newCharacterCard.setTag(R.id.tag, storedValue);
 
             TextView characterNameUI = newCharacterCard.findViewById(R.id.characterName);
 
@@ -129,7 +127,7 @@ public class CurrentCharacters extends AppCompatActivity {
             }
         }).start();
     }
-
+    //JsonReader reading from set6.json, parsing out Champions
     public List<Champion> readJsonStream(InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, StandardCharsets.UTF_8));
         try {
@@ -138,7 +136,7 @@ public class CurrentCharacters extends AppCompatActivity {
             reader.close();
         }
     }
-
+    //Iterates through an array of Champions, returning all Champions
     public List<Champion> readChampionsArray(JsonReader reader) throws IOException {
         List<Champion> champions = new ArrayList<Champion>();
 
@@ -149,7 +147,7 @@ public class CurrentCharacters extends AppCompatActivity {
         reader.endArray();
         return champions;
     }
-
+    //reads a single Champion object, returning that instance
     public Champion readChampion(JsonReader reader) throws IOException {
         String cname = "";
         int cost = -1;
@@ -157,6 +155,7 @@ public class CurrentCharacters extends AppCompatActivity {
         Ability ability = null;
 
         reader.beginObject();
+        //finding the next relevant information from a Champion
         while (reader.hasNext()) {
             String name = reader.nextName();
             if (name.equals("name")) {
@@ -174,7 +173,7 @@ public class CurrentCharacters extends AppCompatActivity {
         reader.endObject();
         return new Champion(cname, cost, ability, stats);
     }
-
+    //reading next ability name or description from a single Champion instance
     public Ability readAbility(JsonReader reader) throws IOException {
         String a = "";
         String adesc = "";
@@ -193,7 +192,7 @@ public class CurrentCharacters extends AppCompatActivity {
         reader.endObject();
         return new Ability(a, adesc);
     }
-
+    //reading next stat from a single Champion instance
     public Stats readStats(JsonReader reader) throws IOException {
         int armor = -1;
         double attackSpeed = -1;
