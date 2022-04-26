@@ -29,13 +29,10 @@ import java.util.List;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
+        //silly default test
         assertEquals(4, 2 + 2);
     }
 
 
-    @Test
-    public void api_key_isValid() {
-
-    }
 
 }

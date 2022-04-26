@@ -37,7 +37,7 @@ public class RiotAPIHelper {
             URL url;
             String callResp;
             StringBuilder sb = new StringBuilder();
-
+            //query parameter
             String urlOrigin = "https://americas.api.riotgames.com/tft/match/v1/matches/by-puuid/";
 
             url = new URL(urlOrigin + puuid + "/ids"
@@ -260,24 +260,15 @@ public class RiotAPIHelper {
     }
 
 
-    //Used to test the display of detailed character containers
+    //Used to test and debug the display of detailed character containers
     public static final String[] viewMatchData2() {
         //Populates random array to display
         Random rand = new Random();
 
-        String boink1[] = {"TFT6_Zyra", "TFT6_Zac", "TFT6_Lissandra", "TFT6_Heimerdinger", "TFT6_Taric", "TFT6_Orianna", "TFT6_Janna", "TFT6_Janna"};
-        String boink2[] = {"TFT6_Ezreal", "TFT6_Zilean", " TFT6_Heimerdinger", "TFT6_Braum", "TFT6_Taric", "TFT6_Seraphine", "TFT6_Jayce", "TFT6_Janna"};
-        String boink3[] = {"TFT6_Twitch", "TFT6_Katarina", "TFT6_Blitzcrank", "TFT6_Talon", "TFT6_Leona", "TFT6_Shaco", "TFT6_Ekko"};
-        int mat = rand.nextInt(3);
-        //Choses one and returns it
-        if (mat == 1) {
-            return (boink1);
-        }
-        if (mat == 2) {
-            return (boink2);
-        } else {
-            return (boink3);
-        }
+        String boink1[] = {"TFT6_Zyra", "TFT6_Zac", "TFT6_Lissandra", "TFT6_Heimerdinger", "TFT6_Taric", "TFT6_Orianna", "TFT6_Janna", "TFT6_Janna","TFT6_Ezreal", "TFT6_Zilean", " TFT6_Heimerdinger", "TFT6_Braum", "TFT6_Taric", "TFT6_Seraphine", "TFT6_Jayce", "TFT6_Janna"};
+
+        return (boink1);
+
     }
 
 

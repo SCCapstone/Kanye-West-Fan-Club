@@ -200,6 +200,7 @@ public class MatchDetails extends AppCompatActivity {
         }
     }
 
+    //readsChampion Array and returns the champions
     public List<Champion> readChampionsArray(JsonReader reader) throws IOException {
         List<Champion> champions = new ArrayList<Champion>();
         //creates an array of the characters in champion array
@@ -235,7 +236,7 @@ public class MatchDetails extends AppCompatActivity {
         reader.endObject();
         return new Champion(cname, cost, ability, stats);
     }
-
+    //returns characters abilities
     public Ability readAbility(JsonReader reader) throws IOException {
         String a = "";
         String adesc = "";
