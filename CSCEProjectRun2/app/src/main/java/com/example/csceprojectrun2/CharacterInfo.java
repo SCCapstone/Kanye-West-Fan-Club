@@ -32,7 +32,7 @@ public class CharacterInfo extends AppCompatActivity {
         viewPager2 = findViewById(R.id.characterinfoViewPager);
         tftName = findViewById(R.id.TFTName);
         currentPage = findViewById(R.id.currentPage);
-
+        //preparing an instance of Champion to be passed between states
         Bundle bundle = getIntent().getExtras();
         Champion champion = (Champion) bundle.getSerializable("champion");
 
@@ -51,7 +51,7 @@ public class CharacterInfo extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab t) {
             }
         });
-
+        //formatting championName into a valid file descriptor
         String championImage = champion.getName().toLowerCase().replace(".", "").replace(" ", "").replace("'", "") + "_square";
         int championID = this.getResources().getIdentifier(championImage, "drawable", this.getPackageName());
         //LinearLayout linearLayout = characterContainer.findViewById(R.id.character_container_linear_layout);

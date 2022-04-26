@@ -24,6 +24,7 @@ public class FragmentStats extends Fragment {
     }
 
     @Override
+    //When a view is created, populate it with the stat data from Champion
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TextView characterStatArmor = view.findViewById(R.id.characterinfoStatArmorValue);
