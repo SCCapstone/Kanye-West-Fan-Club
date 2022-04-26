@@ -6,7 +6,12 @@ For additonal information, click [here](https://github.com/SCCapstone/Kanye-West
 See our Github Page [here](https://github.com/SCCapstone/Kanye-West-Fan-Club).
 
 ## Demo
-VIDEO PLACEHOLDER
+
+[![Alt text](https://i9.ytimg.com/vi/AC8fD0UA8j8/mq1.jpg?sqp=CKzunJMG&rs=AOn4CLCg7QGw3o5B751pzDVl2Hj5fRXWwg)](https://www.youtube.com/watch?v=AC8fD0UA8j8)
+
+
+
+https://www.youtube.com/watch?v=AC8fD0UA8j8
 
 ## Features
 ![image](https://user-images.githubusercontent.com/70166640/164564727-49c08f8c-13bb-404d-b20e-720e9d980279.png)
