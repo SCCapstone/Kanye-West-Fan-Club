@@ -1,27 +1,40 @@
 package com.example.csceprojectrun2;
 
-import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import android.content.Intent;
 import android.util.JsonReader;
 import android.util.JsonToken;
 import android.view.LayoutInflater;
-import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicReference;
+
+import javax.json.JsonObject;
 
 public class MatchDetails extends AppCompatActivity {
     String MATCHID;
@@ -48,6 +61,7 @@ public class MatchDetails extends AppCompatActivity {
         //Top of screen
         currentPage.setText("Match Details");
 
+        //Set the text views
         final TextView textViewMatch = findViewById(R.id.match);
         final TextView textViewType = findViewById(R.id.type);
         final TextView textViewTime = findViewById(R.id.time);
@@ -56,24 +70,25 @@ public class MatchDetails extends AppCompatActivity {
         //Receives match id and puuid from a match card clicked on Match feed
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
+            //grabs the items from the previous screen
             MATCHID = bundle.getString("matchID");
             PUUID = bundle.getString("puuid");
             queueType = bundle.getString("queueType");
             gameLength = bundle.getString("gameLength");
             placementNum = bundle.getString("placementNum");
         }
-
+        //Displays the misc match details
         textViewMatch.setText("Match:                " + MATCHID);
         textViewType.setText("Game Type:       " + queueType);
         textViewTime.setText("Time Elapsed:   " + gameLength);
         textViewPlace.setText("Placed:                " + placementNum);
-
 
         //Initialize Firebase elements
         fAuth = FirebaseAuth.getInstance();
         currentUser = fAuth.getCurrentUser();
         fStore = FirebaseFirestore.getInstance();
 
+        //populates championList
         try {
             InputStream input = getApplicationContext().getAssets().open("set6.json");
             championList = readJsonStream(input);
@@ -81,42 +96,42 @@ public class MatchDetails extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-        //start to create detailed cards
+        //start to try and create detailed cards or characters played by user
         renderMatchHistory(detailContainer);
-
+        //Checks for api key and
         DocumentReference documentReference = fStore.collection("apikey").document("key");
         documentReference.addSnapshotListener(this, (value, error) -> {
             //Retrieve api key from Firebase
             if (value != null) {
                 String currentAPIKey = value.getString("apikey");
-
                 // spawn thread and collect data from riot api
                 new Thread(() -> {
                     // get recent played match's IDs
                     String[] matchIds = RiotAPIHelper.viewMatchData(MATCHID, PUUID, currentAPIKey);
-
                     if (matchIds == null) {
                         System.out.println("Unable to retrieve match characters!");
                         return;
                     } else {
                         // populate match feed
                         for (int i = 0; i < matchIds.length; i++) {
+                            //displays the characters played in console
+                            //debugging
                             String matchId = matchIds[i];
-
                             System.out.println(matchId);
                         }
                     }
                 }).start();
             }
         });
-        System.out.println(MATCHID + "\n" + PUUID + "\n");
+        //debugging
+        //shows match id and puuid on the console to test the data
+        System.out.println(MATCHID +"\n"+ PUUID +"\n");
+
     }
 
-    //Create character card
+    //Creates the character card based on the match details
     private void createCharacterCard(int cardPosition, String matchId) {
         LinearLayout linearLayout = detailContainer.findViewById(R.id.detail_container_linear_layout);
-
         runOnUiThread(() -> {
             // build new detailed character tiles
             LayoutInflater inflater = getLayoutInflater();
@@ -124,7 +139,7 @@ public class MatchDetails extends AppCompatActivity {
             inflater.inflate(R.layout.detail_card, linearLayout, true);
             // get and update new card
             View newDetailedCharacterCard = linearLayout.getChildAt(cardPosition);
-            //newCharacterCard.setTag(R.id.tag, storedValue);
+            //newDetailCharacterCard.setTag(R.id.tag, storedValue);
             TextView detailedCharacterNameUI = newDetailedCharacterCard.findViewById(R.id.detailName);
             //ImageView detailedCharacterImageUI = newDetailedCharacterCard.findViewById(R.id.characterImage);
             detailedCharacterNameUI.setText(matchId);
@@ -133,12 +148,13 @@ public class MatchDetails extends AppCompatActivity {
         });
     }
 
-    //Render match history
+    //Gets match history
     public void renderMatchHistory(ScrollView detailContainer) {
         // clear any existing character tiles
         LinearLayout linearLayout = detailContainer.findViewById(R.id.detail_container_linear_layout);
         linearLayout.removeAllViews();
 
+        //interacts with the firebase account to get the api key
         fAuth = FirebaseAuth.getInstance();
         currentUser = fAuth.getCurrentUser();
         fStore = FirebaseFirestore.getInstance();
@@ -153,7 +169,7 @@ public class MatchDetails extends AppCompatActivity {
                 new Thread(() -> {
                     // get recent played characters played
                     String[] matchIds = RiotAPIHelper.viewMatchData(MATCHID, PUUID, currentAPIKey);
-
+                    //error handling
                     if (matchIds == null) {
                         System.out.println("Unable to retrieve match characters!");
                         return;
@@ -162,7 +178,7 @@ public class MatchDetails extends AppCompatActivity {
                         for (int i = 0; i < matchIds.length; i++) {
                             String matchId = matchIds[i];
                             System.out.println(matchId);
-
+                            //calls to create the physical match card
                             createCharacterCard(i, matchId);
                         }
                         //matchId needs to be added to list
@@ -172,8 +188,10 @@ public class MatchDetails extends AppCompatActivity {
         });
     }
 
-    //Below holds for adding to clickCard
-    public List<Champion> readJsonStream(InputStream in) throws IOException {
+
+    //Below used for adding to clickCard to redirect to character
+    public List<Champion> readJsonStream (InputStream in) throws IOException {
+        //creates an array of champions to compare to the characters being used
         JsonReader reader = new JsonReader(new InputStreamReader(in, StandardCharsets.UTF_8));
         try {
             return readChampionsArray(reader);
@@ -182,10 +200,10 @@ public class MatchDetails extends AppCompatActivity {
         }
     }
 
-    //Read champions aray
+    //readsChampion Array and returns the champions
     public List<Champion> readChampionsArray(JsonReader reader) throws IOException {
         List<Champion> champions = new ArrayList<Champion>();
-
+        //creates an array of the characters in champion array
         reader.beginArray();
         while (reader.hasNext()) {
             champions.add(readChampion(reader));
@@ -194,7 +212,6 @@ public class MatchDetails extends AppCompatActivity {
         return champions;
     }
 
-    //Read champion
     public Champion readChampion(JsonReader reader) throws IOException {
         String cname = "";
         int cost = -1;
@@ -219,8 +236,7 @@ public class MatchDetails extends AppCompatActivity {
         reader.endObject();
         return new Champion(cname, cost, ability, stats);
     }
-
-    //Read ability
+    //returns characters abilities
     public Ability readAbility(JsonReader reader) throws IOException {
         String a = "";
         String adesc = "";
@@ -240,7 +256,7 @@ public class MatchDetails extends AppCompatActivity {
         return new Ability(a, adesc);
     }
 
-    //Read stats
+    //Reads stats of champion
     public Stats readStats(JsonReader reader) throws IOException {
         int armor = -1;
         double attackSpeed = -1;
@@ -284,16 +300,15 @@ public class MatchDetails extends AppCompatActivity {
         return new Stats(armor, attackSpeed, critChance, critMultiplier, damage, hp, initialMana, magicResist, mana, range);
     }
 
-    //Click match card
+
     public void ClickCard(View view) {
     }
 
-    //Return to previous page
     public void ClickBack(View view) {
+        //brings you back to the match feed
         finish();
     }
 
-    //Click search to go to search page
     public void ClickSearch(View view) {
         System.out.println("Clicked search from MainActivity");
         MainActivity.searchHandler.ClickSearch(view);
