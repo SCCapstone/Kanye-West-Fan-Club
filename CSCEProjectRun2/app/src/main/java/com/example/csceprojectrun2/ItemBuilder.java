@@ -80,6 +80,7 @@ public class ItemBuilder extends AppCompatActivity {
         }
     }
 
+    //Create item card for build
     private void createItemCard(int cardPosition, Item item) {
         LinearLayout linearLayout = itemContainer.findViewById(R.id.item_container_linear_layout);
         String itemName = item.getName();
@@ -101,7 +102,7 @@ public class ItemBuilder extends AppCompatActivity {
         });
     }
 
-
+    //Render list of items
     public void renderItems(ScrollView itemContainer) {
         // clear any existing item tiles
         LinearLayout linearLayout = itemContainer.findViewById(R.id.item_container_linear_layout);
@@ -116,13 +117,14 @@ public class ItemBuilder extends AppCompatActivity {
         }).start();
     }
 
-
+    //Read json stream for items
     public List<Item> readJsonStream(InputStream input) throws IOException {
         try (JsonReader reader = new JsonReader(new InputStreamReader(input, StandardCharsets.UTF_8))) {
             return readItemArray(reader);
         }
     }
 
+    //Read array of items
     public List<Item> readItemArray(JsonReader reader) throws IOException {
         // Create a list of items
         List<Item> items = new ArrayList<>();
@@ -135,6 +137,7 @@ public class ItemBuilder extends AppCompatActivity {
         return items;
     }
 
+    //Read build item array
     public List<ItemBuild> readBuildItemArray(JsonReader reader) throws IOException {
         // Create a list of build items
         List<ItemBuild> itemBuilds = new ArrayList<>();
@@ -147,6 +150,7 @@ public class ItemBuilder extends AppCompatActivity {
         return itemBuilds;
     }
 
+    //Read data from items
     public Item readItems(JsonReader reader) throws IOException {
         String itemName = "";
         List<ItemBuild> itemBuilds = null;
@@ -166,6 +170,7 @@ public class ItemBuilder extends AppCompatActivity {
         return new Item(itemName, itemBuilds);
     }
 
+    //Read details from item build
     public ItemBuild readDetails(JsonReader reader) throws IOException {
         String buildName = "";
         String firstItemName = "";
@@ -200,6 +205,7 @@ public class ItemBuilder extends AppCompatActivity {
         return new ItemBuild(buildName, firstItemName, secondItemName, attr1, attr2, attr3, desc);
     }
 
+    //Click item card
     public void ClickCard(View view) {
         Item item = null;
         TextView itemNameUI = view.findViewById(R.id.itemName);
@@ -214,52 +220,54 @@ public class ItemBuilder extends AppCompatActivity {
         this.startActivity(intent);
     }
 
+    //Click search to go to search page
     public void ClickSearch(View view) {
         System.out.println("Clicked search from Item Builder");
-            //CALL API KEY FROM FIREBASE
-            DocumentReference documentReference = fStore.collection("apikey").document("key");
-            documentReference.addSnapshotListener(this, (value, error) -> {
-                //Retrieve api key from Firebase
-                if (value != null) {
-                    String currentAPIKey = value.getString("apikey");
-                    //pass currentAPIKey to search feed
-                    Intent intent = new Intent(ItemBuilder.this, SearchFeed.class);
-                    intent.putExtra("currentAPIKey", currentAPIKey);
-                    startActivity(intent);
-                }
-            });
-        }
+        //CALL API KEY FROM FIREBASE
+        DocumentReference documentReference = fStore.collection("apikey").document("key");
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            //Retrieve api key from Firebase
+            if (value != null) {
+                String currentAPIKey = value.getString("apikey");
+                //pass currentAPIKey to search feed
+                Intent intent = new Intent(ItemBuilder.this, SearchFeed.class);
+                intent.putExtra("currentAPIKey", currentAPIKey);
+                startActivity(intent);
+            }
+        });
+    }
 
+    //Click menu to open drawer
     public void ClickMenu(View view) {
-        //Open drawer
         MainActivity.openDrawer(drawerLayout);
     }
 
+    //Redirect to home activity
     public void ClickHome(View view) {
-        //Redirect to home activity
         MainActivity.redirectActivity(this, MatchFeed.class);
     }
 
+    //Redirect to Popular Builds activity
     public void ClickPopularBuilds(View view) {
-        //Redirect to Popular Builds activity
         MainActivity.redirectActivity(this, PopularBuildList.class);
     }
 
+    //Recreate the Community Builds activity
     public void ClickCommunityBuilds(View view) {
-        //Recreate the Community Builds activity
         MainActivity.redirectActivity(this, CommunityBuildList.class);
     }
 
+    //Redirect to Community Builds activity
     public void ClickCurrentCharacters(View view) {
-        //Redirect to Community Builds activity
         MainActivity.redirectActivity(this, CurrentCharacters.class);
     }
 
+    //Redirect to Item Builder activity
     public void ClickItemBuilder(View view) {
-        //Redirect to Item Builder activity
         recreate();
     }
 
+    //Logout of app
     public void ClickLogout(View view) {
         //Signs the user out of account
         FirebaseAuth.getInstance().signOut();

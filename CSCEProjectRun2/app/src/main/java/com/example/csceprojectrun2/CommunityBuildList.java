@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -92,6 +93,7 @@ public class CommunityBuildList extends AppCompatActivity {
         }
     }
 
+    //Display data from community builds list on Firebase
     private void displayData() {
         //set title of progress dialog
         pd.setTitle("Loading Data...");
@@ -122,6 +124,7 @@ public class CommunityBuildList extends AppCompatActivity {
         });
     }
 
+    //Delete build from community build on Firebase
     public void deleteData(int index) {
         //set title of progress dialog
         pd.setTitle("Deleting Data...");
@@ -160,6 +163,7 @@ public class CommunityBuildList extends AppCompatActivity {
                 });
     }
 
+    //Click search to go to search page
     public void ClickSearch(View view) {
         System.out.println("Clicked search from Community Builds");
         //CALL API KEY FROM FIREBASE
@@ -176,36 +180,37 @@ public class CommunityBuildList extends AppCompatActivity {
         });
     }
 
+    //Click menu to open drawer
     public void ClickMenu(View view) {
-        //Open drawer
         MainActivity.openDrawer(drawerLayout);
     }
 
+    //Redirect to home activity
     public void ClickHome(View view) {
-        //Redirect to home activity
         MainActivity.redirectActivity(this, MainActivity.class);
     }
 
+    //Redirect to Popular Builds activity
     public void ClickPopularBuilds(View view) {
-        //Redirect to Popular Builds activity
         MainActivity.redirectActivity(this, PopularBuildList.class);
     }
 
+    //Recreate the Community Builds activity
     public void ClickCommunityBuilds(View view) {
-        //Recreate the Community Builds activity
         MainActivity.redirectActivity(this, CommunityBuildList.class);
     }
 
+    //Redirect to Current Characters activity
     public void ClickCurrentCharacters(View view) {
-        //Redirect to Current Characters activity
         MainActivity.redirectActivity(this, CurrentCharacters.class);
     }
 
+    //Redirect to Item Builder activity
     public void ClickItemBuilder(View view) {
-        //Redirect to Item Builder activity
         MainActivity.redirectActivity(this, ItemBuilder.class);
     }
 
+    //Logout of app
     public void ClickLogout(View view) {
         //Signs the user out of account
         FirebaseAuth.getInstance().signOut();

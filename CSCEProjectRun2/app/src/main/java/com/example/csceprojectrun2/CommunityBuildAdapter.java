@@ -9,20 +9,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.csceprojectrun2.CommunityBuildInfo;
-import com.example.csceprojectrun2.CommunityBuildList;
-import com.example.csceprojectrun2.CommunityBuilds;
-import com.example.csceprojectrun2.R;
-import com.example.csceprojectrun2.ViewHolder;
-
 import java.util.List;
 
 public class CommunityBuildAdapter extends RecyclerView.Adapter<ViewHolder> {
-
     CommunityBuildList communityBuildList;
     List<Model> modelList;
 
-
+    //Community build adapter constructor
     public CommunityBuildAdapter(CommunityBuildList communityBuildList, List<Model> modelList) {
         this.communityBuildList = communityBuildList;
         this.modelList = modelList;

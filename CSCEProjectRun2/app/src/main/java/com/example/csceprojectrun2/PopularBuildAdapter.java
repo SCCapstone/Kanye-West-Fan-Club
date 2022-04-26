@@ -9,18 +9,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.csceprojectrun2.PopularBuildInfo;
-import com.example.csceprojectrun2.PopularBuildList;
-import com.example.csceprojectrun2.R;
-import com.example.csceprojectrun2.ViewHolder;
-
 import java.util.List;
 
 public class PopularBuildAdapter extends RecyclerView.Adapter<ViewHolder> {
-
     PopularBuildList popularBuildList;
     List<Model> modelList;
 
+    //Popular build adapter constructor
     public PopularBuildAdapter(PopularBuildList popularBuildList, List<Model> modelList) {
         this.popularBuildList = popularBuildList;
         this.modelList = modelList;
@@ -122,6 +117,7 @@ public class PopularBuildAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public int getItemCount() {
+        //Get model list count
         return modelList.size();
     }
 }

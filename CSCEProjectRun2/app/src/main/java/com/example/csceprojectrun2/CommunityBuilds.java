@@ -138,6 +138,7 @@ public class CommunityBuilds extends AppCompatActivity {
         currentPage.setText("Community Builds");
     }
 
+    //Update data from community build list on Firebase
     private void updateData(String id, String title, String description) {
         ///set title of progress bar
         progressDialog.setTitle("Updating Data...");
@@ -187,7 +188,7 @@ public class CommunityBuilds extends AppCompatActivity {
 
     }
 
-    //Upload data to Firebase for storage
+    //Upload data to Firebase for storage in community build list
     private void uploadData(String title, String description, String loggedInUser) {
         ///Set title of progress bar
         progressDialog.setTitle("Adding Data to Firestore");
@@ -217,6 +218,7 @@ public class CommunityBuilds extends AppCompatActivity {
         });
     }
 
+    //Return to community build list
     public void ClickBack(View view) {
         MainActivity.redirectActivity(this, CommunityBuildList.class);
     }

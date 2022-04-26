@@ -65,18 +65,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Click menu to open drawer
     public void ClickMenu(View view) {
-        //Open drawer
         openDrawer(drawerLayout);
     }
 
+    //Open drawer layout
     public static void openDrawer(DrawerLayout drawerLayout) {
-        //Open drawer layout
         drawerLayout.openDrawer(GravityCompat.START);
     }
 
+    //Close drawer layout
     public static void closeDrawer(DrawerLayout drawerLayout) {
-        //Close drawer layout
         //Check condition
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             //When drawer is open
@@ -85,11 +85,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Redirect to match feed
     public void ClickHome(View view) {
         //Recreate the Home activity
         redirectActivity(this, MatchFeed.class);
     }
 
+    //Click search to go to the search page
     public void ClickSearch(View view) {
         System.out.println("Clicked search from Main Activity");
         //CALL API KEY FROM FIREBASE
@@ -106,26 +108,27 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //Redirect to Popular Builds activity
     public void ClickPopularBuilds(View view) {
-        //Redirect to Popular Builds activity
         redirectActivity(this, PopularBuildList.class);
     }
 
+    //Redirect to Community Builds activity
     public void ClickCommunityBuilds(View view) {
-        //Redirect to Community Builds activity
         redirectActivity(this, CommunityBuildList.class);
     }
 
+    //Redirect to Current Characters activity
     public void ClickCurrentCharacters(View view) {
-        //Redirect to Current Characters activity
         redirectActivity(this, CurrentCharacters.class);
     }
 
+    //Redirect to Item Builder activity
     public void ClickItemBuilder(View view) {
-        //Redirect to Item Builder activity
         redirectActivity(this, ItemBuilder.class);
     }
 
+    //Logout of app
     public void ClickLogout(View view) {
         //Signs the user out of account
         FirebaseAuth.getInstance().signOut();
@@ -135,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    //Redirect from one activity to another
     public static void redirectActivity(Activity activity, Class aClass) {
         //Initialize intent
         Intent intent = new Intent(activity, aClass);

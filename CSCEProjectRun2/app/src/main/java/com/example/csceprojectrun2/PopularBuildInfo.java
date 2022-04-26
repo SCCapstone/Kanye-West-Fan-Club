@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -49,10 +48,11 @@ public class PopularBuildInfo extends AppCompatActivity {
             mAccountName.setText(pAccountName);
             mAccountID.setText(pAccountID);
         }
-
+        //Set title of current page
         currentPage.setText("Popular Builds");
     }
 
+    //Return to previous page
     public void ClickBack(View view) {
         finish();
     }

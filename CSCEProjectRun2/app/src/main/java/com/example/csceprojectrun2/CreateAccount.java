@@ -31,7 +31,6 @@ public class CreateAccount extends AppCompatActivity {
     ProgressBar progressBar;
     FirebaseFirestore fStore;
     String userID;
-    public Map<String, Object> userCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,17 +107,5 @@ public class CreateAccount extends AppCompatActivity {
             });
         });
         mLoginBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Login.class)));
-    }
-
-    public boolean doesUserExist(String tftName, String puiid) {
-        if (!userCheck.isEmpty() && userCheck.get("tftName").equals(tftName)) {
-            if (userCheck.get("puiid").equals(puiid)) {
-                //Both tftName and puiid exist already
-                return true;
-            } else {
-                //tftName exist but puiid does not exist.
-            }
-        }
-        return false;
     }
 }

@@ -2,12 +2,10 @@ package com.example.csceprojectrun2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.JsonReader;
 import android.util.JsonToken;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -15,11 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -33,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CurrentCharacters extends AppCompatActivity {
-    //Initialize variable
     DrawerLayout drawerLayout;
     ScrollView characterContainer;
     List<Champion> championList = null;
@@ -54,6 +48,7 @@ public class CurrentCharacters extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //Initialize views
         drawerLayout = findViewById(R.id.drawer_layout);
         tftName = findViewById(R.id.TFTName);
         currentPage = findViewById(R.id.currentPage);
@@ -82,7 +77,8 @@ public class CurrentCharacters extends AppCompatActivity {
         }
         currentPage.setText("Current Characters");
     }
-    //Creates a Character Card for a valid character
+
+    //Create a character card for given champion
     private void createCharacterCard(int cardPosition, Champion champion) {
         Champion storedValue = champion;
         LinearLayout linearLayout = characterContainer.findViewById(R.id.character_container_linear_layout);
@@ -101,6 +97,8 @@ public class CurrentCharacters extends AppCompatActivity {
             // get and update new card
             View newCharacterCard = linearLayout.getChildAt(cardPosition);
 
+            //newCharacterCard.setTag(R.id.tag, storedValue);
+
             TextView characterNameUI = newCharacterCard.findViewById(R.id.characterName);
 
             ImageView characterImageUI = newCharacterCard.findViewById(R.id.characterImage);
@@ -113,6 +111,7 @@ public class CurrentCharacters extends AppCompatActivity {
         });
     }
 
+    //Render champion list
     public void renderMatchHistory(ScrollView characterContainer) {
         // clear any existing character tiles
         LinearLayout linearLayout = characterContainer.findViewById(R.id.character_container_linear_layout);
@@ -127,7 +126,8 @@ public class CurrentCharacters extends AppCompatActivity {
             }
         }).start();
     }
-    //JsonReader reading from set6.json, parsing out Champions
+
+    //Read Json Stream
     public List<Champion> readJsonStream(InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, StandardCharsets.UTF_8));
         try {
@@ -136,7 +136,8 @@ public class CurrentCharacters extends AppCompatActivity {
             reader.close();
         }
     }
-    //Iterates through an array of Champions, returning all Champions
+
+    //Read array of champions
     public List<Champion> readChampionsArray(JsonReader reader) throws IOException {
         List<Champion> champions = new ArrayList<Champion>();
 
@@ -147,7 +148,8 @@ public class CurrentCharacters extends AppCompatActivity {
         reader.endArray();
         return champions;
     }
-    //reads a single Champion object, returning that instance
+
+    //Read data from a champion
     public Champion readChampion(JsonReader reader) throws IOException {
         String cname = "";
         int cost = -1;
@@ -155,7 +157,6 @@ public class CurrentCharacters extends AppCompatActivity {
         Ability ability = null;
 
         reader.beginObject();
-        //finding the next relevant information from a Champion
         while (reader.hasNext()) {
             String name = reader.nextName();
             if (name.equals("name")) {
@@ -173,7 +174,8 @@ public class CurrentCharacters extends AppCompatActivity {
         reader.endObject();
         return new Champion(cname, cost, ability, stats);
     }
-    //reading next ability name or description from a single Champion instance
+
+    //Read ability from a champion
     public Ability readAbility(JsonReader reader) throws IOException {
         String a = "";
         String adesc = "";
@@ -192,7 +194,8 @@ public class CurrentCharacters extends AppCompatActivity {
         reader.endObject();
         return new Ability(a, adesc);
     }
-    //reading next stat from a single Champion instance
+
+    //Read stats from a champion
     public Stats readStats(JsonReader reader) throws IOException {
         int armor = -1;
         double attackSpeed = -1;
@@ -236,6 +239,7 @@ public class CurrentCharacters extends AppCompatActivity {
         return new Stats(armor, attackSpeed, critChance, critMultiplier, damage, hp, initialMana, magicResist, mana, range);
     }
 
+    //Click on a card
     public void ClickCard(View view) {
         Champion champion = null;
         TextView characterNameUI = view.findViewById(R.id.characterName);
@@ -255,6 +259,7 @@ public class CurrentCharacters extends AppCompatActivity {
         this.startActivity(intent);
     }
 
+    //Click search to go to search screen
     public void ClickSearch(View view) {
         System.out.println("Clicked search from Current Characters");
         //CALL API KEY FROM FIREBASE
@@ -271,36 +276,37 @@ public class CurrentCharacters extends AppCompatActivity {
         });
     }
 
+    //Click menu to open drawer
     public void ClickMenu(View view) {
-        //Open drawer
         MainActivity.openDrawer(drawerLayout);
     }
 
+    //Redirect to home activity
     public void ClickHome(View view) {
-        //Redirect to home activity
         MainActivity.redirectActivity(this, MatchFeed.class);
     }
 
+    //Redirect to Popular Builds activity
     public void ClickPopularBuilds(View view) {
-        //Redirect to Popular Builds activity
         MainActivity.redirectActivity(this, PopularBuildList.class);
     }
 
+    //Redirect to Community Builds activity
     public void ClickCommunityBuilds(View view) {
-        //Redirect to Community Builds activity
         MainActivity.redirectActivity(this, CommunityBuildList.class);
     }
 
+    //Recreate the Current Characters activity
     public void ClickCurrentCharacters(View view) {
-        //Recreate the Current Characters activity
         recreate();
     }
 
+    //Redirect to Item Builder activity
     public void ClickItemBuilder(View view) {
-        //Redirect to Item Builder activity
         MainActivity.redirectActivity(this, ItemBuilder.class);
     }
 
+    //Logout of app
     public void ClickLogout(View view) {
         //Signs the user out of account
         FirebaseAuth.getInstance().signOut();

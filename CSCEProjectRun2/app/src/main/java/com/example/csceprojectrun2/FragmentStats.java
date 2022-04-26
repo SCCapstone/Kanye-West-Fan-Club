@@ -15,18 +15,20 @@ import androidx.fragment.app.Fragment;
 import java.text.DecimalFormat;
 
 public class FragmentStats extends Fragment {
-
     CharacterInfo characterInfo;
     Champion champion;
+
+    //Fragment Stat constructor
     public FragmentStats(Champion champion, CharacterInfo characterInfo) {
-    this.champion = champion;
-    this.characterInfo = characterInfo;
+        this.champion = champion;
+        this.characterInfo = characterInfo;
     }
 
     @Override
-    //When a view is created, populate it with the stat data from Champion
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //Initialize views
         TextView characterStatArmor = view.findViewById(R.id.characterinfoStatArmorValue);
         TextView characterStatDamage = view.findViewById(R.id.characterinfoStatDamageValue);
         TextView characterStatHP = view.findViewById(R.id.characterinfoStatHPValue);
@@ -38,11 +40,9 @@ public class FragmentStats extends Fragment {
         TextView characterStatInitialMana = view.findViewById(R.id.characterinfoStatInitialManaValue);
         TextView characterStatMagicResist = view.findViewById(R.id.characterinfoStatMagicResistValue);
 
-
         DecimalFormat df = new DecimalFormat("0.00");
 
-
-
+        //Get stats from a champion to display
         characterStatArmor.setText(Integer.toString(champion.getStats().getArmor()));
         characterStatDamage.setText(Integer.toString(champion.getStats().getDamage()));
         characterStatHP.setText(Integer.toString(champion.getStats().getHp()));
@@ -59,6 +59,4 @@ public class FragmentStats extends Fragment {
         View v = layoutInflater.inflate(R.layout.fragment_stats, viewGroup, false);
         return v;
     }
-
-
 }

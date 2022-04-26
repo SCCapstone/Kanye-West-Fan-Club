@@ -14,8 +14,8 @@ public class AppInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_info);
 
+        //Click continue button to continue to match feed
         mContinueBtn = findViewById(R.id.continueBtn);
         mContinueBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
     }
 }
-

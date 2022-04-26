@@ -38,6 +38,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         void onItemLongClick(View view, int position);
     }
 
+    //Sets the click listener
     public void setOnClickListener(ViewHolder.ClickListener clickListener) {
         mClickListener = clickListener;
     }

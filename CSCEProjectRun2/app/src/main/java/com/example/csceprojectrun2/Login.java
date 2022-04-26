@@ -39,7 +39,6 @@ public class Login extends AppCompatActivity {
         //Initialize Firebase elements
         fAuth = FirebaseAuth.getInstance();
 
-
         //Click on the login button
         mLoginBtn.setOnClickListener(view -> {
             String email = mEmail.getText().toString().trim();

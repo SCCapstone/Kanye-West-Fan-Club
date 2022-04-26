@@ -14,6 +14,7 @@ public class CreateAccountInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account_info);
 
+        //Click continue to go to create account page
         mContinueBtn = findViewById(R.id.continueBtn);
         mContinueBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), CreateAccount.class)));
     }

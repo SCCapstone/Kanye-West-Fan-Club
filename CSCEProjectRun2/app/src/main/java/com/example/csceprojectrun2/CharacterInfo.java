@@ -32,12 +32,14 @@ public class CharacterInfo extends AppCompatActivity {
         viewPager2 = findViewById(R.id.characterinfoViewPager);
         tftName = findViewById(R.id.TFTName);
         currentPage = findViewById(R.id.currentPage);
-        //preparing an instance of Champion to be passed between states
+
         Bundle bundle = getIntent().getExtras();
         Champion champion = (Champion) bundle.getSerializable("champion");
 
         final CharacterInfoAdapter cia = new CharacterInfoAdapter(this, tabLayout.getTabCount(), getSupportFragmentManager(), getLifecycle(), champion, this);
         viewPager2.setAdapter(cia);
+
+        //Set the name of the current page
         currentPage.setText("Current Characters");
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -51,29 +53,37 @@ public class CharacterInfo extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab t) {
             }
         });
-        //formatting championName into a valid file descriptor
+
+        //Get champion image from resources
         String championImage = champion.getName().toLowerCase().replace(".", "").replace(" ", "").replace("'", "") + "_square";
         int championID = this.getResources().getIdentifier(championImage, "drawable", this.getPackageName());
-        //LinearLayout linearLayout = characterContainer.findViewById(R.id.character_container_linear_layout);
+
+        //Initialize views
         TextView characterNameUI = findViewById(R.id.characterinfoName);
         TextView characterCostValueUI = findViewById(R.id.characterinfoCostValue);
         ImageView characterImageUI = findViewById(R.id.characterinfoImage);
 
+        //Get name, cost, and image of a champion to display
         characterNameUI.setText(champion.getName());
         characterCostValueUI.setText(Integer.toString(champion.getCost()));
         characterImageUI.setImageResource(championID);
 
     }
 
+    //Populate a champion's ability info
     public void PopulateAbilityInfo(Champion champion) {
+        //Initialize views
         TextView characterAbilityNameUI = findViewById(R.id.characterinfoAbilityName);
         TextView characterAbilityDescriptionUI = findViewById(R.id.characterinfoAbilityDescription);
 
+        //Get name and description of a champion to display
         characterAbilityNameUI.setText(champion.getAbility().getAbilityName());
         characterAbilityDescriptionUI.setText(champion.getAbility().getAbilityDesc());
     }
 
+    //Populate a champion's stats info
     public void PopulateStatsInfo(Champion champion) {
+        //Initialize views
         TextView characterStatArmor = findViewById(R.id.characterinfoStatArmorValue);
         TextView characterStatDamage = findViewById(R.id.characterinfoStatDamageValue);
         TextView characterStatHP = findViewById(R.id.characterinfoStatHPValue);
@@ -87,6 +97,7 @@ public class CharacterInfo extends AppCompatActivity {
 
         DecimalFormat df = new DecimalFormat("0.00");
 
+        //Get various stats from a champion to display
         characterStatArmor.setText(Integer.toString(champion.getStats().getArmor()));
         characterStatDamage.setText(Integer.toString(champion.getStats().getDamage()));
         characterStatHP.setText(Integer.toString(champion.getStats().getHp()));
@@ -99,6 +110,7 @@ public class CharacterInfo extends AppCompatActivity {
         characterStatMagicResist.setText(Integer.toString(champion.getStats().getMagicResist()));
     }
 
+    //Return to previous page
     public void ClickBack(View view) {
         finish();
     }

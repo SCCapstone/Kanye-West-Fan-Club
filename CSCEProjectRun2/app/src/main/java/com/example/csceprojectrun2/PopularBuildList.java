@@ -3,22 +3,16 @@ package com.example.csceprojectrun2;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -83,6 +77,7 @@ public class PopularBuildList extends AppCompatActivity {
                 }
             });
         }
+        //Set title of current page
         currentPage.setText("Popular Builds");
 
         //Click add button to return to community build list to pick more builds
@@ -92,6 +87,7 @@ public class PopularBuildList extends AppCompatActivity {
         });
     }
 
+    //Display data from popular builds on Firebase
     private void displayData() {
         //set title of progress dialog
         pd.setTitle("Loading Data...");
@@ -127,6 +123,7 @@ public class PopularBuildList extends AppCompatActivity {
         }
     }
 
+    //Remove data from popular builds on Firebase
     public void removeData(int index) {
         //set title of progress dialog
         pd.setTitle("Removing  Data...");
@@ -150,6 +147,7 @@ public class PopularBuildList extends AppCompatActivity {
                 });
     }
 
+    //Click search to go to the search page
     public void ClickSearch(View view) {
         System.out.println("Clicked search from Popular Builds");
         //CALL API KEY FROM FIREBASE
@@ -166,36 +164,37 @@ public class PopularBuildList extends AppCompatActivity {
         });
     }
 
+    //Click menu to open drawer
     public void ClickMenu(View view) {
-        //Open drawer
         MainActivity.openDrawer(drawerLayout);
     }
 
+    //Redirect to home activity
     public void ClickHome(View view) {
-        //Redirect to home activity
         MainActivity.redirectActivity(this, MainActivity.class);
     }
 
+    //Redirect to Popular Builds activity
     public void ClickPopularBuilds(View view) {
-        //Redirect to Popular Builds activity
         recreate();
     }
 
+    //Recreate the Community Builds activity
     public void ClickCommunityBuilds(View view) {
-        //Recreate the Community Builds activity
         MainActivity.redirectActivity(this, CommunityBuildList.class);
     }
 
+    //Redirect to Current Characters activity
     public void ClickCurrentCharacters(View view) {
-        //Redirect to Current Characters activity
         MainActivity.redirectActivity(this, CurrentCharacters.class);
     }
 
+    //Redirect to Item Builder activity
     public void ClickItemBuilder(View view) {
-        //Redirect to Item Builder activity
         MainActivity.redirectActivity(this, ItemBuilder.class);
     }
 
+    //Logout out of app
     public void ClickLogout(View view) {
         //Signs the user out of account
         FirebaseAuth.getInstance().signOut();

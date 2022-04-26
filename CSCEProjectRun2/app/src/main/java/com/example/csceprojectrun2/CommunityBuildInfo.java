@@ -9,10 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -65,15 +63,12 @@ public class CommunityBuildInfo extends AppCompatActivity {
         }
 
         //Click on SAVE and save build to user's Popular Builds
-        mSaveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Save/Upload the card data to a user's popular builds.
-                uploadData(pId, pTitle, pDescription, pAccountName, pAccountID);
-                //Go to Popular Builds
-                startActivity(new Intent(CommunityBuildInfo.this, CommunityBuildList.class));
-                finish();
-            }
+        mSaveBtn.setOnClickListener(view -> {
+            //Save/Upload the card data to a user's popular builds.
+            uploadData(pId, pTitle, pDescription, pAccountName, pAccountID);
+            //Go to Popular Builds
+            startActivity(new Intent(CommunityBuildInfo.this, CommunityBuildList.class));
+            finish();
         });
 
         currentPage.setText("Community Builds");
@@ -106,6 +101,7 @@ public class CommunityBuildInfo extends AppCompatActivity {
 
     }
 
+    //Return to previous page
     public void ClickBack(View view) {
         finish();
     }

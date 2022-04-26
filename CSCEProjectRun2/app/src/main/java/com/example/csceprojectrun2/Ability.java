@@ -6,13 +6,19 @@ public class Ability implements Serializable {
     String abilityName;
     String abilityDesc;
 
-
-    //Initializes an Ability descriptor for use in Champion
-    public Ability(String abilityname, String abilitydesc) {
-        this.abilityName = abilityname;
-        this.abilityDesc = abilitydesc;
+    //Constructor for ability
+    Ability(String abilityName, String abilityDesc) {
+        this.abilityName = abilityName;
+        this.abilityDesc = abilityDesc;
     }
 
-    public String getAbilityName() {return abilityName;}
-    public String getAbilityDesc() {return abilityDesc;}
+    //Get a character's ability name
+    public String getAbilityName() {
+        return abilityName;
+    }
+
+    //Get a character's ability description
+    public String getAbilityDesc() {
+        return abilityDesc;
+    }
 }

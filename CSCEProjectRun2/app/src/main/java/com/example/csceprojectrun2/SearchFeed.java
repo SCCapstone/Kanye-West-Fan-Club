@@ -105,6 +105,7 @@ public class SearchFeed extends AppCompatActivity {
         }
     }
 
+    //Convert time into a time stamp
     private String convertToTimestamp(int seconds) {
         int minutes = seconds / 60;
         seconds = seconds - (minutes * 60);
@@ -121,6 +122,7 @@ public class SearchFeed extends AppCompatActivity {
         return strMinutes + ":" + strSeconds;
     }
 
+    //Get match queue type
     private String getQueueType(int queueId) {
         if (queueId == 1100)
             return "Ranked";
@@ -128,6 +130,7 @@ public class SearchFeed extends AppCompatActivity {
             return "Normal";
     }
 
+    //Apply champion images to card
     private void applyChampionImages(View matchCard, JsonObject participant) {
         JsonArray units = participant.getJsonArray("units");
 
@@ -147,6 +150,7 @@ public class SearchFeed extends AppCompatActivity {
         }
     }
 
+    //Create a match card for specific matchID
     private void createMatchCard(int cardPosition, String matchId, JsonObject matchData, String ownerPuuid) {
         LinearLayout linearLayout = matchContainer.findViewById(R.id.match_container_linear_layout);
 
@@ -196,6 +200,7 @@ public class SearchFeed extends AppCompatActivity {
         });
     }
 
+    //Render match history using a user's puuid
     public void renderMatchHistoryWithPuuid(String puuid, int numMatchesToReturn) {
         // spawn thread and collect data from riot api
         new Thread(() -> {
@@ -217,7 +222,7 @@ public class SearchFeed extends AppCompatActivity {
         }).start();
     }
 
-    // default call, uses the logged-in user's data
+    //default call, uses the logged-in user's data to render match history
     public void renderMatchHistory(ScrollView matchContainer) {
         // clear any existing match tiles
         LinearLayout linearLayout = matchContainer.findViewById(R.id.match_container_linear_layout);
@@ -226,9 +231,11 @@ public class SearchFeed extends AppCompatActivity {
         renderMatchHistoryWithPuuid(puuid, 10);
     }
 
+    //Click on search and return to search panel
     public void ClickSearch(View view) {
         System.out.println("Clicked search from Search Feed");
 
+        //Initialize views
         LinearLayout topBarLinearLayout = findViewById(R.id.MainTopBar);
         CardView searchCard = topBarLinearLayout.findViewById(R.id.SearchCard);
         CardView backgroundCard = searchCard.findViewById(R.id.SearchCard);
@@ -250,7 +257,6 @@ public class SearchFeed extends AppCompatActivity {
         searchCard.setVisibility(View.VISIBLE);
 
         //CALL API KEY FROM FIREBASE
-        //Display the current api key
         DocumentReference documentReference = fStore.collection("apikey").document("key");
         documentReference.addSnapshotListener(this, (value, error) -> {
             //Retrieve api key from Firebase
@@ -285,22 +291,26 @@ public class SearchFeed extends AppCompatActivity {
                 });
             }
         });
+
+        //Click on clear button to remove search panel
         searchClear.setOnClickListener(v -> searchCard.setVisibility(View.GONE));
+
+        //Click on back button to return to previous page
         searchBack.setOnClickListener(v -> finish());
     }
 
+    //Click menu to open drawer
     public void ClickMenu(View view) {
-        //Open drawer
         openDrawer(drawerLayout);
     }
 
+    //Open drawer layout
     public static void openDrawer(DrawerLayout drawerLayout) {
-        //Open drawer layout
         drawerLayout.openDrawer(GravityCompat.START);
     }
 
+    //Close drawer
     public static void closeDrawer(DrawerLayout drawerLayout) {
-        //Close drawer layout
         //Check condition
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             //When drawer is open
@@ -309,31 +319,32 @@ public class SearchFeed extends AppCompatActivity {
         }
     }
 
+    //Recreate the Home activity
     public void ClickHome(View view) {
-        //Recreate the Home activity
         redirectActivity(this, MatchFeed.class);
     }
 
+    //Redirect to Popular Builds activity
     public void ClickPopularBuilds(View view) {
-        //Redirect to Popular Builds activity
         redirectActivity(this, PopularBuildList.class);
     }
 
+    //Redirect to Community Builds activity
     public void ClickCommunityBuilds(View view) {
-        //Redirect to Community Builds activity
         redirectActivity(this, CommunityBuildList.class);
     }
 
+    //Redirect to Current Characters activity
     public void ClickCurrentCharacters(View view) {
-        //Redirect to Current Characters activity
         redirectActivity(this, CurrentCharacters.class);
     }
 
+    //Redirect to Item Builder activity
     public void ClickItemBuilder(View view) {
-        //Redirect to Item Builder activity
         redirectActivity(this, ItemBuilder.class);
     }
 
+    //Click to logout of app
     public void ClickLogout(View view) {
         //Signs the user out of account
         FirebaseAuth.getInstance().signOut();
@@ -343,6 +354,7 @@ public class SearchFeed extends AppCompatActivity {
         finish();
     }
 
+    //Redirect from one activity to another
     public static void redirectActivity(Activity activity, Class aClass) {
         //Initialize intent
         Intent intent = new Intent(activity, aClass);

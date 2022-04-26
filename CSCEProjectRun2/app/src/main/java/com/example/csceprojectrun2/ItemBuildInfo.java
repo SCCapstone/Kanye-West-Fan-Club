@@ -9,21 +9,17 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ItemBuildInfo extends AppCompatActivity {
     ScrollView buildItemContainer;
     TextView currentPage;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +38,12 @@ public class ItemBuildInfo extends AppCompatActivity {
         //Initialize Firebase elements
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-        userId = fAuth.getCurrentUser().getUid();
 
+        //Set title of the current page
         currentPage.setText("Item Builder");
     }
 
+    //Render build items for a item
     private void renderBuildItems(ScrollView buildItemContainer, List<ItemBuild> itemBuildList) {
         // clear any existing build item tiles
         LinearLayout linearLayout = buildItemContainer.findViewById(R.id.item_build_container_linear_layout);
@@ -61,6 +58,7 @@ public class ItemBuildInfo extends AppCompatActivity {
         }).start();
     }
 
+    //Create a build item card
     private void createBuildItemCard(int cardPosition, ItemBuild build) {
         LinearLayout linearLayout = buildItemContainer.findViewById(R.id.item_build_container_linear_layout);
         String buildName = build.getBuildName();
@@ -117,6 +115,7 @@ public class ItemBuildInfo extends AppCompatActivity {
         });
     }
 
+    //Return to previous page
     public void ClickBack(View view) {
         finish();
     }
