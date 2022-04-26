@@ -30,6 +30,7 @@ For testing purposes create a email, password, display name with one of the foll
 For testing search feature you can use:
   * "Liquid Goose" "NA1"
   * "Amde" "NA1"
+  * "Jane" "NA1"
 
 For the testing milestone: 
 We made unit tests in:
