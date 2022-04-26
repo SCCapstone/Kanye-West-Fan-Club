@@ -1,20 +1,16 @@
 package com.example.csceprojectrun2;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
-import javax.json.*;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonValue;
 
 public class RiotAPIHelper {
 
@@ -26,7 +22,6 @@ public class RiotAPIHelper {
         "tagLine": "NA1"
     }
     */
-
     // https://developer.riotgames.com/apis#tft-match-v1/GET_getMatchIdsByPUUID
     // Returns previous X matches a given player participated in
     // TODO: refactor to use Json?
@@ -65,16 +60,10 @@ public class RiotAPIHelper {
             // split into a string array
             String[] matchIds = matchIdStr.split("\",\"");
 
-            // debug print string array
-            /*System.out.println("match ids:");
-            for(int i=0; i<matchIds.length; i++) {
-                System.out.println(matchIds[i]);
-            }*/
             return matchIds;
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
@@ -129,7 +118,7 @@ public class RiotAPIHelper {
     }
 
     //Gets the users puuid from gameName and tagline used for search
-    public static final String getPuuidFromRiotID(String gameName, String tagline, String validDevKey){
+    public static final String getPuuidFromRiotID(String gameName, String tagline, String validDevKey) {
         //Interacts with api
         try {
             URL url;
@@ -159,9 +148,9 @@ public class RiotAPIHelper {
             String fullReturnString = sb.toString();
 
             // culls starting & ending brackets
-            String culledReturnStr = fullReturnString.substring( 2, fullReturnString.length() - 3);
+            String culledReturnStr = fullReturnString.substring(2, fullReturnString.length() - 3);
             // split into a string array
-            String[] finalStrings = culledReturnStr.split("\",\"" );
+            String[] finalStrings = culledReturnStr.split("\",\"");
             // cut off the first 7 letters to just get puuid
             String puuid = finalStrings[0].substring(8);
             return puuid;
@@ -170,7 +159,6 @@ public class RiotAPIHelper {
         }
         return "";
     }
-
 
     //Takes match id, puuid, and the api key and returns the characters
     public static final String[] viewMatchData(String MATCH, String puuid, String APIKEY) {
@@ -210,7 +198,7 @@ public class RiotAPIHelper {
                     y = index2;
                 }
             }
-            if(y == 0) {
+            if (y == 0) {
                 y = total.lastIndexOf("queue_id");
             }
             //grabs just the players info
@@ -240,9 +228,8 @@ public class RiotAPIHelper {
                 String underscore = playersData.substring(units[z] + 16 + 5, units[z] + 22);
                 if (underscore.contains("_")) {
                     unitlist[z] = playersData.substring(units[z] + 16 + 6, unitE[z]);
-                }
-                else {
-                    unitlist[z] = playersData.substring(units[z] + 16+5, unitE[z]);
+                } else {
+                    unitlist[z] = playersData.substring(units[z] + 16 + 5, unitE[z]);
                 }
             }
             //returns the array of characters
@@ -259,18 +246,16 @@ public class RiotAPIHelper {
 
     }
 
-
     //Used to test and debug the display of detailed character containers
     public static final String[] viewMatchData2() {
         //Populates random array to display
         Random rand = new Random();
 
-        String boink1[] = {"TFT6_Zyra", "TFT6_Zac", "TFT6_Lissandra", "TFT6_Heimerdinger", "TFT6_Taric", "TFT6_Orianna", "TFT6_Janna", "TFT6_Janna","TFT6_Ezreal", "TFT6_Zilean", " TFT6_Heimerdinger", "TFT6_Braum", "TFT6_Taric", "TFT6_Seraphine", "TFT6_Jayce", "TFT6_Janna"};
+        String boink1[] = {"TFT6_Zyra", "TFT6_Zac", "TFT6_Lissandra", "TFT6_Heimerdinger", "TFT6_Taric", "TFT6_Orianna", "TFT6_Janna", "TFT6_Janna", "TFT6_Ezreal", "TFT6_Zilean", " TFT6_Heimerdinger", "TFT6_Braum", "TFT6_Taric", "TFT6_Seraphine", "TFT6_Jayce", "TFT6_Janna"};
 
         return (boink1);
 
     }
-
 
     //This takes in api kay and tft name to result in puuid
     public static String playerName(String tftname, String APIKEY) {
@@ -300,5 +285,4 @@ public class RiotAPIHelper {
             return (err);
         }
     }
-
 }

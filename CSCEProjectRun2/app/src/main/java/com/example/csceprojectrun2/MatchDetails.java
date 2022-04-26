@@ -1,40 +1,27 @@
 package com.example.csceprojectrun2;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import android.content.Intent;
+import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.JsonToken;
 import android.view.LayoutInflater;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicReference;
-
-import javax.json.JsonObject;
 
 public class MatchDetails extends AppCompatActivity {
     String MATCHID;
@@ -188,7 +175,6 @@ public class MatchDetails extends AppCompatActivity {
         });
     }
 
-
     //Below used for adding to clickCard to redirect to character
     public List<Champion> readJsonStream (InputStream in) throws IOException {
         //creates an array of champions to compare to the characters being used
@@ -211,7 +197,7 @@ public class MatchDetails extends AppCompatActivity {
         reader.endArray();
         return champions;
     }
-
+    //Read data from champion
     public Champion readChampion(JsonReader reader) throws IOException {
         String cname = "";
         int cost = -1;
@@ -300,15 +286,17 @@ public class MatchDetails extends AppCompatActivity {
         return new Stats(armor, attackSpeed, critChance, critMultiplier, damage, hp, initialMana, magicResist, mana, range);
     }
 
-
+    //Click match card
     public void ClickCard(View view) {
     }
 
+    //Return to previous page
     public void ClickBack(View view) {
         //brings you back to the match feed
         finish();
     }
 
+    //Click search to go to search page
     public void ClickSearch(View view) {
         System.out.println("Clicked search from MainActivity");
         MainActivity.searchHandler.ClickSearch(view);
