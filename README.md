@@ -52,3 +52,5 @@ JAVA: https://google.github.io/styleguide/javaguide.html
 * Sincere Dixon - sincere@email.sc.edu
 * Stephen Thompson - ST16@email.sc.edu
 
+See our about us page [here](https://github.com/SCCapstone/Kanye-West-Fan-Club/blob/main/about.md)
+
